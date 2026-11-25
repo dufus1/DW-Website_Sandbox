@@ -385,11 +385,11 @@
   color: #ffffff;
 }
 
-/* ---------- Step 0 Full-Width Engine Spec Bar ---------- */
+/* ---------- Step 0 Streamlined Unified Engine Spec Bar ---------- */
 .dw-fsb__spec-ribbon {
-  background: #f8fafc;
+  background: #f4f7fb;
   border-bottom: 1px solid var(--fsb-border);
-  padding: 14px 36px;
+  padding: 12px 36px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -397,7 +397,19 @@
   flex-wrap: wrap;
 }
 
-.dw-fsb__spec-fields, .dw-fsb__spec-actions {
+.dw-fsb__spec-fields {
+  display: inline-flex;
+  align-items: stretch;
+  gap: 0;
+  flex-wrap: wrap;
+  background: #ffffff;
+  border: 1px solid #d5dfec;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(4, 26, 53, 0.05);
+  overflow: hidden;
+}
+
+.dw-fsb__spec-actions {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -412,6 +424,24 @@
   border: 1px solid var(--fsb-border-strong);
   border-radius: 6px;
   padding: 7px 12px;
+}
+
+.dw-fsb__spec-ribbon .dw-fsb__field {
+  border: none;
+  border-right: 1px solid #e6ecf4;
+  border-radius: 0;
+  padding: 9px 14px;
+  background: transparent;
+  transition: background 0.14s ease;
+}
+
+.dw-fsb__spec-ribbon .dw-fsb__field:last-child {
+  border-right: none;
+}
+
+.dw-fsb__spec-ribbon .dw-fsb__field:focus-within {
+  background: #fff8f3;
+  box-shadow: inset 0 -2px 0 var(--fsb-orange);
 }
 
 .dw-fsb__field:focus-within {
@@ -689,30 +719,120 @@
   cursor: grabbing !important;
 }
 
-/* Clean Technical Light Canvas (Default — native to deatschwerks.com!) */
+/* Clean Solid Studio Canvas (No Dot Grid) */
 .dw-fsb__stage-wrap[data-canvas-theme="light"] {
-  background-color: #f4f7fb;
-  background-image:
-    radial-gradient(#cbd5e1 1.1px, transparent 1.1px);
-  background-size: 24px 24px;
+  background-color: #f6f8fc;
+  background-image: none;
 }
 
 /* Motorsport Blueprint Dark Canvas */
 .dw-fsb__stage-wrap[data-canvas-theme="dark"] {
   background-color: #071931;
-  background-image:
-    radial-gradient(rgba(148, 163, 184, 0.25) 1.1px, transparent 1.1px);
-  background-size: 24px 24px;
+  background-image: none;
 }
 
 .dw-fsb__stage {
   position: absolute;
   top: 0;
   left: 0;
-  width: 1480px;
-  height: 700px;
+  width: 1680px;
+  height: 760px;
   transform-origin: 0 0;
   will-change: transform;
+}
+
+/* Architectural Vehicle Zone Backdrop — Clear Dedicated Header Band Above All Cards */
+.dw-fsb__zones {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  display: grid;
+  grid-template-columns: 790px 410px 1fr;
+}
+
+.dw-fsb__zone {
+  position: relative;
+  height: 100%;
+  padding: 18px 28px;
+  border-right: 1.5px dashed rgba(100, 116, 139, 0.38);
+}
+
+.dw-fsb__zone:last-child {
+  border-right: none;
+}
+
+.dw-fsb__zone--engine {
+  background: linear-gradient(180deg, rgba(219, 232, 248, 0.42) 0%, rgba(219, 232, 248, 0.14) 100%);
+}
+
+.dw-fsb__zone--underbody {
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.dw-fsb__zone--tank {
+  background: linear-gradient(180deg, rgba(255, 237, 224, 0.45) 0%, rgba(255, 237, 224, 0.14) 100%);
+}
+
+.dw-fsb__zone span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #0f2d52;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-left: 3.5px solid #041a35;
+  padding: 5px 14px;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(4, 26, 53, 0.06);
+}
+
+.dw-fsb__zone--tank span {
+  border-left-color: #ff5a00;
+}
+
+/* Animated Fuel Flow Keyframes */
+@keyframes dwFsbFlowFwd {
+  from { stroke-dashoffset: 44; }
+  to   { stroke-dashoffset: 0; }
+}
+
+.dw-fsb__edge-flow {
+  fill: none;
+  pointer-events: none;
+  stroke-linecap: round;
+  animation: dwFsbFlowFwd 1.15s linear infinite;
+}
+
+.dw-fsb__edge-flow--feed {
+  stroke: #ff6b1a;
+  stroke-width: 4.5;
+  stroke-dasharray: 16 28;
+  opacity: 0.96;
+}
+
+.dw-fsb__edge-flow--return {
+  stroke: #bae6fd;
+  stroke-width: 3.5;
+  stroke-dasharray: 14 30;
+  animation-duration: 1.5s;
+  opacity: 0.95;
+}
+
+.dw-fsb__edge-flow--wiring {
+  stroke: #fef08a;
+  stroke-width: 2.5;
+  stroke-dasharray: 10 34;
+  animation-duration: 1.8s;
+  opacity: 0.92;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dw-fsb__edge-flow { animation: none !important; opacity: 0 !important; }
 }
 
 .dw-fsb__zoom-bar {
@@ -791,13 +911,13 @@
   transition: stroke 0.15s, stroke-width 0.15s;
 }
 
-[data-canvas-theme="light"] .dw-fsb__edge--feed { stroke: #041a35; stroke-width: 3.5; }
-[data-canvas-theme="dark"]  .dw-fsb__edge--feed { stroke: #ff6b1a; stroke-width: 3.5; }
-.dw-fsb__edge--return   { stroke: #2563eb; stroke-width: 3; stroke-dasharray: 8 5; }
-.dw-fsb__edge--injector { stroke: #94a3b8; stroke-width: 2.5; stroke-dasharray: 5 4; }
-.dw-fsb__edge--gauge    { stroke: #94a3b8; stroke-width: 2; }
-.dw-fsb__edge--wiring   { stroke: #d97706; stroke-width: 2.5; stroke-dasharray: 6 4; }
-.dw-fsb__edge.is-selected { stroke: var(--fsb-orange) !important; stroke-width: 4.5 !important; }
+[data-canvas-theme="light"] .dw-fsb__edge--feed { stroke: #041a35; stroke-width: 6.5; }
+[data-canvas-theme="dark"]  .dw-fsb__edge--feed { stroke: #1e3a5f; stroke-width: 6.5; }
+.dw-fsb__edge--return   { stroke: #2563eb; stroke-width: 5.5; stroke-dasharray: 10 6; }
+.dw-fsb__edge--injector { stroke: #94a3b8; stroke-width: 3; stroke-dasharray: 6 5; }
+.dw-fsb__edge--gauge    { stroke: #94a3b8; stroke-width: 2.5; }
+.dw-fsb__edge--wiring   { stroke: #d97706; stroke-width: 4; stroke-dasharray: 8 5; }
+.dw-fsb__edge.is-selected { stroke: var(--fsb-orange) !important; stroke-width: 7.5 !important; }
 .dw-fsb__edge.is-drop-target { stroke: #ff5a00 !important; stroke-width: 6 !important; filter: drop-shadow(0 0 6px rgba(255, 90, 0, 0.55)); }
 
 .dw-fsb__legend {
@@ -864,33 +984,52 @@
   color: #ffffff;
 }
 
-/* Spacious, Clean Product Nodes on Canvas */
+/* Sleek Modern Elevated Studio Product Nodes on Canvas */
 .dw-fsb__node {
   position: absolute;
   width: 256px;
   background: #ffffff;
-  border: 2px solid #d5dfec;
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(4, 26, 53, 0.10);
+  border: 1.5px solid #dbe4f0;
+  border-top: 3.5px solid #0f2d52;
+  border-radius: 13px;
+  box-shadow: 0 1px 3px rgba(4, 26, 53, 0.06), 0 10px 26px -6px rgba(4, 26, 53, 0.12);
   z-index: 6;
   cursor: move;
   user-select: none;
-  transition: border-color 0.15s, box-shadow 0.15s;
+  transition: border-color 0.16s ease, box-shadow 0.16s ease, transform 0.16s ease;
+}
+
+.dw-fsb__node[data-role="pump"],
+.dw-fsb__node[data-role="surge_pump"] {
+  border-top-color: #ff5a00;
+}
+.dw-fsb__node[data-role="injector"] {
+  border-top-color: #ea580c;
+}
+.dw-fsb__node[data-role="wiring"] {
+  border-top-color: #d97706;
+}
+
+.dw-fsb__node:hover {
+  border-color: #b7c6db;
+  box-shadow: 0 4px 10px rgba(4, 26, 53, 0.08), 0 16px 32px -8px rgba(4, 26, 53, 0.16);
 }
 
 .dw-fsb__node.is-selected {
   border-color: var(--fsb-orange);
-  box-shadow: 0 0 0 4px rgba(255, 90, 0, 0.22), 0 12px 28px rgba(4, 26, 53, 0.16);
+  border-top-color: var(--fsb-orange);
+  box-shadow: 0 0 0 4px rgba(255, 90, 0, 0.20), 0 14px 30px -6px rgba(4, 26, 53, 0.18);
   z-index: 12;
 }
 
-.dw-fsb__node.is-error { border-color: #ef4444; }
-.dw-fsb__node.is-warn  { border-color: #f59e0b; }
+.dw-fsb__node.is-error { border-color: #ef4444; border-top-color: #ef4444; }
+.dw-fsb__node.is-warn  { border-color: #f59e0b; border-top-color: #f59e0b; }
 
 .dw-fsb__node-head {
-  background: #041a35;
-  color: #ffffff;
-  padding: 7px 12px;
+  background: #fbfcfe;
+  color: var(--fsb-navy);
+  padding: 7px 12px 6px;
+  border-bottom: 1px solid #eef2f7;
   border-radius: 10px 10px 0 0;
   display: flex;
   align-items: center;
@@ -898,11 +1037,11 @@
 }
 
 .dw-fsb__node-role {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.09em;
   text-transform: uppercase;
-  color: #cbd5e1;
+  color: #5b6b82;
 }
 
 .dw-fsb__node-del {
@@ -912,36 +1051,37 @@
   font-size: 18px;
   line-height: 1;
   cursor: pointer;
-  padding: 0 2px;
+  padding: 0 3px;
+  border-radius: 4px;
 }
-.dw-fsb__node-del:hover { color: #ffffff; }
+.dw-fsb__node-del:hover { color: #dc2626; background: #fef2f2; }
 
 .dw-fsb__node-body {
-  padding: 12px 14px 14px;
+  padding: 12px 13px 13px;
 }
 
 .dw-fsb__node-main {
   display: grid;
-  grid-template-columns: 54px 1fr;
-  gap: 12px;
+  grid-template-columns: 56px 1fr;
+  gap: 11px;
   align-items: center;
 }
 
 .dw-fsb__node-thumb {
-  width: 54px;
-  height: 54px;
-  border-radius: 8px;
+  width: 56px;
+  height: 56px;
+  border-radius: 9px;
   border: 1px solid #e7edf5;
-  background: #ffffff;
+  background: #f8fafc;
   object-fit: contain;
-  padding: 3px;
+  padding: 4px;
 }
 
 .dw-fsb__node-title {
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 700;
   color: var(--fsb-navy);
-  line-height: 1.28;
+  line-height: 1.26;
 }
 
 .dw-fsb__node-meta {
@@ -949,7 +1089,7 @@
   align-items: center;
   justify-content: space-between;
   margin-top: 6px;
-  font-size: 12.5px;
+  font-size: 12px;
   color: var(--fsb-muted);
   font-variant-numeric: tabular-nums;
 }
@@ -958,6 +1098,41 @@
   font-size: 14px;
   font-weight: 800;
   color: var(--fsb-navy);
+}
+
+/* Visual Headroom & Duty-Cycle Meters inside Node Badges */
+.dw-fsb__meter-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.dw-fsb__meter-track {
+  position: relative;
+  height: 6px;
+  width: 100%;
+  background: rgba(15, 23, 42, 0.10);
+  border-radius: 999px;
+  margin-top: 6px;
+  overflow: hidden;
+}
+
+.dw-fsb__meter-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.25s ease;
+}
+.dw-fsb__meter-fill--ok   { background: linear-gradient(90deg, #10b981 0%, #059669 100%); }
+.dw-fsb__meter-fill--warn { background: linear-gradient(90deg, #f59e0b 0%, #d97706 100%); }
+.dw-fsb__meter-fill--err  { background: linear-gradient(90deg, #ef4444 0%, #dc2626 100%); }
+
+.dw-fsb__meter-tick {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1.5px;
+  background: rgba(15, 23, 42, 0.45);
 }
 
 .dw-fsb__node-badge {
@@ -1551,11 +1726,18 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
     width: 100%;
     gap: 8px;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    overflow: visible;
   }
-  .dw-fsb__field {
+  .dw-fsb__spec-ribbon .dw-fsb__field {
     width: 100%;
     justify-content: space-between;
     padding: 8px 10px;
+    background: #ffffff;
+    border: 1px solid var(--fsb-border-strong);
+    border-radius: 6px;
   }
   .dw-fsb__workspace {
     display: flex;

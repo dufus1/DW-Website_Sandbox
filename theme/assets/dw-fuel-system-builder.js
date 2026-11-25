@@ -188,13 +188,13 @@
       defaultSpec: { power: 550, powerUnit: 'WHP', drivetrain: 'RWD', cylinders: 8, induction: 'Turbo', boostPsi: 12, basePsi: 58, fuel: 'Gasoline', systemType: 'Returnless' },
       material: 'PTFE', braid: 'Nylon', finish: 'Matte Black',
       nodes: [
-        { uid: 'n6',  compId: 'gauge-100',   x: 24,   y: 24  },
-        { uid: 'n5',  compId: 'reg-dwr1000', x: 24,   y: 210 },
-        { uid: 'n3',  compId: 'rail-coyote', x: 376,  y: 160 },
-        { uid: 'n4',  compId: 'inj-750',     x: 376,  y: 380 },
-        { uid: 'n2',  compId: 'flt-110-10',  x: 728,  y: 210 },
-        { uid: 'n1',  compId: 'pump-dw400',  x: 1080, y: 210 },
-        { uid: 'nh1', compId: 'hwk-hd',      x: 1080, y: 24  }
+        { uid: 'n6',  compId: 'gauge-100',   x: 32,   y: 80  },
+        { uid: 'n5',  compId: 'reg-dwr1000', x: 32,   y: 270 },
+        { uid: 'n3',  compId: 'rail-coyote', x: 432,  y: 220 },
+        { uid: 'n4',  compId: 'inj-750',     x: 432,  y: 440 },
+        { uid: 'n2',  compId: 'flt-110-10',  x: 840,  y: 270 },
+        { uid: 'n1',  compId: 'pump-dw400',  x: 1248, y: 270 },
+        { uid: 'nh1', compId: 'hwk-hd',      x: 1248, y: 80  }
       ],
       edges: [
         { id: 'e1',  from: 'n1',  fromPort: 'out',   to: 'n2', toPort: 'in',  kind: 'feed', size: '8AN', lengthFt: 10, startAngle: '90', endAngle: 'Straight' },
@@ -210,13 +210,13 @@
       defaultSpec: { power: 820, powerUnit: 'WHP', drivetrain: 'RWD', cylinders: 8, induction: 'Turbo', boostPsi: 18, basePsi: 43.5, fuel: 'E85', systemType: 'Return' },
       material: 'PTFE', braid: 'SS', finish: 'Matte Black',
       nodes: [
-        { uid: 'n6',  compId: 'gauge-100',    x: 24,   y: 24  },
-        { uid: 'n5',  compId: 'reg-dwr1000',  x: 24,   y: 210 },
-        { uid: 'n3',  compId: 'rail-coyote',  x: 376,  y: 160 },
-        { uid: 'n4',  compId: 'inj-1500',     x: 376,  y: 380 },
-        { uid: 'n2',  compId: 'flt-110-10',   x: 728,  y: 210 },
-        { uid: 'n1',  compId: 'mod-x2-dw400', x: 1080, y: 210 },
-        { uid: 'nh1', compId: 'hwk-dp',       x: 1080, y: 24  }
+        { uid: 'n6',  compId: 'gauge-100',    x: 32,   y: 80  },
+        { uid: 'n5',  compId: 'reg-dwr1000',  x: 32,   y: 270 },
+        { uid: 'n3',  compId: 'rail-coyote',  x: 432,  y: 220 },
+        { uid: 'n4',  compId: 'inj-1500',     x: 432,  y: 440 },
+        { uid: 'n2',  compId: 'flt-110-10',   x: 840,  y: 270 },
+        { uid: 'n1',  compId: 'mod-x2-dw400', x: 1248, y: 270 },
+        { uid: 'nh1', compId: 'hwk-dp',       x: 1248, y: 80  }
       ],
       edges: [
         { id: 'e1',  from: 'n1',  fromPort: 'out',   to: 'n2', toPort: 'in',  kind: 'feed', size: '8AN', lengthFt: 10, startAngle: '90', endAngle: 'Straight' },
@@ -233,15 +233,15 @@
       defaultSpec: { power: 1300, powerUnit: 'WHP', drivetrain: 'RWD', cylinders: 8, induction: 'Turbo', boostPsi: 26, basePsi: 43.5, fuel: 'E85', systemType: 'Return' },
       material: 'PTFE', braid: 'Nylon', finish: 'Matte Black',
       nodes: [
-        { uid: 'n6',  compId: 'gauge-100',   x: 24,   y: 24  },
-        { uid: 'n5',  compId: 'reg-dwr2000', x: 24,   y: 210 },
-        { uid: 'n3',  compId: 'rail-coyote', x: 368,  y: 160 },
-        { uid: 'n4',  compId: 'inj-2200',    x: 368,  y: 380 },
-        { uid: 'n2',  compId: 'flt-160-10',  x: 712,  y: 210 },
-        { uid: 'n1',  compId: 'st-30-dw810', x: 1056, y: 210 },
-        { uid: 'nh1', compId: 'hwk-dp',      x: 1056, y: 24  },
-        { uid: 'n0',  compId: 'pump-dw300',  x: 1400, y: 210 },
-        { uid: 'nh0', compId: 'hwk-std',     x: 1400, y: 24  }
+        { uid: 'n6',  compId: 'gauge-100',   x: 32,   y: 80  },
+        { uid: 'n5',  compId: 'reg-dwr2000', x: 32,   y: 270 },
+        { uid: 'n3',  compId: 'rail-coyote', x: 432,  y: 220 },
+        { uid: 'n4',  compId: 'inj-2200',    x: 432,  y: 440 },
+        { uid: 'n2',  compId: 'flt-160-10',  x: 840,  y: 270 },
+        { uid: 'n1',  compId: 'st-30-dw810', x: 1248, y: 270 },
+        { uid: 'nh1', compId: 'hwk-dp',      x: 1248, y: 80  },
+        { uid: 'n0',  compId: 'pump-dw300',  x: 1648, y: 270 },
+        { uid: 'nh0', compId: 'hwk-std',     x: 1648, y: 80  }
       ],
       edges: [
         { id: 'e0',  from: 'n0',  fromPort: 'out',   to: 'n1', toPort: 'in',  kind: 'feed', size: '6AN',  lengthFt: 6,  startAngle: '90', endAngle: 'Straight' },
@@ -681,7 +681,7 @@
   }
 
   // ---------- Controller & State ----------
-  const STORAGE_KEY = 'dw_fsb_shopify_v5';
+  const STORAGE_KEY = 'dw_fsb_shopify_v6';
   const SNAP = 20;
   const $ = id => document.getElementById(id);
   const LEGACY_TPL = { 'x2-return-coyote': 'high-hp', 'street-returnless': 'street', 'race-surge-e85': 'race', 'silvia-6-624': 'high-hp' };
@@ -776,27 +776,27 @@
       else mids.push(n);
     });
     mids.sort((a, b) => a.x - b.x);
-    let colX = 24;
-    const STRIDE = 352;
+    let colX = 32;
+    const STRIDE = 404;
     if (regs.length || gauges.length) {
-      regs.forEach((n, i) => { n.x = colX; n.y = 210 + i * 170; });
-      gauges.forEach((n, i) => { n.x = colX + i * 280; n.y = 24; });
+      regs.forEach((n, i) => { n.x = colX; n.y = 270 + i * 190; });
+      gauges.forEach((n, i) => { n.x = colX + i * 280; n.y = 80; });
       colX += STRIDE;
     }
     if (rails.length || injs.length) {
-      rails.forEach((n, i) => { n.x = colX; n.y = 160 + i * 170; });
-      injs.forEach((n, i) => { n.x = colX; n.y = 380 + i * 170; });
+      rails.forEach((n, i) => { n.x = colX; n.y = 220 + i * 190; });
+      injs.forEach((n, i) => { n.x = colX; n.y = 440 + i * 190; });
       colX += STRIDE;
     }
-    mids.forEach(n => { n.x = colX; n.y = 210; colX += STRIDE; });
-    surges.forEach(n => { n.x = colX; n.y = 210; colX += STRIDE; });
-    pumps.forEach(n => { n.x = colX; n.y = 210; colX += STRIDE; });
+    mids.forEach(n => { n.x = colX; n.y = 270; colX += STRIDE; });
+    surges.forEach(n => { n.x = colX; n.y = 270; colX += STRIDE; });
+    pumps.forEach(n => { n.x = colX; n.y = 270; colX += STRIDE; });
     wirings.forEach((n, idx) => {
       const wEdge = state.edges.find(e => e.kind === 'wiring' && (e.from === n.uid || e.to === n.uid));
       const targetUid = wEdge ? (wEdge.from === n.uid ? wEdge.to : wEdge.from) : null;
       const targetNode = targetUid ? state.nodes.find(tn => tn.uid === targetUid) : null;
-      if (targetNode) { n.x = targetNode.x; n.y = 24; }
-      else { n.x = Math.max(24, colX - STRIDE) + idx * 280; n.y = 24; }
+      if (targetNode) { n.x = targetNode.x; n.y = 80; }
+      else { n.x = Math.max(32, colX - STRIDE) + idx * 280; n.y = 80; }
     });
     renderAll();
     requestAnimationFrame(fitCanvasToNodes);
@@ -848,6 +848,7 @@
       if (n.x + 256 > maxX) maxX = n.x + 256;
       if (n.y + nh > maxY) maxY = n.y + nh;
     });
+    minY = Math.min(minY, 12);
     const hasRet = state.edges.some(e => e.kind === 'return');
     if (hasRet) maxY += 68;
     const bw = Math.max(200, maxX - minX);
@@ -1088,8 +1089,22 @@
       const el = document.createElement('div');
       el.className = 'dw-fsb__node' + (isSel ? ' is-selected' : '') + (ev && ev.status === 'err' ? ' is-error' : ev && ev.status === 'warn' ? ' is-warn' : '');
       el.dataset.uid = node.uid;
+      el.dataset.role = comp.role;
       el.style.left = node.x + 'px';
       el.style.top = node.y + 'px';
+
+      let badgeHtml = '';
+      if (ev) {
+        let meterHtml = '';
+        if (comp.role === 'injector' && ev.dutyCycle != null) {
+          const wPct = Math.max(4, Math.min(100, ev.dutyCycle));
+          meterHtml = '<div class="dw-fsb__meter-track"><div class="dw-fsb__meter-fill dw-fsb__meter-fill--' + ev.status + '" style="width:' + wPct + '%"></div><span class="dw-fsb__meter-tick" style="left:90%" title="90% Max IDC"></span></div>';
+        } else if ((comp.role === 'pump' || comp.role === 'surge_pump') && ev.flowAtOp && ev.headroomPct != null) {
+          const loadPct = Math.max(6, Math.min(100, Math.round((analysis.req.rawLph / ev.flowAtOp) * 100)));
+          meterHtml = '<div class="dw-fsb__meter-track"><div class="dw-fsb__meter-fill dw-fsb__meter-fill--' + ev.status + '" style="width:' + loadPct + '%"></div></div>';
+        }
+        badgeHtml = '<div class="dw-fsb__node-badge dw-fsb__node-badge--' + ev.status + ' dw-fsb__num"><div class="dw-fsb__meter-row"><span>' + ev.badge + '</span></div>' + meterHtml + '</div>';
+      }
 
       const roleLbl = comp.role === 'surge_pump' ? 'Surge Tank' : comp.role === 'wiring' ? 'Hardwire Kit' : comp.role.toUpperCase();
       el.innerHTML = '<div class="dw-fsb__node-head"><span><span class="dw-fsb__node-role">' + roleLbl + '</span>' + (comp.vehicleFit ? '<span class="dw-fsb__node-fit">Direct Fit</span>' : '') + '</span><button type="button" class="dw-fsb__node-del" title="Remove">×</button></div>'
@@ -1097,7 +1112,7 @@
         + '<img class="dw-fsb__node-thumb" src="' + dyn.image + '" alt="" />'
         + '<div style="min-width:0"><div class="dw-fsb__node-title">' + comp.name + '</div>'
         + '<div class="dw-fsb__node-meta"><span class="dw-fsb__num">' + dyn.sku + '</span><span class="dw-fsb__num" style="font-weight:800;color:var(--fsb-navy)">$' + dyn.price + '</span></div></div></div>'
-        + (ev ? '<div class="dw-fsb__node-badge dw-fsb__node-badge--' + ev.status + ' dw-fsb__num">' + ev.badge + '</div>' : '')
+        + badgeHtml
         + '</div>';
 
       comp.ports.forEach(port => {
@@ -1213,10 +1228,10 @@
     });
     const stg = $('fsbStage');
     if (stg) {
-      let maxX = 1100, maxY = 480;
+      let maxX = 1350, maxY = 560;
       state.nodes.forEach(n => { if (n.x > maxX) maxX = n.x; if (n.y > maxY) maxY = n.y; });
-      stg.style.width = Math.max(1380, maxX + 300) + 'px';
-      stg.style.height = Math.max(660, maxY + 260) + 'px';
+      stg.style.width = Math.max(1660, maxX + 340) + 'px';
+      stg.style.height = Math.max(740, maxY + 280) + 'px';
     }
     renderEdges();
   }
@@ -1243,6 +1258,13 @@
       vis.setAttribute('d', g.d);
       vis.setAttribute('class', 'dw-fsb__edge dw-fsb__edge--' + edge.kind + (isSel ? ' is-selected' : '') + (dropTargetEdgeId === edge.id ? ' is-drop-target' : ''));
       svg.appendChild(hit); svg.appendChild(vis);
+
+      if (edge.kind === 'feed' || edge.kind === 'return' || edge.kind === 'wiring') {
+        const flow = document.createElementNS(ns, 'path');
+        flow.setAttribute('d', g.d);
+        flow.setAttribute('class', 'dw-fsb__edge-flow dw-fsb__edge-flow--' + edge.kind);
+        svg.appendChild(flow);
+      }
 
       if (edge.kind === 'feed' || edge.kind === 'return') {
         const lineMat = edge.material || state.material || 'PTFE';

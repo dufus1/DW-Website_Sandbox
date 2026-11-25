@@ -10,3 +10,4 @@ Dedicated Sandbox storefront theme and interactive tools for `deastchwerks-sandb
 
 ## Restore Points
 - `fsb-v1-sandbox` — Verified working Fuel System Builder baseline (full-width native layout, Garage/YMM direct-fit swap, 90% IDC, 43.5 PSI lift pump rating, Matte Black fittings, per-line CPE/PTFE & Stainless/Nylon, hardwire kits, regulator & gauge on all builds, drop-onto-line auto-split, Auto-Align, mobile guided view, and branded PDF build sheet).
+- `fsb-v2-studio` — Motorsport Studio visual upgrade (clean solid canvas, bold animated feed/return/12V fuel flow lines, legible Engine Bay / Underbody / Fuel Tank zone headers above cards, elevated studio product cards with role accent stripes and visual headroom/IDC meters, streamlined unified spec bar, and roomier card spacing).
