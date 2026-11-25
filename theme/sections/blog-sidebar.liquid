@@ -1,0 +1,118 @@
+{{ 'component-article-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'section-main-blog.css' | asset_url | stylesheet_tag }}
+{{ 'section-collection-list.css' | asset_url | stylesheet_tag }}
+{% if section.settings.display_sidebar == false %}
+    <style>
+        .page .page-sidebar,
+        .page .sidebar_mobile_wrapper .sidebar_mobile {
+            display: none !important;
+        }
+
+        .blog-wrap.wrap-sidebar .right-blog-articles {
+            display: block;
+            width: 100%;
+            padding-left: 0;
+        }
+    </style>
+{% endif %}
+{% if section.settings.display_sidebar == true %}
+<div class="sidebar_mobile_wrapper">
+  <div class="item item-iconSidebar text-left">
+      <div class="sidebar_mobile">
+      Filter by <div class="icon-arrow">   {% render 'icon-caret' %}</div>
+      </div>
+  </div>
+</div>
+<div class="sidebar_content">
+  {% for block in section.blocks %}
+      {% case block.type %}
+          {% when 'recent_post' %}
+              <div class="sidebarBlock">
+                <h2 class="sidebarBlock-heading">{{ block.settings.title }}</h2>
+                <div class="sidebarBlock-content">
+                    <div class="recentPosts_List recentPosts--col1">
+                        {% for article in blog.articles limit : block.settings.number %}
+                            <div class="item">
+                                <div class="recentPost-sidebar">
+                                    <h5 class="title-blog"><a href="{{ article.url }}" aria-label="link">{{ article.title }}</a></h5>
+                                    <p class="date">{{ article.published_at | date: "%B %d, %Y" }}</em>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+          {% when 'search' %}
+                {% if block.settings.enable_search %}
+                    <div class="sidebarBlock-content">
+                        <form action="{{ routes.search_url }}" method="get" class="widget-form" role="search">
+                            <input type="hidden" name="type" value="article">
+                            <input type="text" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.recentsearch.placeholder' | t }}" class="input-group-field" aria-label="Search Site" autocomplete="off">
+                            <button type="submit" class="btn btn-search">
+                                <svg class="icon"><use xlink:href="#icon-search" /></svg>
+                            </button>
+                        </form>
+                    </div>
+          {% endif %}
+      
+      {% endcase %}
+  {% endfor %}
+</div>
+{% endif %}
+
+
+{% schema %}
+{
+    "name": "Blog Sidebar",
+    "class": "page-sidebar",
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "display_sidebar",
+            "label": "Enable Sidebar",
+            "default": true
+        }
+    ],
+    "blocks": [
+        {
+            "type": "search",
+            "name": "search",
+            "settings": [
+                {
+                    "type": "checkbox",
+                    "id": "enable_search",
+                    "label": "Enable Search",
+                    "default": true
+                }
+            ]
+        },
+        {
+            "type": "recent_post",
+            "name": "Recent Post",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "Heading",
+                    "default": "Heading"
+                },
+                {
+                    "type": "range",
+                    "id": "number",
+                    "label": "number post",
+                    "min": 1,
+                    "max": 5,
+                    "step": 1,
+                    "default": 3
+                }
+            ]
+        }
+    ],
+    "presets": [
+    {
+      "name": "Blog Sidebar"
+    }
+  ]
+}
+{% endschema %}

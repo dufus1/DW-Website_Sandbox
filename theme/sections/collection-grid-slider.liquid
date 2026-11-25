@@ -1,0 +1,246 @@
+{{ 'collection-grid-banner.css' | asset_url | stylesheet_tag }}
+
+{% javascript %}
+
+(function(win) {
+    'use strict';
+
+    var listeners = [],
+    doc = win.document,
+    MutationObserver = win.MutationObserver || win.WebKitMutationObserver,
+    observer;
+
+    function ready(selector, fn) {
+        // Store the selector and callback to be monitored
+        listeners.push({
+            selector: selector,
+            fn: fn
+        });
+        if (!observer) {
+            // Watch for changes in the document
+            observer = new MutationObserver(check);
+            observer.observe(doc.documentElement, {
+                childList: true,
+                subtree: true
+            });
+        }
+        // Check if the element is currently in the DOM
+        check();
+    }
+
+    function check() {
+        // Check the DOM for elements matching a stored selector
+        for (var i = 0, len = listeners.length, listener, elements; i < len; i++) {
+            listener = listeners[i];
+            // Query for elements matching the specified selector
+            elements = doc.querySelectorAll(listener.selector);
+            for (var j = 0, jLen = elements.length, element; j < jLen; j++) {
+                element = elements[j];
+                // Make sure the callback isn't invoked with the
+                // same element more than once
+                if (!element.ready) {
+                    element.ready = true;
+                    // Invoke the callback with the element
+                    listener.fn.call(element, element);
+                }
+            }
+        }
+    }
+
+    // Expose `ready`
+    win.ready = ready;
+
+})(window);
+
+ready('.collection-banner-slider',function(){
+  setTimeout(function(){
+    
+    $(".collection-banner-slider").slick({
+      slidesToShow: 5,
+      slidesToScroll: 1,
+      prevArrow: '.collection-banner .swiper-button-prev',
+      nextArrow: '.collection-banner .swiper-button-next',
+      dots: true,
+      appendDots: '.collection-banner .cus-slider-pagination',
+      autoplay: true,
+      autoplaySpeed: 3400,
+      infinite: true,
+      lazyLoad: 'anticipated',
+      pauseOnFocus: true,
+      pauseOnHover: true,
+      centerMode: true,
+      centerPadding: 'calc(8.334% - 0.25rem)',
+      responsive: [
+        {
+          breakpoint: 1439,
+          settings: {
+            slidesToShow: 4
+          }
+        },
+        {
+          breakpoint: 1280,
+          settings: {
+            slidesToShow: 3
+          }
+        },
+        {
+          breakpoint: 1024,
+          settings: {
+            arrows: false,
+            slidesToShow: 2
+          }
+        },
+        {
+          breakpoint: 992,
+          settings: {
+            arrows: false,
+            slidesToShow: 2,
+            centerPadding: 'calc(13.334% - 0.25rem)'
+          }
+        },
+        {
+          breakpoint: 768,
+          settings: {
+            arrows: false,
+            slidesToShow: 2,
+            centerPadding: 'calc(15.579710% - 0.25rem)'
+          }
+        },
+        {
+          breakpoint: 667,
+          settings: {
+            arrows: false,
+            slidesToShow: 1,
+            centerPadding: 'calc(21.579710% - 0.25rem)'
+          }
+        }
+      ]
+    });
+
+  }, 200);
+});
+
+{% endjavascript %}
+{% style %}
+.collection-banner div:empty {
+ display:block;
+}
+.section-{{ section.id }}-padding {
+  padding-top: {{ section.settings.padding_top | times: 1 | round: 0 }}px;
+  padding-bottom: {{ section.settings.padding_bottom | times: 0.87 | round: 0 }}px;
+}
+
+@media screen and (min-width: 1024px) {
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+}
+{% endstyle %}
+
+<section class="collection-banner color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+    <div  class="collection-banner-inner swiper">
+       <div class="collection-banner-slider">
+            {%- for block in section.blocks -%}
+                <div class="item">
+                    <a href="{{ block.settings.categoryLink }}" class="category-wrapper">
+                        <div class="category-figure">
+                            <div class="category-img">
+                                <img src="{{ block.settings.categoryImage | img_url:"" }}" alt="image of {{ block.settings.text }}" height="" width="">
+                            </div>
+                        </div>
+                        <h2 class="category-name">
+                            <span class="cat-name">{{ block.settings.text }}</span>
+                            <span class="cat-arrow">{% render 'icon-btn-arrow' %}</span>
+
+                        </h2>
+                    </a>
+                </div>
+            {%- endfor -%}
+      </div>
+        <div class="arrow-row">
+          <div class="swiper-button-prev">{% render 'icon-left-arrow' %}</div>
+          <div class="cus-slider-pagination"></div>
+          <div class="swiper-button-next">{% render 'icon-btn-arrow' %}</div>
+        </div>
+      </div>
+      </section>
+
+      {% schema %}
+    {
+      "name": "Collection Slider",
+      "tag": "section",
+      "class": "section-collection-banner",
+      "settings": [
+        {
+            "type": "color_scheme",
+            "id": "color_scheme",
+            "label": "t:sections.all.colors.label",
+            "default": "scheme-1"
+        },
+        {
+            "type": "range",
+            "id": "padding_top",
+            "min": 0,
+            "max": 100,
+            "step": 2,
+            "unit": "px",
+            "label": "t:sections.all.padding.padding_top",
+            "default": 0
+          },
+          {
+            "type": "range",
+            "id": "padding_bottom",
+            "min": 0,
+            "max": 100,
+            "step": 2,
+            "unit": "px",
+            "label": "t:sections.all.padding.padding_bottom",
+            "default": 50
+          }
+      ],
+      "blocks": [
+        {
+            "type": "column",
+            "name": "item",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "categoryImage",
+                    "label": "Category Image",
+                    "info" : "Recommend Size '384 x 384px' and Format 'PNG' "
+                },
+                {
+                  "type": "text",
+                  "id": "text",
+                  "label": "Category Name",
+                  "default": "Category"
+                },
+                {
+                    "type": "text",
+                    "id": "categoryLink",
+                    "label": "Category Link",
+                    "placeholder": "https://"
+                }
+
+            ]
+        }
+    ],
+    "presets": [
+        {
+          "name": "Collection Slider",
+          "blocks": [
+            {
+              "type": "column"
+            },
+            {
+              "type": "column"
+            },
+            {
+              "type": "column"
+            }
+          ]
+        }
+      ]
+    }
+{% endschema %}

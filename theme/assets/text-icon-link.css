@@ -1,0 +1,112 @@
+.icon-with-text-row {
+  overflow: hidden;
+  background: url("../assets/pattern-blue.webp") no-repeat top center rgb(var(--color-background));
+  background-blend-mode: screen;
+  background-position: center top;
+} 
+.icon-with-text-row .page-width {
+  position: relative;
+
+}
+.icon-with-text-row .page-width .icon-text-slider:before, .icon-with-text-row .page-width .icon-text-slider:after {
+  content:"";
+  background-size: 1.1rem 6.7rem;
+  position: absolute;
+  top:0;
+  width: 1.1rem;
+  height: 6.7rem;
+  background-repeat: no-repeat;
+}
+.icon-with-text-row .page-width .icon-text-slider:before {
+  background-image: url("data:image/svg+xml,%3Csvg width='11' height='67' viewBox='0 0 11 67' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg filter='url(%23filter0_b_2001_139)'%3E%3Cpath d='M1.75 7C1.75 4.10051 4.10051 1.75 7 1.75H11V0.25H7C3.27208 0.25 0.25 3.27208 0.25 7V11H1.75V7Z' fill='white'/%3E%3Cpath d='M1.75 60C1.75 62.8995 4.10051 65.25 7 65.25H11V66.75H7C3.27208 66.75 0.25 63.7279 0.25 60V56H1.75V60Z' fill='white'/%3E%3C/g%3E%3Cdefs%3E%3Cfilter id='filter0_b_2001_139' x='-19.75' y='-19.75' width='50.75' height='106.5' filterUnits='userSpaceOnUse' color-interpolation-filters='sRGB'%3E%3CfeFlood flood-opacity='0' result='BackgroundImageFix'/%3E%3CfeGaussianBlur in='BackgroundImageFix' stdDeviation='10'/%3E%3CfeComposite in2='SourceAlpha' operator='in' result='effect1_backgroundBlur_2001_139'/%3E%3CfeBlend mode='normal' in='SourceGraphic' in2='effect1_backgroundBlur_2001_139' result='shape'/%3E%3C/filter%3E%3C/defs%3E%3C/svg%3E%0A");
+  background-position: left center;
+  left: 0;
+}
+.icon-with-text-row .page-width .icon-text-slider:after {
+  background-image: url("data:image/svg+xml,%3Csvg width='11' height='67' viewBox='0 0 11 67' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg filter='url(%23filter0_b_2001_144)'%3E%3Cpath d='M9.25 7C9.25 4.10051 6.89949 1.75 4 1.75H0V0.25H4C7.72792 0.25 10.75 3.27208 10.75 7V11H9.25V7Z' fill='white'/%3E%3Cpath d='M9.25 60C9.25 62.8995 6.89949 65.25 4 65.25H0V66.75H4C7.72792 66.75 10.75 63.7279 10.75 60V56H9.25V60Z' fill='white'/%3E%3C/g%3E%3Cdefs%3E%3Cfilter id='filter0_b_2001_144' x='-20' y='-19.75' width='50.75' height='106.5' filterUnits='userSpaceOnUse' color-interpolation-filters='sRGB'%3E%3CfeFlood flood-opacity='0' result='BackgroundImageFix'/%3E%3CfeGaussianBlur in='BackgroundImageFix' stdDeviation='10'/%3E%3CfeComposite in2='SourceAlpha' operator='in' result='effect1_backgroundBlur_2001_144'/%3E%3CfeBlend mode='normal' in='SourceGraphic' in2='effect1_backgroundBlur_2001_144' result='shape'/%3E%3C/filter%3E%3C/defs%3E%3C/svg%3E%0A");
+  background-position: right center;
+  right: 0;
+}
+.icon-with-text-row .page-width .icon-text-slider {
+  position: relative;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin: 0;
+  padding: 0 6.9rem;
+  min-height: 6.7rem;
+}
+.icon-with-text-row .page-width .icon-text-slider .banner-data {
+  padding: 0;
+}
+.icon-with-text-row .page-width .icon-text-slider .banner-data a {
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ color: rgb(var(--color-foreground));
+ text-decoration: none;
+ transition: .3s;
+ position: relative;
+}
+.icon-with-text-row .page-width .icon-text-slider .banner-data a:after {
+  content: "";
+  height: 6.1rem;
+  width: 100%;
+  border-radius: 5em;
+  /* box-shadow: 1rem -2rem 5rem #FF6720; */
+  position: absolute;
+  bottom: -10.2rem;
+  left: 0;
+  transition: ease-in-out 0.4s;
+  opacity: 0;
+  background: rgba(var(--color-button),0.8);
+  filter: blur(22px);
+  -webkit-filter: blur(22px);
+}
+.icon-with-text-row .page-width .icon-text-slider .banner-data a:hover:after {
+  opacity: 1;
+  bottom: -9.3rem;
+}
+.icon-with-text-row .page-width .icon-text-slider .banner-data a .img {
+  width: 4.5rem;
+  height: 4.5rem;
+  margin-right: 2rem;
+  background: var(--color-button-ada);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.icon-with-text-row .page-width .icon-text-slider .banner-data a .img img {
+  display: block;
+  margin: auto;
+}
+.icon-with-text-row .page-width .icon-text-slider .banner-data a .content-text {
+  width: calc(100% - 6.5rem);
+  font-size: 1.3rem;
+  line-height: 2rem;
+}
+.icon-with-text-row .page-width .icon-text-slider .banner-data a:hover {
+  color: #FF6720;
+}
+
+
+
+@media screen and (max-width: 1023px) {
+
+  .icon-with-text-row .page-width .icon-text-slider {
+    display: none;
+  }
+  
+  .icon-with-text-row .page-width .icon-text-slider.slick-initialized {
+    display: flex;
+    padding: 0 3.9rem;
+  }
+
+  .icon-text-slider.slick-initialized .slick-slide {
+    display: flex;
+    justify-content: center;
+  }
+}

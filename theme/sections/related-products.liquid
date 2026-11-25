@@ -1,0 +1,349 @@
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+{{ 'section-related-products.css' | asset_url | stylesheet_tag }}
+
+{% if section.settings.image_shape == 'blob' %}
+  {{ 'mask-blobs.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.70 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.80 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 1024px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+
+
+{% javascript %}
+
+(function(win) {
+    'use strict';
+
+    var listeners = [],
+    doc = win.document,
+    MutationObserver = win.MutationObserver || win.WebKitMutationObserver,
+    observer;
+
+    function ready(selector, fn) {
+        // Store the selector and callback to be monitored
+        listeners.push({
+            selector: selector,
+            fn: fn
+        });
+        if (!observer) {
+            // Watch for changes in the document
+            observer = new MutationObserver(check);
+            observer.observe(doc.documentElement, {
+                childList: true,
+                subtree: true
+            });
+        }
+        // Check if the element is currently in the DOM
+        check();
+    }
+
+    function check() {
+        // Check the DOM for elements matching a stored selector
+        for (var i = 0, len = listeners.length, listener, elements; i < len; i++) {
+            listener = listeners[i];
+            // Query for elements matching the specified selector
+            elements = doc.querySelectorAll(listener.selector);
+            for (var j = 0, jLen = elements.length, element; j < jLen; j++) {
+                element = elements[j];
+                // Make sure the callback isn't invoked with the
+                // same element more than once
+                if (!element.ready) {
+                    element.ready = true;
+                    // Invoke the callback with the element
+                    listener.fn.call(element, element);
+                }
+            }
+        }
+    }
+
+    // Expose `ready`
+    win.ready = ready;
+
+})(window);
+
+ready('.recent-view-slider',function(){
+
+  setTimeout(function(){
+  $(".recent-view-slider").slick({
+      slidesToShow: 5,
+      slidesToScroll: 1,
+      prevArrow: '.related-products .swiper-button-prev',
+      nextArrow: '.related-products .swiper-button-next',
+      dots: true,
+      appendDots: '.related-products .cus-slider-pagination',
+      autoplay: true,
+      autoplaySpeed: 3700,
+      infinite: true,
+      lazyLoad: 'anticipated',
+      pauseOnFocus: true,
+      pauseOnHover: true,
+      centerMode: true,
+      centerPadding: 'calc(8.334% - 0.75rem)',
+      responsive: [
+        {
+          breakpoint: 1439,
+          settings: {
+            slidesToShow: 4
+          }
+        },
+        {
+          breakpoint: 1280,
+          settings: {
+            slidesToShow: 3
+          }
+        },
+        {
+          breakpoint: 1024,
+          settings: {
+            arrows: false,
+            slidesToShow: 2
+          }
+        },
+        {
+          breakpoint: 992,
+          settings: {
+            arrows: false,
+            slidesToShow: 2,
+            centerPadding: 'calc(13.334% - 0.75rem)'
+          }
+        },
+        {
+          breakpoint: 768,
+          settings: {
+            arrows: false,
+            slidesToShow: 2,
+            centerPadding: 'calc(15.579710% - 0.75rem)'
+          }
+        },
+        {
+          breakpoint: 667,
+          settings: {
+            arrows: false,
+            slidesToShow: 1,
+            centerPadding: 'calc(21.579710% - 0.75rem)'
+          }
+        }
+      ]
+    });
+
+});
+},200);
+
+setTimeout(function() {
+  window.onJQueryLoad(function($) {
+    if(!$('.recent-view-slider').length > 0) {
+      $('.related-products').hide();
+    }
+  });
+},1200);
+
+
+
+{% endjavascript %}
+
+
+<div class="color-{{ section.settings.color_scheme }} gradient related-product-main">
+  <product-recommendations
+    class="related-products section-{{ section.id }}-padding isolate{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %} {% if recommendations.performed and recommendations.products_count > 0 %} has-no-product {% endif %}"
+    data-url="{{ routes.product_recommendations_url }}?limit={{ section.settings.products_to_show }}"
+    data-section-id="{{ section.id }}"
+    data-product-id="{{ product.id }}"
+  >
+    {% if recommendations.performed and recommendations.products_count > 0 %}
+
+      <div class="related-products-inner swiper">
+      <h3 class="h2 center f-italic  scroll-trigger animate--slide-in">
+        {{ section.settings.heading }}
+      </h3>
+
+      <div class="recent-view-slider" role="list">
+     
+        {% assign skip_card_product_styles = false %}
+        {% for recommendation in recommendations.products %}
+          <div class="item">
+            {% render 'card-product',
+              card_product: recommendation,
+              media_aspect_ratio: section.settings.image_ratio,
+              image_shape: section.settings.image_shape,
+              show_secondary_image: section.settings.show_secondary_image,
+              show_vendor: section.settings.show_vendor,
+              show_rating: section.settings.show_rating,
+              skip_styles: skip_card_product_styles
+            %}
+          </div>
+          {%- assign skip_card_product_styles = true -%}
+        {% endfor %}
+    </div>
+
+
+    <div class="arrow-row">
+      <div class="swiper-button-prev">{% render 'icon-left-arrow' %}</div>
+      <div class="cus-slider-pagination"></div>
+      <div class="swiper-button-next">{% render 'icon-btn-arrow' %}</div>
+    </div>
+
+    </div>
+    {% endif %}
+  </product-recommendations>
+  {% if section.settings.image_shape == 'arch' %}
+    {% render 'mask-arch' %}
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.related-products.name",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:sections.related-products.settings.paragraph__1.content"
+    },
+    {
+      "type": "html",
+      "id": "heading",
+      "default": "t:sections.related-products.settings.paragraph__1.default",
+      "label": "t:sections.related-products.settings.heading.label"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "default": 4,
+      "label": "t:sections.related-products.settings.products_to_show.label"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "info": "t:sections.all.colors.has_cards_info",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.related-products.settings.header__2.content"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "options": [
+        {
+          "value": "adapt",
+          "label": "t:sections.related-products.settings.image_ratio.options__1.label"
+        },
+        {
+          "value": "portrait",
+          "label": "t:sections.related-products.settings.image_ratio.options__2.label"
+        },
+        {
+          "value": "square",
+          "label": "t:sections.related-products.settings.image_ratio.options__3.label"
+        }
+      ],
+      "default": "adapt",
+      "label": "t:sections.related-products.settings.image_ratio.label"
+    },
+    {
+      "type": "select",
+      "id": "image_shape",
+      "options": [
+        {
+          "value": "default",
+          "label": "t:sections.all.image_shape.options__1.label"
+        },
+        {
+          "value": "arch",
+          "label": "t:sections.all.image_shape.options__2.label"
+        },
+        {
+          "value": "blob",
+          "label": "t:sections.all.image_shape.options__3.label"
+        },
+        {
+          "value": "chevronleft",
+          "label": "t:sections.all.image_shape.options__4.label"
+        },
+        {
+          "value": "chevronright",
+          "label": "t:sections.all.image_shape.options__5.label"
+        },
+        {
+          "value": "diamond",
+          "label": "t:sections.all.image_shape.options__6.label"
+        },
+        {
+          "value": "parallelogram",
+          "label": "t:sections.all.image_shape.options__7.label"
+        },
+        {
+          "value": "round",
+          "label": "t:sections.all.image_shape.options__8.label"
+        }
+      ],
+      "default": "default",
+      "label": "t:sections.all.image_shape.label",
+      "info": "t:sections.all.image_shape.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_secondary_image",
+      "default": false,
+      "label": "t:sections.related-products.settings.show_secondary_image.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "default": false,
+      "label": "t:sections.related-products.settings.show_vendor.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "default": false,
+      "label": "t:sections.related-products.settings.show_rating.label",
+      "info": "t:sections.related-products.settings.show_rating.info"
+    },
+    
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ]
+}
+{% endschema %}

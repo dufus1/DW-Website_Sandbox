@@ -1,0 +1,88 @@
+<div class="breadcrumb-row">
+<nav class="breadcrumb page-width" role="navigation" aria-label="breadcrumbs">
+
+  <a href="{{ routes.root_url }}" title="Home">Home</a>
+
+  {% if template contains 'page' %}
+
+    <span aria-hidden="true">/</span>
+
+    <span>{{ page.title }}</span>
+
+  {% elsif template contains 'product' %}
+
+
+  {% assign current_collection = product.collections.first %}
+{% if current_collection %}
+    <span class="first-devider" aria-hidden="true">/</span>
+    <a href="{{ current_collection.url }}" title="{{ current_collection.title }}">{{ current_collection.title }}</a>
+    <span aria-hidden="true">/</span>
+    <span>{{ product.title }}</span>
+{% endif %}
+
+  {% elsif template contains 'collection' and collection.handle %}
+
+    <span aria-hidden="true">/</span>
+
+    {% if current_tags %}
+
+      {% capture url %}/collections/{{ collection.handle }}{% endcapture %}
+
+      {{ collection.title | link_to: url }}
+
+      <span aria-hidden="true">/</span>
+
+      <span>{{ current_tags | join: " + " }}</span>
+
+    {% else %}
+
+      <span>{{ collection.title }}</span>
+
+    {% endif %}
+
+  {% elsif template == 'blog' %}
+
+    <span aria-hidden="true">/</span>
+
+    {% if current_tags %}
+
+      {{ blog.title | link_to: blog.url }}
+
+      <span aria-hidden="true">/</span>
+
+      <span>{{ current_tags | join: " + " }}</span>
+
+    {% else %}
+
+    <span>{{ blog.title }}</span>
+
+    {% endif %}
+
+  {% elsif template == 'article' %}
+
+    <span aria-hidden="true">/</span>
+
+    {{ blog.title | link_to: blog.url }}
+
+    <span aria-hidden="true">/</span>
+
+    <span>{{ article.title }}</span>
+
+
+    {% elsif template == 'list-collections' %}
+
+    <span aria-hidden="true">/</span>
+      {% if page_title == 'Collections' %}
+        <span>All Products</span>
+      {% endif %}
+
+  {% else %}
+
+   <span aria-hidden="true">/</span>
+
+   <span>{{ page_title }}</span>
+
+  {% endif %}
+
+</nav>
+</div>

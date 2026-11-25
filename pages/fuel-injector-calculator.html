@@ -1,0 +1,2594 @@
+<!-- Fuel Injector Calculator - Original Styling, Responsive -->
+<style>
+.calculators-wrapper {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 20px auto;
+  max-width: 1200px;
+}
+
+.calculator-container {
+  flex: 1 1 420px;
+  max-width: 540px;
+  margin: 0;
+  padding: 16px;
+  font-family: inherit;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.3s ease;
+}
+
+.calculator-container:hover {
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.12);
+}
+
+.calculator-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #21334A;
+  margin-bottom: 14px;
+  text-align: center;
+  border-bottom: 2px solid #f26024;
+  padding-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.form-group {
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #333;
+  flex: 0 0 40%;
+}
+
+.form-control {
+  padding: 6px 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  min-width: 110px;
+  transition: border 0.2s ease;
+}
+
+.form-control:focus {
+  border-color: #f26024;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(242, 96, 36, 0.25);
+}
+
+.unit-control {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex: 0 0 60%;
+  justify-content: flex-end;
+}
+
+.output-container {
+  text-align: center;
+  margin: 16px 0;
+  padding: 12px;
+  background-color: #f8f9fa;
+  border-radius: 6px;
+}
+
+.output {
+  font-size: 24px;
+  font-weight: 700;
+  color: #f26024;
+  transition: all 0.3s ease;
+  word-break: keep-all;
+}
+
+.reset-button {
+  width: 100%;
+  padding: 10px 14px;
+  background-color: #f26024;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 1rem;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.reset-button:hover {
+  background-color: #d94e1f;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.shop-universal-actions .reset-button {
+  color: #fff !important;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.pulse {
+  animation: pulse 0.6s ease;
+}
+
+@keyframes flash {
+  0%, 100% { 
+    border-color: #ddd;
+    box-shadow: 0 0 0 0 rgba(242, 96, 36, 0);
+  }
+  50% { 
+    border-color: #f26024;
+    box-shadow: 0 0 0 3px rgba(242, 96, 36, 0.5);
+  }
+}
+
+.flash-warning {
+  animation: flash 0.8s ease 3;
+}
+
+@keyframes flash-yellow {
+  0%, 100% {
+    background-color: #fff3cd;
+    box-shadow: 0 0 0 0 rgba(255, 193, 7, 0);
+  }
+  50% {
+    background-color: #ffe69c;
+    box-shadow: 0 0 14px 3px rgba(255, 193, 7, 0.7);
+  }
+}
+
+.injector-warning {
+  margin-top: 12px;
+  padding: 10px;
+  background-color: #fff3cd;
+  border: 1px solid #ffc107;
+  border-radius: 6px;
+  color: #856404;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-align: center;
+  display: none;
+}
+
+.injector-warning.show {
+  display: block;
+}
+
+.injector-warning.injector-warning-flash {
+  animation: flash-yellow 0.5s ease 3;
+}
+
+@media (max-width: 900px) {
+  .calculators-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+  .calculator-container {
+    width: 100%;
+    max-width: 500px;
+  }
+}
+
+@media (max-width: 600px) {
+  .calculator-container {
+    max-width: 100%;
+    padding: 14px;
+  }
+
+  .calculator-title {
+    font-size: 1.2rem;
+  }
+
+  .output {
+    font-size: 20px;
+  }
+
+  .form-group {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .form-group label {
+    margin-bottom: 4px;
+    flex: none;
+  }
+
+  .unit-control {
+    width: 100%;
+    justify-content: space-between;
+    flex: none;
+  }
+
+  .form-control {
+    width: 100%;
+  }
+}
+
+/* Garage Display Styling */
+#dw-garage-display {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: #f7f7f7;
+  color: #21334A;
+  font-weight: 600;
+  font-size: 1.9rem; /* Doubled from 0.95rem (100% larger) */
+  line-height: 1;
+  margin-bottom: 16px;
+}
+
+#dw-garage-display .dw-garage-empty {
+  color: #666;
+  font-weight: 500;
+}
+
+/* Fitment Results - Uses theme product card styling */
+.fitment-results-wrapper {
+  margin: 24px auto;
+}
+
+.fitment-results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.fitment-results-header .meta {
+  color: #21334A;
+  font-weight: 600;
+}
+
+/* Product Card Styling (from provided code) - 25% larger fonts, 30% larger images, 3 columns, fixed height */
+.dw-card {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 3px 15px rgba(33, 43, 54, 0.07);
+  padding: 39px 32px 32px; /* 30% increase: 30px->39px, 25px->32px */
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%; /* Ensure all cards same height */
+  min-height: 550px; /* Fixed minimum height for consistency */
+}
+
+.dw-card img {
+  width: 373.75px; /* 287.5px * 1.3 (30% increase) */
+  height: 243.75px; /* 187.5px * 1.3 (30% increase) */
+  max-width: 100%; /* Responsive */
+  height: auto; /* Responsive */
+  object-fit: contain;
+  border-radius: 13px;
+  background: #fff;
+  border: 1.5px solid #e7eaf0;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.05);
+  margin-bottom: 18px;
+  flex-shrink: 0;
+}
+
+.dw-card .sku {
+  font-size: 1.4rem; /* 1.12rem * 1.25 */
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  background: #f4f6f8;
+  color: #3e5262;
+  border-radius: 8px;
+  padding: 5px 20px;
+  margin-bottom: 8px; /* Reduced from 16px to 8px (half) */
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.dw-card .title {
+  font-size: 1.525rem; /* 1.22rem * 1.25 */
+  font-weight: 600;
+  text-align: center;
+  color: #233363;
+  line-height: 1.32;
+  margin-bottom: 12px;
+  margin-top: 0; /* No top margin to reduce space from SKU */
+  word-break: break-word;
+  /* Constrain to 3 lines max */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: calc(1.525rem * 1.32 * 3); /* 3 lines height */
+  max-height: calc(1.525rem * 1.32 * 3);
+  flex: 1 1 auto; /* Take available space between SKU and price */
+}
+
+.dw-card .price {
+  font-size: 2.125rem; /* 1.7rem * 1.25 */
+  font-weight: 900;
+  color: #f26024;
+  text-align: center;
+  margin-bottom: 17px;
+  letter-spacing: 0.01em;
+  flex-shrink: 0;
+}
+
+.dw-card .actions {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+  margin-top: auto; /* Push to bottom */
+}
+
+.dw-link {
+  display: inline-block;
+  background: #f26024;
+  color: #fff;
+  padding: 8px 32px; /* Reduced from 12px to 8px (one-third reduction: 12px * 2/3 = 8px) */
+  border-radius: 7px;
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 1.3125rem; /* 1.05rem * 1.25 */
+  box-shadow: 0 1px 4px rgba(33, 43, 54, 0.06);
+}
+
+.dw-btn {
+  display: inline-block;
+  background: #233363;
+  color: #fff;
+  padding: 8px 32px; /* Reduced from 12px to 8px (one-third reduction: 12px * 2/3 = 8px) */
+  border-radius: 7px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  font-size: 1.3125rem; /* 1.05rem * 1.25 */
+  box-shadow: 0 1px 4px rgba(33, 43, 54, 0.06);
+}
+
+.dw-btn:hover {
+  opacity: 0.9;
+}
+
+.dw-link:hover {
+  opacity: 0.9;
+}
+
+.fitment-note {
+  margin: 0 0 12px 0;
+  font-size: 0.95em;
+  color: #555;
+}
+
+.fitment-note-center {
+  text-align: center;
+}
+
+.flow-options-intro {
+  text-align: center;
+}
+
+/* Responsive for product cards */
+.fitment-products-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (max-width: 1200px) {
+  .fitment-products-grid {
+    max-width: 100%;
+    padding: 0 15px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .fitment-products-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 15px;
+  }
+  
+  .dw-card img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .fitment-products-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px;
+    padding: 0 10px;
+  }
+  
+  .dw-card {
+    margin-bottom: 24px;
+    padding: 25px 20px 20px; /* Reduced padding for mobile */
+    min-height: auto; /* Remove fixed height on mobile */
+  }
+  
+  .dw-card img {
+    width: 100%;
+    max-width: 280px;
+    height: auto;
+  }
+  
+  .dw-card .sku {
+    font-size: 1.2rem; /* Smaller on mobile */
+    padding: 4px 16px;
+  }
+  
+  .dw-card .title {
+    font-size: 1.3rem; /* Smaller on mobile */
+    min-height: auto;
+    max-height: none;
+    -webkit-line-clamp: 4; /* Allow more lines on mobile */
+    line-clamp: 4;
+  }
+  
+  .dw-card .price {
+    font-size: 1.8rem; /* Smaller on mobile */
+  }
+  
+  .dw-card .actions {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+  
+  .dw-link,
+  .dw-btn {
+    width: 100%;
+    text-align: center;
+    padding: 10px 20px; /* Slightly larger touch target */
+    font-size: 1.1rem; /* Smaller on mobile */
+  }
+}
+
+@media (max-width: 480px) {
+  .fitment-products-grid {
+    padding: 0 5px;
+    gap: 15px;
+  }
+  
+  .dw-card {
+    padding: 20px 15px 15px;
+  }
+  
+  .dw-card img {
+    max-width: 100%;
+  }
+  
+  .dw-card .sku {
+    font-size: 1.1rem;
+  }
+  
+  .dw-card .title {
+    font-size: 1.2rem;
+  }
+  
+  .dw-card .price {
+    font-size: 1.6rem;
+  }
+  
+  .dw-link,
+  .dw-btn {
+    font-size: 1rem;
+    padding: 12px 20px;
+  }
+}
+
+/* Match Fuel Pump Calculator Card Design & Mobile Polish */
+#powerInjectorForm .form-control,
+#ymm-form .form-control {
+  font-size: 16px;
+  min-height: 44px;
+  box-sizing: border-box;
+}
+#powerInjectorForm .reset-button,
+#ymm-form .reset-button,
+#shop-universal-actions .reset-button {
+  min-height: 46px;
+  font-size: 15px;
+  color: #ffffff !important;
+}
+.fitment-products-grid {
+  max-width: 1080px !important;
+  grid-template-columns: repeat(auto-fit, minmax(235px, 310px)) !important;
+  justify-content: center;
+  gap: 16px !important;
+}
+.dw-card {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 10px !important;
+  padding: 16px !important;
+  min-height: 0 !important;
+  box-shadow: 0 2px 8px rgba(4, 30, 66, 0.05) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  align-items: stretch !important;
+  text-align: left !important;
+  margin-bottom: 0 !important;
+}
+.dw-card img {
+  width: 100% !important;
+  max-width: 100% !important;
+  aspect-ratio: 1 / 1 !important;
+  height: auto !important;
+  object-fit: contain !important;
+  background: #ffffff !important;
+  border-radius: 8px !important;
+  padding: 6px !important;
+  margin: 0 0 10px 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  box-sizing: border-box !important;
+}
+.dw-card .sku {
+  align-self: flex-start !important;
+  background: #f1f5f9 !important;
+  color: #334155 !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  padding: 3px 9px !important;
+  border-radius: 6px !important;
+  margin: 0 0 8px 0 !important;
+  border: none !important;
+}
+.dw-card .title {
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  color: #041e42 !important;
+  line-height: 1.3 !important;
+  text-align: left !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  margin: 0 0 8px 0 !important;
+  -webkit-line-clamp: 3 !important;
+  line-clamp: 3 !important;
+}
+.dw-card .price {
+  font-size: 18px !important;
+  font-weight: 800 !important;
+  color: #041e42 !important;
+  text-align: left !important;
+  margin: 6px 0 12px 0 !important;
+  font-variant-numeric: tabular-nums;
+}
+.dw-card .actions {
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 8px !important;
+  margin-top: auto !important;
+}
+.dw-card .dw-link,
+.dw-card .dw-link:visited,
+.dw-card .dw-link:hover {
+  flex: 1 !important;
+  width: auto !important;
+  min-height: 44px !important;
+  padding: 9px 10px !important;
+  border-radius: 7px !important;
+  background: #ffffff !important;
+  color: #041e42 !important;
+  border: 1px solid #cbd5e1 !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+  box-shadow: none !important;
+  box-sizing: border-box !important;
+  text-decoration: none !important;
+}
+.dw-card .dw-link:hover {
+  border-color: #041e42 !important;
+}
+.dw-card .dw-btn,
+.dw-card .dw-btn:hover {
+  flex: 1 !important;
+  width: auto !important;
+  min-height: 44px !important;
+  padding: 9px 10px !important;
+  border-radius: 7px !important;
+  background: #ff5a00 !important;
+  color: #ffffff !important;
+  border: 1px solid #ff5a00 !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+  box-shadow: none !important;
+  box-sizing: border-box !important;
+  text-decoration: none !important;
+}
+.dw-card .dw-btn:hover {
+  background: #e04f00 !important;
+  border-color: #e04f00 !important;
+  opacity: 1 !important;
+}
+@media (max-width: 560px) {
+  .fitment-products-grid {
+    grid-template-columns: 1fr !important;
+    padding: 0 10px !important;
+  }
+  .dw-card img {
+    max-height: 260px !important;
+  }
+  .calculators-wrapper {
+    padding: 8px 10px !important;
+  }
+  .calculator-container {
+    padding: 16px !important;
+  }
+  #powerInjectorForm .form-group,
+  #ymm-form .form-group {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+  }
+  #powerInjectorForm .form-group label,
+  #ymm-form .form-group label {
+    flex: none;
+  }
+  #powerInjectorForm .form-control,
+  #powerInjectorForm .unit-control,
+  #ymm-form .form-control {
+    width: 100% !important;
+  }
+  #powerInjectorForm .unit-control input {
+    flex: 1;
+    width: auto !important;
+  }
+}
+
+/* --- UX Polish: Collapsed Vehicle Bar, Hidden Top-Left Garage, Centered 1-2 Card Grid --- */
+#dw-garage-display {
+  display: none !important;
+}
+.calculators-wrapper {
+  margin: 12px auto 10px !important;
+}
+.dw-ymm-collapsed {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  max-width: 540px;
+  margin: 12px auto 16px;
+  padding: 10px 16px;
+  background: #ffffff;
+  border: 1px solid #dbe3ee;
+  border-left: 4px solid #f26024;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+.dw-ymm-collapsed-text {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: #21334A;
+  flex-wrap: wrap;
+}
+.dw-ymm-label {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.dw-ymm-change-btn {
+  background: #21334A;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s ease;
+}
+.dw-ymm-change-btn:hover {
+  background: #f26024;
+}
+.fitment-results-wrapper {
+  margin: 16px auto 24px !important;
+}
+.fitment-products-grid {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+  align-items: stretch !important;
+  gap: 18px !important;
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+}
+.fitment-products-grid .dw-card {
+  flex: 0 1 360px !important;
+  width: 100% !important;
+  max-width: 375px !important;
+  min-height: 450px !important;
+  padding: 26px 24px 24px !important;
+  height: auto !important;
+}
+.fitment-products-grid .dw-card img {
+  max-height: 210px !important;
+  width: auto !important;
+  max-width: 100% !important;
+}
+@media (max-width: 768px) {
+  .dw-ymm-collapsed {
+    max-width: 100%;
+    margin: 10px 8px 14px;
+  }
+  .fitment-products-grid .dw-card {
+    flex: 1 1 100% !important;
+    max-width: 420px !important;
+    min-height: auto !important;
+  }
+}
+
+</style>
+
+<!-- Garage Display (hidden when no vehicle is saved in Garage) -->
+<div id="dw-garage-display" style="display: none;"></div>
+
+<div class="calculators-wrapper">
+  <div class="calculator-container">
+    <div class="calculator-title">Fuel Injector Calculator</div>
+    <form id="powerInjectorForm" onsubmit="return false;">
+      <div class="form-group">
+        <label>Target Crank</label>
+        <div class="unit-control">
+          <input style="width: 100px;" placeholder="Enter value" class="form-control" id="powerValue" type="number" inputmode="decimal">
+          <select class="form-control" id="powerUnit">
+            <option value="HP">HP</option>
+            <option value="kW">kW</option>
+            <option value="PS">PS</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label># of Injectors</label>
+        <input placeholder="Enter count" class="form-control" id="injectorCount" type="number" inputmode="numeric">
+      </div>
+
+      <div class="form-group">
+        <label>Induction Type</label>
+        <select class="form-control" id="induction">
+          <option value="Turbocharged">Turbocharged</option>
+          <option value="Supercharged">Supercharged</option>
+          <option value="Naturally Aspirated">Naturally Aspirated</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Fuel Type</label>
+        <select class="form-control" id="fuelType">
+          <option value="Gasoline">Gasoline</option>
+          <option value="Ethanol">Ethanol</option>
+          <option value="Methanol">Methanol</option>
+        </select>
+      </div>
+
+      <div class="form-group" id="ethanolBlendDiv" style="display: none;">
+        <label>Ethanol Blend</label>
+        <select class="form-control" id="ethanolBlend">
+          <option value="E98">E98</option>
+          <option value="E85">E85</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>B.S.F.C. Value (optional)</label>
+        <input step="0.01" placeholder="e.g., 0.65" class="form-control" id="customBSFC" type="number" inputmode="decimal">
+      </div>
+
+      <div class="form-group">
+        <label>Base Fuel Pressure (PSI)</label>
+        <input placeholder="43.5 (or 58 for LS)" value="43.5" step="0.5" min="20" max="100" class="form-control" id="basePressure" type="number" inputmode="decimal">
+      </div>
+
+      <div class="form-group">
+        <label>Max Duty Cycle (%)</label>
+        <input placeholder="Enter %" value="85" class="form-control" id="dutyCycle" type="number" inputmode="numeric" max="95" min="1">
+      </div>
+
+      <div class="output-container">
+        <div class="output" id="injectorOutput">0.00 cc/min</div>
+        <div id="injectorMeta" style="font-size: 13px; color: #475569; margin-top: 6px; line-height: 1.4;">Calibrated to DeatschWerks tech team BSFC table • Rated @ 43.5 PSI</div>
+      </div>
+
+      <button class="reset-button" type="button" onclick="resetPowerInjector()">Reset</button>
+    </form>
+  </div>
+</div>
+
+<!-- Injector Count Mismatch Warning (visible even when Enter Your Vehicle form is hidden) -->
+<div id="injector-warning" class="injector-warning" style="max-width: 500px; margin: 12px auto;">
+  Check the Number of Injectors
+</div>
+
+<!-- Collapsed Single-Line Vehicle Bar -->
+<div id="dw-ymm-collapsed" class="dw-ymm-collapsed" style="display: none;">
+  <div class="dw-ymm-collapsed-text">
+    <span class="dw-ymm-label">Vehicle:</span>
+    <span id="dw-ymm-collapsed-value"></span>
+  </div>
+  <button type="button" id="dw-ymm-change-btn" class="dw-ymm-change-btn">Change</button>
+</div>
+
+<!-- Year/Make/Model Input Form (only shown when no vehicle is saved in Garage) -->
+<div id="ymm-input-form" class="calculator-container" style="display: none; margin: 20px auto;">
+  <div class="calculator-title">Enter Your Vehicle</div>
+  <form id="ymm-form" onsubmit="return false;" autocomplete="off" novalidate>
+    <!-- Form inputs will be dynamically created -->
+  </form>
+</div>
+
+<div class="shop-universal-actions calculator-container" id="shop-universal-actions" style="display: none; margin: 10px auto;">
+  <button class="reset-button" type="button" onclick="window.shopUniversalInjectors()">Shop Universal Injectors</button>
+</div>
+
+<!-- Fitment Results -->
+<div class="fitment-results-wrapper" id="fitment-results-wrapper" style="display: none;">
+  <div class="fitment-results-header" style="display: none;">
+    <div class="meta" id="resultsMeta">Matching Parts</div>
+    <div id="dw-garage-display-header"></div>
+  </div>
+  <div id="fitment-results"></div>
+</div>
+
+<script>
+(function() {
+  'use strict';
+  
+  const GARAGE_KEY = 'cm_variant-garage';
+  const CSV_URL = 'https://cdn.shopify.com/s/files/1/0414/1681/8852/files/Applications.csv?v=1768578119';
+  const UNIVERSAL_FALLBACK_HANDLES = ['universal-standard-injector-34mm', 'universal-standard-injector-48mm', 'universal-standard-injector-60mm'];
+  let fitmentData = [];
+
+  // Add to cart function - define early so it's available for onclick handlers
+  window.addToCartFromCard = function(variantId, btn) {
+    const prev = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'Adding...';
+
+    const cartDrawer = document.querySelector('cart-drawer');
+    const formData = new FormData();
+    formData.append('id', String(variantId));
+    formData.append('quantity', '1');
+    if (cartDrawer && typeof cartDrawer.getSectionsToRender === 'function') {
+      formData.append('sections', cartDrawer.getSectionsToRender().map(s => s.id).join(','));
+      formData.append('sections_url', window.location.pathname);
+    }
+
+    fetch('/cart/add.js', {
+      method: 'POST',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        'Accept': 'application/json'
+      },
+      body: formData
+    })
+    .then(r => {
+      if (!r.ok) throw new Error('Add to cart failed');
+      return r.json();
+    })
+    .then((data) => {
+      btn.textContent = 'Added!';
+      setTimeout(() => {
+        btn.textContent = prev;
+        btn.disabled = false;
+      }, 1500);
+
+      if (cartDrawer && typeof cartDrawer.renderContents === 'function' && data.sections) {
+        cartDrawer.renderContents(data);
+      }
+
+      document.dispatchEvent(new CustomEvent('cart:updated'));
+      if (window.Shopify && window.Shopify.theme) {
+        document.dispatchEvent(new Event('cart:updated'));
+      }
+    })
+    .catch((error) => {
+      console.error('Add to cart error:', error);
+      btn.textContent = 'Error';
+      setTimeout(() => {
+        btn.textContent = prev;
+        btn.disabled = false;
+      }, 1500);
+    });
+  };
+
+  // ============================================================================
+  // GARAGE YMM READING CODE
+  // ============================================================================
+  function parseGarage(raw) {
+    try {
+      const sets = JSON.parse(raw || '[]');
+      const arr = Array.isArray(sets) ? sets : [sets];
+      for (let i = arr.length - 1; i >= 0; i--) {
+        const trio = Array.isArray(arr[i]) ? arr[i] : [arr[i]];
+        const m = {};
+        trio.forEach(it => {
+          if (it && it.field) {
+            m[it.field.toLowerCase()] = it.value ?? it.term ?? String(it);
+          }
+        });
+        if (m.year && m.make && m.model) {
+          return {
+            year: String(m.year).trim(),
+            make: String(m.make).trim(),
+            model: String(m.model).trim()
+          };
+        }
+      }
+    } catch (e) {
+      return null;
+    }
+    return null;
+  }
+
+  function readGarage() {
+    try {
+      const raw = localStorage.getItem(GARAGE_KEY);
+      return raw ? parseGarage(raw) : null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function formatYMM(ymm) {
+    if (!ymm) return '';
+    const modelStartsWithMake = ymm.model.toLowerCase().startsWith(ymm.make.toLowerCase() + ' ');
+    const line = (modelStartsWithMake
+      ? `${ymm.year} ${ymm.model}`
+      : `${ymm.year} ${ymm.make} ${ymm.model}`)
+      .replace(/\s+/g, ' ')
+      .trim();
+    return line.toUpperCase();
+  }
+
+  function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
+  // ============================================================================
+  // CSV PARSING AND LOOKUP
+  // ============================================================================
+  function parseCSV(text) {
+    const lines = text.split('\n').filter(line => line.trim());
+    if (lines.length === 0) return [];
+    
+    const rawHeaders = parseCSVLine(lines[0]);
+    // Strip BOM and trim headers so PartType, Make, Model, YearFrom, PartNumber are found
+    const headers = rawHeaders.map(h => h.replace(/^\uFEFF/, '').trim());
+    const data = [];
+    for (let i = 1; i < lines.length; i++) {
+      const values = parseCSVLine(lines[i]);
+      if (values.length === 0) continue;
+      
+      const entry = {};
+      headers.forEach((header, index) => {
+        entry[header] = values[index] ? values[index].trim() : '';
+      });
+      data.push(entry);
+    }
+    return data;
+  }
+
+  function parseCSVLine(line) {
+    const result = [];
+    let current = '';
+    let inQuotes = false;
+    
+    for (let i = 0; i < line.length; i++) {
+      const char = line[i];
+      const nextChar = line[i + 1];
+      
+      if (char === '"') {
+        if (inQuotes && nextChar === '"') {
+          current += '"';
+          i++;
+        } else {
+          inQuotes = !inQuotes;
+        }
+      } else if (char === ',' && !inQuotes) {
+        result.push(current);
+        current = '';
+      } else {
+        current += char;
+      }
+    }
+    result.push(current);
+    return result;
+  }
+
+  function findFitment(year, make, model) {
+    if (!fitmentData.length) return [];
+    
+    const yearNum = parseInt(year, 10);
+    return fitmentData.filter(item => {
+      const itemYearFrom = parseInt(item.YearFrom, 10);
+      const itemYearTo = parseInt(item.YearTo, 10);
+      const itemMake = (item.Make || '').toUpperCase().trim();
+      const itemModel = (item.Model || '').toUpperCase().trim();
+      const searchMake = (make || '').toUpperCase().trim();
+      const searchModel = (model || '').toUpperCase().trim();
+      
+      // CSV may have only YearFrom (single-year rows); use YearTo as range when present
+      const yearMatch = !isNaN(yearNum) && !isNaN(itemYearFrom) && (
+        (!isNaN(itemYearTo) && itemYearTo >= itemYearFrom)
+          ? (yearNum >= itemYearFrom && yearNum <= itemYearTo)
+          : (yearNum === itemYearFrom)
+      );
+      const makeMatch = itemMake === searchMake;
+      const modelMatch = itemModel === searchModel || 
+                       itemModel.includes(searchModel) || 
+                       searchModel.includes(itemModel);
+      
+      return yearMatch && makeMatch && modelMatch;
+    });
+  }
+
+  function saveYMMToGarage(year, make, model) {
+    try {
+      // Format data to match convermax garage structure exactly
+      const garageData = [{
+        field: 'year',
+        value: String(year).trim()
+      }, {
+        field: 'make',
+        value: String(make).trim()
+      }, {
+        field: 'model',
+        value: String(model).trim()
+      }];
+      
+      // Save to convermax garage key with same structure and naming convention
+      localStorage.setItem(GARAGE_KEY, JSON.stringify([garageData]));
+      
+      return true;
+    } catch (e) {
+      console.error('Error saving to garage:', e);
+      return false;
+    }
+  }
+
+  // Extract unique values from CSV data for dropdowns
+  function getUniqueYears() {
+    if (!fitmentData || fitmentData.length === 0) return [];
+    const years = new Set();
+    fitmentData.forEach(item => {
+      const from = parseInt(item.YearFrom, 10);
+      const to = parseInt(item.YearTo, 10);
+      if (!isNaN(from)) {
+        if (!isNaN(to) && to >= from) {
+          for (let year = from; year <= to; year++) years.add(year);
+        } else {
+          years.add(from);  // single-year row when YearTo missing
+        }
+      }
+    });
+    return Array.from(years).sort((a, b) => b - a); // Sort descending (newest first)
+  }
+
+  function populateYearDropdown() {
+    const { yearInput } = getYMMInputs();
+    if (!yearInput || yearInput.tagName !== 'SELECT') return;
+    
+    // Get current selection to preserve it
+    const currentValue = yearInput.value;
+    
+    // Clear existing options except the first "Select Year" option
+    yearInput.innerHTML = '<option value="">Select Year</option>';
+    
+    // Populate years from CSV
+    const years = getUniqueYears();
+    years.forEach(year => {
+      const option = document.createElement('option');
+      option.value = year;
+      option.textContent = year;
+      yearInput.appendChild(option);
+    });
+    
+    // Restore previous selection if it still exists
+    if (currentValue) {
+      yearInput.value = currentValue;
+    }
+  }
+
+  function getUniqueMakes(year) {
+    if (!fitmentData || fitmentData.length === 0) return [];
+    const makes = new Set();
+    const yearNum = parseInt(year, 10);
+    if (isNaN(yearNum)) return [];
+    
+    fitmentData.forEach(item => {
+      const itemYearFrom = parseInt(item.YearFrom, 10);
+      const itemYearTo = parseInt(item.YearTo, 10);
+      const yearOk = !isNaN(itemYearFrom) && (
+        (!isNaN(itemYearTo) && itemYearTo >= itemYearFrom)
+          ? (yearNum >= itemYearFrom && yearNum <= itemYearTo)
+          : (yearNum === itemYearFrom)
+      );
+      if (yearOk && item.Make) makes.add(item.Make.trim());
+    });
+    return Array.from(makes).sort();
+  }
+
+  function getUniqueModels(year, make) {
+    if (!fitmentData || fitmentData.length === 0) return [];
+    const models = new Set();
+    const yearNum = parseInt(year, 10);
+    if (isNaN(yearNum) || !make) return [];
+    
+    const makeUpper = make.toUpperCase().trim();
+    fitmentData.forEach(item => {
+      const itemYearFrom = parseInt(item.YearFrom, 10);
+      const itemYearTo = parseInt(item.YearTo, 10);
+      const itemMake = (item.Make || '').toUpperCase().trim();
+      const yearOk = !isNaN(itemYearFrom) && (
+        (!isNaN(itemYearTo) && itemYearTo >= itemYearFrom)
+          ? (yearNum >= itemYearFrom && yearNum <= itemYearTo)
+          : (yearNum === itemYearFrom)
+      );
+      if (yearOk && itemMake === makeUpper && item.Model) models.add(item.Model.trim());
+    });
+    return Array.from(models).sort();
+  }
+
+  function getYMMInputs() {
+    // Get selects by their current IDs stored in window.currentYMMIds
+    let yearInput, makeInput, modelInput;
+    if (window.currentYMMIds) {
+      yearInput = document.getElementById(window.currentYMMIds.year);
+      makeInput = document.getElementById(window.currentYMMIds.make);
+      modelInput = document.getElementById(window.currentYMMIds.model);
+    } else {
+      // Fallback: try to find by prefix
+      yearInput = document.querySelector('select[id^="ymm-year"], input[id^="ymm-year"]');
+      makeInput = document.querySelector('select[id^="ymm-make"], input[id^="ymm-make"]');
+      modelInput = document.querySelector('select[id^="ymm-model"], input[id^="ymm-model"]');
+    }
+    return { yearInput, makeInput, modelInput };
+  }
+
+  function clearYMMForm() {
+    const { yearInput, makeInput, modelInput } = getYMMInputs();
+    
+    if (yearInput) {
+      if (yearInput.tagName === 'SELECT') {
+        yearInput.value = '';
+      } else {
+        yearInput.type = 'text';
+        yearInput.setAttribute('value', '');
+        yearInput.value = '';
+        yearInput.defaultValue = '';
+      }
+      yearInput.blur();
+      // Clear make and model when year is cleared
+      if (makeInput) makeInput.value = '';
+      if (modelInput) modelInput.value = '';
+      updateMakeDropdown();
+    }
+    if (makeInput) {
+      if (makeInput.tagName === 'SELECT') {
+        makeInput.value = '';
+      } else {
+        makeInput.type = 'text';
+        makeInput.setAttribute('value', '');
+        makeInput.value = '';
+        makeInput.defaultValue = '';
+      }
+      makeInput.blur();
+      // Clear model when make is cleared
+      if (modelInput) modelInput.value = '';
+      updateModelDropdown();
+    }
+    if (modelInput) {
+      if (modelInput.tagName === 'SELECT') {
+        modelInput.value = '';
+      } else {
+        modelInput.type = 'text';
+        modelInput.setAttribute('value', '');
+        modelInput.value = '';
+        modelInput.defaultValue = '';
+      }
+      modelInput.blur();
+    }
+    hideFitmentResults();
+  }
+
+  function checkAndShowYMMForm() {
+    const ymmForm = document.getElementById('ymm-input-form');
+    if (!ymmForm) return;
+
+    const ymm = readGarage();
+    if (ymm) {
+      // Vehicle already in Garage — hide the manual Enter Your Vehicle box
+      ymmForm.style.display = 'none';
+      return;
+    }
+
+    // No vehicle in Garage — ensure inputs exist and show the Enter Your Vehicle box
+    if (!window.currentYMMIds || !document.getElementById(window.currentYMMIds.year)) {
+      createYMMFormInputs();
+    }
+    ymmForm.style.display = 'block';
+  }
+
+  function populateDropdownsFromGarage(ymm) {
+    if (!ymm) return;
+    
+    const { yearInput, makeInput, modelInput } = getYMMInputs();
+    if (!yearInput || yearInput.tagName !== 'SELECT') {
+      console.log('Year dropdown not ready yet');
+      return;
+    }
+    
+    // Set year value (ensure it's a string to match option values)
+    const yearStr = String(ymm.year).trim();
+    const makeStr = String(ymm.make).trim();
+    const modelStr = String(ymm.model).trim();
+    
+    // Check if year exists in dropdown
+    const yearOption = Array.from(yearInput.options).find(opt => opt.value === yearStr);
+    if (!yearOption) {
+      console.log('Year not found in dropdown:', yearStr);
+      return;
+    }
+    
+    // Set year and update make dropdown
+    yearInput.value = yearStr;
+    updateMakeDropdown();
+    
+    // Wait for make dropdown to populate
+    setTimeout(() => {
+      if (!makeInput || makeInput.tagName !== 'SELECT') {
+        console.log('Make dropdown not ready');
+        return;
+      }
+      
+      // Check if make exists in dropdown
+      const makeOption = Array.from(makeInput.options).find(opt => opt.value === makeStr);
+      if (!makeOption) {
+        console.log('Make not found in dropdown:', makeStr);
+        return;
+      }
+      
+      // Set make and update model dropdown
+      makeInput.value = makeStr;
+      updateModelDropdown();
+      
+      // Wait for model dropdown to populate
+      setTimeout(() => {
+        if (!modelInput || modelInput.tagName !== 'SELECT') {
+          console.log('Model dropdown not ready');
+          return;
+        }
+        
+        // Check if model exists in dropdown
+        const modelOption = Array.from(modelInput.options).find(opt => opt.value === modelStr);
+        if (!modelOption) {
+          console.log('Model not found in dropdown:', modelStr);
+          return;
+        }
+        
+        // Set model
+        modelInput.value = modelStr;
+        
+        // Search for products after all dropdowns are set
+        if (fitmentData.length > 0) {
+          console.log('Searching fitment for garage vehicle:', ymm);
+          searchFitment(ymm);
+        }
+      }, 200);
+    }, 200);
+  }
+
+  function showCollapsedVehicleBar(ymm) {
+    const bar = document.getElementById('dw-ymm-collapsed');
+    const val = document.getElementById('dw-ymm-collapsed-value');
+    const ymmForm = document.getElementById('ymm-input-form');
+    const legacyDisplay = document.getElementById('dw-garage-display');
+    if (legacyDisplay) legacyDisplay.style.display = 'none';
+    if (val && ymm) val.textContent = formatYMM(ymm);
+    if (bar) bar.style.display = 'flex';
+    if (ymmForm) ymmForm.style.display = 'none';
+  }
+
+  function expandVehicleSelector() {
+    const bar = document.getElementById('dw-ymm-collapsed');
+    const ymmForm = document.getElementById('ymm-input-form');
+    if (bar) bar.style.display = 'none';
+    if (ymmForm) {
+      ymmForm.style.display = 'block';
+      const { yearInput } = getYMMInputs();
+      if (yearInput) yearInput.focus();
+    }
+  }
+
+  function updateGarageDisplay() {
+    const display = document.getElementById('dw-garage-display');
+    const headerDisplay = document.getElementById('dw-garage-display-header');
+    const bar = document.getElementById('dw-ymm-collapsed');
+    if (headerDisplay) headerDisplay.textContent = '';
+    if (display) display.style.display = 'none';
+
+    const ymm = readGarage();
+    if (ymm) {
+      showCollapsedVehicleBar(ymm);
+      if (fitmentData.length > 0) {
+        searchFitment(ymm);
+      }
+    } else {
+      if (bar) bar.style.display = 'none';
+      checkAndShowYMMForm();
+    }
+  }
+
+  // Track if form has been set up to prevent duplicate listeners
+  let formSetupDone = false;
+  
+  // Handle YMM form submission
+  function setupYMMForm() {
+    const form = document.getElementById('ymm-form');
+    if (!form || formSetupDone) return;
+    
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      // Form submission is handled by dropdown change events
+      // This prevents default form submission behavior
+      const { yearInput, makeInput, modelInput } = getYMMInputs();
+      if (!yearInput || !makeInput || !modelInput) return;
+      
+      const year = yearInput.value ? yearInput.value.trim() : '';
+      const make = makeInput.value ? makeInput.value.trim() : '';
+      const model = modelInput.value ? modelInput.value.trim() : '';
+      
+      // Only show alert if fields are actually empty (shouldn't happen with dropdowns)
+      if (!year || !make || !model) {
+        // Don't show alert - let dropdowns handle validation
+        return;
+      }
+      
+      // If all fields are filled, save and search (though this should already be done by model change handler)
+      if (year && make && model) {
+        saveYMMToGarage(year, make, model);
+        showCollapsedVehicleBar({ year, make, model });
+        if (fitmentData.length > 0) {
+          searchFitment({ year, make, model });
+        }
+      }
+    });
+    
+    formSetupDone = true;
+  }
+
+  async function fetchProductBySKU(partNumber) {
+    try {
+      console.log('Searching for product with part number:', partNumber);
+      
+      // Strategy 1: Try direct product handle lookup first (since part numbers match exactly)
+      const handleResult = await fetchProductByHandle(partNumber);
+      if (handleResult) {
+        return handleResult;
+      }
+      
+      // Strategy 2: Try search API as fallback (but handle HTML responses)
+      try {
+        const response = await fetch('/search.json?type=product&q=' + encodeURIComponent(partNumber));
+        if (response.ok) {
+          const contentType = response.headers.get('content-type');
+          if (contentType && contentType.includes('application/json')) {
+            const data = await response.json();
+            const products = data.products || [];
+            
+            console.log('Found', products.length, 'products in search for:', partNumber);
+            
+            // First priority: Exact SKU match in variants
+            for (const product of products) {
+              const variants = product.variants || [];
+              for (const variant of variants) {
+                if (variant.sku && variant.sku.trim() === partNumber.trim()) {
+                  console.log('✓ Found by exact SKU match:', partNumber, 'Product:', product.title);
+                  return { product, variant };
+                }
+              }
+            }
+            
+            // Second priority: Exact match in product title
+            const partUpper = partNumber.toUpperCase();
+            for (const product of products) {
+              const titleUpper = (product.title || '').toUpperCase();
+              if (titleUpper === partUpper || titleUpper.includes(partUpper)) {
+                const variants = product.variants || [];
+                const matchingVariant = variants.find(v => 
+                  v.sku && v.sku.trim() === partNumber.trim()
+                );
+                if (matchingVariant) {
+                  console.log('✓ Found by title with matching SKU:', partNumber, 'Product:', product.title);
+                  return { product, variant: matchingVariant };
+                }
+                const availableVariant = variants.find(v => v.available) || variants[0];
+                if (availableVariant) {
+                  console.log('✓ Found by title match:', partNumber, 'Product:', product.title);
+                  return { product, variant: availableVariant };
+                }
+              }
+            }
+            
+            // If search returned products, use first one
+            if (products.length > 0) {
+              const product = products[0];
+              const variants = product.variants || [];
+              const variant = variants.find(v => v.available) || variants[0];
+              console.log('✓ Found by search (first result):', partNumber, 'Product:', product.title);
+              return { product, variant: variant || null };
+            }
+          } else {
+            console.log('✗ Search returned non-JSON response for:', partNumber);
+          }
+        }
+      } catch (searchError) {
+        console.log('✗ Search API error for:', partNumber, searchError.message);
+      }
+      
+      console.log('✗ No product found for:', partNumber);
+      return null;
+    } catch (e) {
+      console.error('Error fetching product for part number:', partNumber, e);
+      return null;
+    }
+  }
+
+  // Primary method: Fetch product by handle using Shopify .js endpoint
+  async function fetchProductByHandle(partNumber) {
+    try {
+      // Try common handle formats - part numbers match exactly so handle should match
+      const handleFormats = [
+        partNumber.toLowerCase().replace(/\s+/g, '-'),  // "16S-00-2200-8" -> "16s-00-2200-8"
+        partNumber.toLowerCase(),                        // "16s-00-2200-8"
+        partNumber.replace(/\s+/g, '-').toLowerCase()   // Ensure no spaces
+      ];
+      
+      for (const handle of handleFormats) {
+        try {
+          // Use Shopify's .js endpoint as recommended
+          const url = '/products/' + handle + '.js';
+          const response = await fetch(url);
+          
+          if (response.ok) {
+            const contentType = response.headers.get('content-type');
+            // .js endpoint returns JavaScript, but we can parse it as JSON
+            if (contentType && (contentType.includes('application/json') || contentType.includes('application/javascript') || contentType.includes('text/javascript'))) {
+              const product = await response.json();
+              const variants = product.variants || [];
+              
+              // First priority: Find variant with exact SKU match
+              const matchingVariant = variants.find(v => 
+                v.sku && v.sku.trim() === partNumber.trim()
+              );
+              
+              if (matchingVariant) {
+                console.log('✓ Found by direct handle with exact SKU match:', partNumber, 'Handle:', handle);
+                return { product, variant: matchingVariant };
+              }
+              
+              // Second priority: Use first available variant
+              const availableVariant = variants.find(v => v.available) || variants[0];
+              if (availableVariant) {
+                console.log('✓ Found by direct handle:', partNumber, 'Handle:', handle);
+                return { product, variant: availableVariant };
+              }
+              
+              // If product exists but no variants, return product with null variant
+              if (variants.length === 0) {
+                console.log('✓ Found product but no variants:', partNumber, 'Handle:', handle);
+                return { product, variant: null };
+              }
+            } else {
+              console.log('✗ Unexpected content type for handle:', handle, 'Type:', contentType);
+            }
+          } else if (response.status === 404) {
+            // Product not found at this handle, try next format
+            continue;
+          } else {
+            console.log('✗ Error response for handle:', handle, 'Status:', response.status);
+          }
+        } catch (e) {
+          console.log('✗ Error fetching handle:', handle, e.message);
+          // Continue to next format
+          continue;
+        }
+      }
+      
+      return null;
+    } catch (e) {
+      console.error('Error in fetchProductByHandle for:', partNumber, e);
+      return null;
+    }
+  }
+
+  function formatPrice(cents) {
+    if (!cents) return '';
+    const currency = (window.Shopify && Shopify.currency && Shopify.currency.active) || 'USD';
+    return (cents / 100).toLocaleString(undefined, { style: 'currency', currency: currency });
+  }
+
+  function buildProductCardHtml(productData) {
+    if (!productData || !productData.product) return '';
+    const product = productData.product;
+    const variant = productData.variant || (product.variants && product.variants[0]) || null;
+    const productUrl = '/products/' + (product.handle || '');
+    const productTitle = product.title || '';
+    let imageUrl = product.featured_image || null;
+    if (!imageUrl && product.images && product.images.length > 0) {
+      const first = product.images[0];
+      imageUrl = typeof first === 'string' ? first : (first.src || first);
+    }
+    const productPrice = variant && variant.price ? formatPrice(variant.price) : '';
+    const productSKU = (variant && variant.sku) ? variant.sku : productTitle;
+    const variantId = variant ? variant.id : null;
+    const isAvailable = variant ? (variant.available !== false) : false;
+    let html = '<div class="dw-card" role="group" aria-label="Product card">';
+    html += imageUrl
+      ? '<img src="' + imageUrl + '" alt="' + escapeHtml(productTitle) + '" loading="lazy">'
+      : '<img src="https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-image.png" alt="' + escapeHtml(productTitle) + '" loading="lazy">';
+    html += '<div class="sku">SKU: ' + escapeHtml(productSKU) + '</div>';
+    html += '<div class="title">' + escapeHtml(productTitle) + '</div>';
+    if (productPrice) html += '<div class="price">' + productPrice + '</div>';
+    html += '<div class="actions"><a class="dw-link" href="' + productUrl + '">View Product</a>';
+    if (variantId && isAvailable) html += '<button class="dw-btn" onclick="addToCartFromCard(' + variantId + ', this)" data-variant-id="' + variantId + '">Add to Cart</button>';
+    html += '</div></div>';
+    return html;
+  }
+
+  // Validate injector count against part numbers
+  // Returns true if there's a mismatch, false otherwise
+  function validateInjectorCount(partNumbers) {
+    const injectorCountInput = document.getElementById('injectorCount');
+    const injectorCount = parseInt(injectorCountInput?.value || '0', 10);
+    const warningEl = document.getElementById('injector-warning');
+    
+    if (!injectorCount || injectorCount <= 0 || !partNumbers || partNumbers.length === 0) {
+      // Hide warning if no injector count or no products
+      if (warningEl) {
+        warningEl.classList.remove('show');
+      }
+      return false; // No mismatch if no data to check
+    }
+    
+    // Check if any part number's last digit doesn't match injector count
+    let hasMismatch = false;
+    for (const partNum of partNumbers) {
+      if (!partNum || typeof partNum !== 'string') continue;
+      
+      // Extract last digit from part number
+      const lastChar = partNum.trim().slice(-1);
+      const lastDigit = parseInt(lastChar, 10);
+      
+      // Check if last digit is a valid number and doesn't match injector count
+      if (!isNaN(lastDigit) && lastDigit !== injectorCount) {
+        hasMismatch = true;
+        console.log('Mismatch detected: Part number', partNum, 'ends with', lastDigit, 'but injector count is', injectorCount);
+        break;
+      }
+    }
+    
+    if (hasMismatch) {
+      // Flash the injector count input
+      if (injectorCountInput) {
+        injectorCountInput.classList.add('flash-warning');
+        setTimeout(() => {
+          injectorCountInput.classList.remove('flash-warning');
+        }, 2400); // 3 flashes * 0.8s = 2.4s
+      }
+      
+      // Show and flash the yellow alert
+      if (warningEl) {
+        warningEl.classList.remove('injector-warning-flash');
+        void warningEl.offsetWidth; // reflow to restart animation if already showing
+        warningEl.classList.add('show');
+        warningEl.classList.add('injector-warning-flash');
+        setTimeout(() => warningEl.classList.remove('injector-warning-flash'), 1600); // 3 * 0.5s + buffer
+      }
+    } else {
+      // Hide warning if no mismatch
+      if (warningEl) {
+        warningEl.classList.remove('show');
+        warningEl.classList.remove('injector-warning-flash');
+      }
+    }
+    
+    return hasMismatch;
+  }
+
+  // Extract cc/min value from calculator output
+  function getCalculatorCCValue() {
+    const outputEl = document.getElementById('injectorOutput');
+    if (!outputEl) return null;
+    const text = outputEl.textContent || '';
+    // Extract number from "1234.56 cc/min" format
+    const match = text.match(/([\d.]+)\s*cc\/min/i);
+    if (match) {
+      const value = parseFloat(match[1]);
+      return isNaN(value) ? null : value;
+    }
+    return null;
+  }
+
+  // Extract cc/min value from product title or description
+  function extractCCFromProduct(text) {
+    if (!text) return null;
+    // Look for patterns like "1000cc/min", "1000 cc/min", "1000cc", "1000 cc", etc.
+    // Prioritize "cc/min" patterns first, then look for larger numbers (flow rates are typically 100+)
+    const patterns = [
+      /(\d+(?:\.\d+)?)\s*cc\s*\/\s*min/i,
+      /(\d+(?:\.\d+)?)\s*cc\/min/i,
+      /(\d{3,}(?:\.\d+)?)\s*cc\b/i  // Only match 3+ digit numbers for "cc" (avoids matching "4cc" from "4 Injectors")
+    ];
+    
+    // First try patterns that explicitly look for "cc/min"
+    for (let i = 0; i < 2; i++) {
+      const match = text.match(patterns[i]);
+      if (match) {
+        const value = parseFloat(match[1]);
+        if (!isNaN(value)) return value;
+      }
+    }
+    
+    // For "cc" pattern (without /min), find all matches and take the largest
+    // Flow rates are typically 100cc or more, while injector counts are usually single digits
+    const ccPattern = /(\d+(?:\.\d+)?)\s*cc\b/gi;
+    let maxValue = null;
+    let match;
+    
+    while ((match = ccPattern.exec(text)) !== null) {
+      const value = parseFloat(match[1]);
+      if (!isNaN(value) && value >= 100) { // Flow rates are typically 100cc or more
+        if (maxValue === null || value > maxValue) {
+          maxValue = value;
+        }
+      }
+    }
+    
+    return maxValue;
+  }
+
+  function hideFitmentResults() {
+    const resultsWrapper = document.getElementById('fitment-results-wrapper');
+    const resultsEl = document.getElementById('fitment-results');
+    const shopUniversalActions = document.getElementById('shop-universal-actions');
+    if (resultsWrapper) resultsWrapper.style.display = 'none';
+    if (resultsEl) resultsEl.innerHTML = '';
+    if (shopUniversalActions) shopUniversalActions.style.display = 'none';
+  }
+
+  function pickBestUniversalVariant(product, targetCC) {
+    if (!product || !Array.isArray(product.variants) || !product.variants.length) return null;
+    if (!targetCC || targetCC <= 0) return product.variants[0];
+    const minCC = targetCC * 0.95;
+    let best = null;
+    let bestScore = Infinity;
+    for (const v of product.variants) {
+      const text = [v.title || '', v.option1 || '', v.option2 || '', v.option3 || '', v.sku || ''].join(' ');
+      const cc = extractCCFromProduct(text);
+      if (cc === null) continue;
+      const score = cc >= targetCC
+        ? (cc - targetCC)
+        : (cc >= minCC ? (targetCC - cc) * 3 + 5000 : (targetCC - cc) * 10 + 50000);
+      if (score < bestScore) {
+        bestScore = score;
+        best = { variant: v, cc };
+      }
+    }
+    return best ? best.variant : product.variants[0];
+  }
+
+  async function showUniversalInjectors(intro) {
+    const resultsWrapper = document.getElementById('fitment-results-wrapper');
+    const resultsEl = document.getElementById('fitment-results');
+    const resultsMeta = document.getElementById('resultsMeta');
+    if (!resultsEl) return;
+    resultsEl.innerHTML = '<p>Loading universal injector options...</p>';
+    if (resultsWrapper) resultsWrapper.style.display = 'block';
+    const calculatorCC = getCalculatorCCValue();
+    if (resultsMeta) {
+      resultsMeta.textContent = (calculatorCC && calculatorCC > 0)
+        ? 'Showing universal injectors matched to ' + Math.round(calculatorCC) + ' cc/min'
+        : 'Showing universal injector sizes (34mm Compact, 48mm Standard, 60mm Tall)';
+    }
+    const productDataMap = new Map();
+    await Promise.all(UNIVERSAL_FALLBACK_HANDLES.map(async (handle) => {
+      try {
+        const data = await Promise.race([
+          fetchProductByHandle(handle),
+          new Promise(resolve => setTimeout(() => resolve(null), 5000))
+        ]);
+        if (data && data.product) {
+          const matchedVariant = pickBestUniversalVariant(data.product, calculatorCC) || data.variant;
+          productDataMap.set(handle, { product: data.product, variant: matchedVariant });
+        }
+      } catch (e) {
+        console.warn('Universal fetch failed for', handle, e);
+      }
+    }));
+    const cards = UNIVERSAL_FALLBACK_HANDLES.map(h => {
+      const pd = productDataMap.get(h);
+      if (!pd) return '';
+      let cardHtml = buildProductCardHtml(pd);
+      if (pd.variant && pd.variant.title && pd.variant.title !== 'Default Title') {
+        cardHtml = cardHtml.replace(
+          '</div><div class="price">',
+          ' <span style="display:block;font-size:0.85em;color:#f26024;font-weight:700;margin-top:3px;">Matched Option: ' + escapeHtml(pd.variant.title) + '</span></div><div class="price">'
+        );
+      }
+      return cardHtml;
+    }).filter(Boolean);
+    const noteSuffix = '';
+    const introHtml = '<p class="fitment-note fitment-note-center">' + escapeHtml(intro) + noteSuffix + '</p>';
+    resultsEl.innerHTML = introHtml + '<div class="fitment-products-grid">' + cards.join('') + '</div>';
+    setTimeout(() => attachAddToCartHandlers(), 100);
+  }
+
+  window.shopUniversalInjectors = function() {
+    showUniversalInjectors('Universal injector options:');
+  };
+
+  async function searchFitment(ymm) {
+    const resultsWrapper = document.getElementById('fitment-results-wrapper');
+    const resultsEl = document.getElementById('fitment-results');
+    const resultsMeta = document.getElementById('resultsMeta');
+    if (!resultsEl || !ymm) return;
+
+    // Don't show any product results until year, make, and model are all selected
+    const year = (ymm.year && String(ymm.year).trim()) || '';
+    const make = (ymm.make && String(ymm.make).trim()) || '';
+    const model = (ymm.model && String(ymm.model).trim()) || '';
+    if (!year || !make || !model) {
+      hideFitmentResults();
+      return;
+    }
+    
+    const matches = findFitment(ymm.year, ymm.make, ymm.model);
+    
+    if (matches.length === 0) {
+      const shopUniversalActions = document.getElementById('shop-universal-actions');
+      if (shopUniversalActions) shopUniversalActions.style.display = 'block';
+      await showUniversalInjectors('No vehicle-specific matches for ' + formatYMM(ymm) + '. Here are universal injector options:');
+      return;
+    }
+    
+    const partsMap = new Map();
+    matches.forEach(item => {
+      // Filter to only include fuel injector products
+      const partType = (item.PartType || '').toLowerCase().trim();
+      if (partType !== 'fuel injector') {
+        return; // Skip non-fuel injector products
+      }
+      
+      const partNum = item.PartNumber || 'Unknown';
+      if (!partsMap.has(partNum)) {
+        partsMap.set(partNum, {
+          partNumber: partNum,
+          partType: item.PartType || '',
+          brand: item.Brand || '',
+          years: new Set(),
+          entries: []
+        });
+      }
+      const part = partsMap.get(partNum);
+      part.years.add(item.YearFrom);
+      part.entries.push(item);
+    });
+    
+    // Check if we have any fuel injector products after filtering
+    if (partsMap.size === 0) {
+      const shopUniversalActions = document.getElementById('shop-universal-actions');
+      if (shopUniversalActions) shopUniversalActions.style.display = 'block';
+      await showUniversalInjectors('There are no injector fitments for your year, make and model. Please shop one of these Universal Injectors.');
+      return;
+    }
+    
+    // Show loading state
+    resultsEl.innerHTML = '<p>Loading products from Shopify...</p>';
+    if (resultsWrapper) resultsWrapper.style.display = 'block';
+    
+    // Fetch product data for each part number from CSV (with timeout)
+    const partsArray = Array.from(partsMap.keys());
+    const productDataMap = new Map();
+    
+    console.log('Fetching products from Shopify for', partsArray.length, 'part numbers from CSV');
+    
+    // Fetch products with better error handling
+    const fetchPromises = partsArray.map(async (partNum) => {
+      try {
+        const productData = await Promise.race([
+          fetchProductBySKU(partNum),
+          new Promise(resolve => setTimeout(() => resolve(null), 5000)) // 5 second timeout
+        ]);
+        if (productData && productData.product) {
+          productDataMap.set(partNum, productData);
+          return { partNum, success: true };
+        } else {
+          return { partNum, success: false };
+        }
+      } catch (e) {
+        console.error('Error fetching product for', partNum, e);
+        return { partNum, success: false, error: e.message };
+      }
+    });
+    
+    const results = await Promise.all(fetchPromises);
+    const found = results.filter(r => r.success).length;
+    const notFound = results.filter(r => !r.success).length;
+    
+    console.log(`Product lookup complete: ${found} found, ${notFound} not found`);
+    
+    // Filter: Only display parts that were found in Shopify
+    let foundParts = Array.from(partsMap.entries()).filter(([partNum]) => productDataMap.has(partNum));
+    
+    console.log('Parts from CSV:', partsMap.size);
+    console.log('Products found in Shopify:', productDataMap.size);
+    console.log('Parts to display before filtering:', foundParts.length);
+    
+    // Filter by injector count FIRST so cc-based "top 3" selection only chooses from matching parts.
+    // (Previously this ran after cc selection, so a -6 could take the 3rd slot then get removed for 8 injectors, leaving only 2.)
+    let hasMismatch = false;
+    const injectorCountForFilter = parseInt(document.getElementById('injectorCount')?.value || '0', 10);
+    if (injectorCountForFilter > 0 && foundParts.length > 0) {
+      const partNumbersBefore = foundParts.map(([p]) => p);
+      const filtered = foundParts.filter(([partNum]) => {
+        const lastDigit = parseInt((partNum || '').trim().slice(-1), 10);
+        return isNaN(lastDigit) || lastDigit === injectorCountForFilter;
+      });
+      if (filtered.length === 0) {
+        hasMismatch = true;
+        validateInjectorCount(partNumbersBefore);
+        foundParts = [];
+        console.log('No parts for ' + formatYMM(ymm) + ' match ' + injectorCountForFilter + ' injectors (last digit of part number must match).');
+      } else {
+        foundParts = filtered;
+        if (filtered.length < partNumbersBefore.length) {
+          console.log('Filtered to', foundParts.length, 'products matching', injectorCountForFilter, 'injectors (before cc selection)');
+        }
+      }
+    }
+    
+    // Filter by calculator output value when calculator has a value; otherwise show all fitment matches
+    const calculatorCC = getCalculatorCCValue();
+    let showCalculatorNote = '';
+
+    if (calculatorCC && calculatorCC > 0) {
+      // Allow a narrow 5% floor so borderline matches still appear, but prioritize injectors >= calculatorCC
+      const minCC = calculatorCC * 0.95;
+      const productsWithCC = foundParts.map(([partNum, part]) => {
+        const productData = productDataMap.get(partNum);
+        const product = productData?.product;
+        if (!product) return null;
+
+        const titleCC = extractCCFromProduct(product.title);
+        const descCC = extractCCFromProduct(product.description);
+        const skuCC = extractCCFromProduct(productData.variant?.sku || '');
+        const ccValue = titleCC || descCC || skuCC;
+
+        if (ccValue === null || ccValue < minCC) return null;
+
+        // Rank injectors meeting or exceeding target ahead of slightly undersized ones
+        const rankScore = ccValue >= calculatorCC
+          ? (ccValue - calculatorCC)
+          : ((calculatorCC - ccValue) * 3 + 10000);
+
+        return {
+          partNum,
+          part,
+          ccValue,
+          productData,
+          rankScore
+        };
+      }).filter(p => p !== null && p.ccValue !== null);
+
+      if (productsWithCC.length > 0) {
+        productsWithCC.sort((a, b) => a.rankScore - b.rankScore);
+        foundParts = productsWithCC.slice(0, 3).map(p => [p.partNum, p.part]);
+      } else {
+        // Sort available direct-fit matches largest-first, and also show universal injectors matched to targetCC
+        foundParts.sort((a, b) => {
+          const pa = productDataMap.get(a[0])?.product;
+          const pb = productDataMap.get(b[0])?.product;
+          const ca = pa ? (extractCCFromProduct(pa.title) || extractCCFromProduct(pa.description) || 0) : 0;
+          const cb = pb ? (extractCCFromProduct(pb.title) || extractCCFromProduct(pb.description) || 0) : 0;
+          return cb - ca;
+        });
+        foundParts = foundParts.slice(0, 3);
+        showCalculatorNote = '__SHOW_UNIVERSAL_BELOW__';
+      }
+    } else {
+      // Calculator not used or zero: show all fitment products found in Shopify (matches spreadsheet behavior)
+      foundParts = foundParts.slice(0, 6);
+      showCalculatorNote = 'Enter values in the calculator above to see recommended flow rates.';
+    }
+    
+    // Enforce maximum: 6 when showing fitment-only fallback, else 3
+    if (foundParts.length > (showCalculatorNote ? 6 : 3)) {
+      console.log('Limiting to maximum of', showCalculatorNote ? 6 : 3, 'products (found', foundParts.length, ')');
+      foundParts = foundParts.slice(0, showCalculatorNote ? 6 : 3);
+    }
+    
+    console.log('Parts to display after filtering:', foundParts.length);
+    
+    // Injector-count filter already applied above before cc selection; here we just run validateInjectorCount for UI (warning/flash) when injectorCount is 0, or as a no-op when pre-filter already did it.
+    if (foundParts.length > 0) {
+      const injectorCount = parseInt(document.getElementById('injectorCount')?.value || '0', 10);
+      const partNumbers = foundParts.map(([partNum]) => partNum);
+
+      if (injectorCount > 0) {
+        validateInjectorCount(partNumbers);
+      } else {
+        hasMismatch = validateInjectorCount(partNumbers);
+        if (hasMismatch) foundParts = [];
+      }
+    } else {
+      const warningEl = document.getElementById('injector-warning');
+      if (warningEl && !hasMismatch) warningEl.classList.remove('show');
+    }
+
+    if (foundParts.length === 0) {
+      if (hasMismatch) {
+        // Injector mismatch: yellow "Check the Number of Injectors" alert already shown above; hide results area and show nothing here
+        hideFitmentResults();
+        return;
+      }
+      const shopUniversalActions = document.getElementById('shop-universal-actions');
+      if (shopUniversalActions) shopUniversalActions.style.display = 'block';
+      await showUniversalInjectors('No direct-fit injectors found for ' + formatYMM(ymm) + '. Here are universal injector options:');
+      return;
+    }
+    
+    // Build HTML using dw-card styling - 3 columns, 10px gap
+    const flowOptionsIntro = (foundParts.length === 3) ? '<p class="fitment-note flow-options-intro">Based on your inputs to the fuel calculator here are 3 flow options closest to your flow rate results.</p>' : '';
+    const enterValuesNote = 'Enter values in the calculator above to see recommended flow rates.';
+    const wantUniversalBelow = (showCalculatorNote === '__SHOW_UNIVERSAL_BELOW__');
+    let html = (showCalculatorNote && !wantUniversalBelow ? '<p class="fitment-note' + (showCalculatorNote === enterValuesNote ? ' fitment-note-center' : '') + '">' + escapeHtml(showCalculatorNote) + '</p>' : '') + (wantUniversalBelow ? '' : flowOptionsIntro) + '<div class="fitment-products-grid">';
+    foundParts.forEach(([partNum, part]) => {
+      const years = Array.from(part.years).sort((a, b) => parseInt(a) - parseInt(b));
+      const productData = productDataMap.get(part.partNumber);
+      const product = productData?.product;
+      const variant = productData?.variant;
+      
+      // Since we filtered, product should always exist here
+      if (!product) {
+        console.warn('Product data missing for part:', part.partNumber);
+        return; // Skip this part
+      }
+      
+      // Get ALL product data from Shopify (not CSV)
+      const productUrl = '/products/' + product.handle;
+      
+      // Use Shopify product title (not CSV part number)
+      const productTitle = product.title || part.partNumber;
+      
+      // Get product image from Shopify
+      let imageUrl = null;
+      if (product.featured_image) {
+        imageUrl = product.featured_image;
+      } else if (product.images && product.images.length > 0) {
+        // Shopify .js returns images as strings or objects
+        const firstImage = product.images[0];
+        imageUrl = typeof firstImage === 'string' ? firstImage : (firstImage.src || firstImage);
+      }
+      
+      // Get price from Shopify variant (in cents, convert to dollars)
+      const productPrice = variant && variant.price ? formatPrice(variant.price) : '';
+      
+      // Get SKU from Shopify variant
+      const productSKU = (variant && variant.sku) ? variant.sku : part.partNumber;
+      
+      // Use Shopify product description (fallback to CSV if not available)
+      const productDescription = product.description 
+        ? product.description.replace(/<[^>]+>/g, '').substring(0, 100) + '...'
+        : (part.partType + (part.brand ? ' (' + part.brand + ')' : ''));
+      
+      // Variant ID for add to cart
+      const variantId = variant ? variant.id : null;
+      const isAvailable = variant ? (variant.available !== false) : false;
+      
+      console.log('Rendering Shopify product:', productTitle, 'Price:', productPrice, 'Variant ID:', variantId, 'Available:', isAvailable);
+      
+      // Use dw-card styling from provided code
+      html += '<div class="dw-card" role="group" aria-label="Product card">';
+      
+      // Product Image
+      if (imageUrl) {
+        html += '<img src="' + imageUrl + '" alt="' + escapeHtml(productTitle) + '" loading="lazy">';
+      } else {
+        html += '<img src="https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-image.png" alt="' + escapeHtml(productTitle) + '" loading="lazy">';
+      }
+      
+      // SKU
+      html += '<div class="sku">SKU: ' + escapeHtml(productSKU) + '</div>';
+      
+      // Product Title
+      html += '<div class="title">' + escapeHtml(productTitle) + '</div>';
+      
+      // Price
+      if (productPrice) {
+        html += '<div class="price">' + productPrice + '</div>';
+      }
+      
+      // Actions (View Product + Add to Cart)
+      html += '<div class="actions">';
+      html += '<a class="dw-link" href="' + productUrl + '">View Product</a>';
+      
+      if (variantId && isAvailable) {
+        html += '<button class="dw-btn" onclick="addToCartFromCard(' + variantId + ', this)" data-variant-id="' + variantId + '">Add to Cart</button>';
+      }
+      
+      html += '</div>'; // actions
+      html += '</div>'; // dw-card
+    });
+    html += '</div>';
+    
+    resultsEl.innerHTML = html;
+    if (wantUniversalBelow) {
+      const univWrap = document.createElement('div');
+      univWrap.style.marginTop = '24px';
+      univWrap.innerHTML = '<p class="fitment-note fitment-note-center" style="font-weight:700;">Universal Injector Options</p><div class="fitment-products-grid" id="dw-univ-below-grid"></div>';
+      resultsEl.appendChild(univWrap);
+      const uGrid = document.getElementById('dw-univ-below-grid');
+      const uMap = new Map();
+      await Promise.all(UNIVERSAL_FALLBACK_HANDLES.map(async (handle) => {
+        try {
+          const uData = await Promise.race([
+            fetchProductByHandle(handle),
+            new Promise(resolve => setTimeout(() => resolve(null), 5000))
+          ]);
+          if (uData && uData.product) {
+            const matchedV = pickBestUniversalVariant(uData.product, calculatorCC) || uData.variant;
+            uMap.set(handle, { product: uData.product, variant: matchedV });
+          }
+        } catch (e) {}
+      }));
+      if (uGrid) {
+        uGrid.innerHTML = UNIVERSAL_FALLBACK_HANDLES.map(h => {
+          const pd = uMap.get(h);
+          if (!pd) return '';
+          let cHtml = buildProductCardHtml(pd);
+          if (pd.variant && pd.variant.title && pd.variant.title !== 'Default Title') {
+            cHtml = cHtml.replace(
+              '</div><div class="price">',
+              ' <span style="display:block;font-size:0.85em;color:#f26024;font-weight:700;margin-top:3px;">Matched Option: ' + escapeHtml(pd.variant.title) + '</span></div><div class="price">'
+            );
+          }
+          return cHtml;
+        }).filter(Boolean).join('');
+      }
+    }
+    // Hide the header text
+    if (resultsMeta) resultsMeta.textContent = '';
+    // Hide Shop Universal Injectors button when we have matches
+    const shopUniversalActions = document.getElementById('shop-universal-actions');
+    if (shopUniversalActions) shopUniversalActions.style.display = 'none';
+    
+    console.log('Rendered', foundParts.length, 'product cards (only Shopify products)');
+    
+    // Attach add to cart handlers after a brief delay to ensure DOM is ready
+    setTimeout(() => {
+      attachAddToCartHandlers();
+      console.log('Add to cart handlers attached');
+    }, 100);
+  }
+
+
+  function attachAddToCartHandlers() {
+    // Handlers are attached via onclick in the HTML for dw-btn buttons
+    console.log('Add to cart handlers ready (using onclick for dw-btn buttons)');
+  }
+
+  // ============================================================================
+  // FUEL INJECTOR CALCULATOR CODE
+  // ============================================================================
+
+  // Exact DeatschWerks Tech Team BSFC Table (6-12-2026)
+  const TECH_INJ_BSFC = {
+    Gasoline: { NA: 0.50, Boost: 0.65 },
+    E85:      { NA: 0.70, Boost: 0.85 },
+    E98:      { NA: 0.80, Boost: 0.94 },
+    Methanol: { NA: 1.00, Boost: 1.77 }
+  };
+
+  const INJ_DRIVETRAIN_DIVISORS = {
+    crank: 1.00,
+    whp_rwd: 0.88,
+    whp_auto: 0.85,
+    whp_awd: 0.80
+  };
+
+  // Fuel Injector Calculator Calculation (Calibrated to Tech Team Sheet + Base Pressure)
+  function calculateInjectorFlow(params) {
+    const {
+      power,
+      powerUnit,
+      injectorCount,
+      induction,
+      fuelType,
+      ethanolBlend,
+      customBSFC,
+      basePressure,
+      dutyCycle
+    } = params;
+
+    let crankHP = power;
+    if (powerUnit === 'kW') {
+      crankHP = power * 1.34102;
+    } else if (powerUnit === 'PS') {
+      crankHP = power * 0.9863;
+    }
+
+    const mode = induction === 'Naturally Aspirated' ? 'NA' : 'Boost';
+    const fuelKey = fuelType === 'Ethanol' ? (ethanolBlend === 'E98' ? 'E98' : 'E85') : fuelType;
+    const bsfc = customBSFC > 0 ? customBSFC : TECH_INJ_BSFC[fuelKey][mode];
+
+    // Required flow at operating pressure (matches Tech Team sheet: ((HP * BSFC) / (Cyl * DC)) * 10.5)
+    const flowAtOpCc = ((crankHP * bsfc) / (injectorCount * (dutyCycle / 100))) * 10.5;
+
+    // Convert to DW 43.5 PSI (3-bar) rated injector size when running higher/lower base pressure
+    const bp = basePressure > 0 ? basePressure : 43.5;
+    const rated435Cc = flowAtOpCc * Math.sqrt(43.5 / bp);
+
+    return {
+      rated435Cc,
+      flowAtOpCc,
+      bsfc,
+      crankHP,
+      basePressure: bp,
+      fuelLabel: `${fuelKey} ${mode}`
+    };
+  }
+
+  // Event Handlers
+  const powerInjectorForm = document.getElementById('powerInjectorForm');
+  const fuelTypeSelect = document.getElementById('fuelType');
+  const ethanolBlendDiv = document.getElementById('ethanolBlendDiv');
+  const injectorOutput = document.getElementById('injectorOutput');
+  const injectorMeta = document.getElementById('injectorMeta');
+
+  function updateCalculator() {
+    const power = parseFloat(document.getElementById('powerValue').value) || 0;
+    const powerUnit = document.getElementById('powerUnit').value;
+    const injectorCount = parseInt(document.getElementById('injectorCount').value) || 0;
+    const induction = document.getElementById('induction').value;
+    const fuelType = document.getElementById('fuelType').value;
+    const ethanolBlend = document.getElementById('ethanolBlend').value;
+    const customBSFC = parseFloat(document.getElementById('customBSFC').value) || 0;
+    const basePressure = parseFloat(document.getElementById('basePressure').value) || 43.5;
+    const dutyCycle = parseInt(document.getElementById('dutyCycle').value) || 85;
+
+    if (power && injectorCount && dutyCycle) {
+      const calc = calculateInjectorFlow({
+        power,
+        powerUnit,
+        injectorCount,
+        induction,
+        fuelType,
+        ethanolBlend,
+        customBSFC,
+        basePressure,
+        dutyCycle
+      });
+
+      const ratedLbHr = calc.rated435Cc / 10.5;
+      injectorOutput.textContent = `${calc.rated435Cc.toFixed(2)} cc/min`;
+      if (injectorMeta) {
+        const psiNote = Math.abs(calc.basePressure - 43.5) > 0.1
+          ? ` • Flows ${calc.flowAtOpCc.toFixed(0)} cc/min @ ${calc.basePressure} PSI`
+          : '';
+        injectorMeta.textContent = `(${ratedLbHr.toFixed(1)} lb/hr rated @ 43.5 PSI${psiNote}) • ${calc.bsfc.toFixed(2)} BSFC (${calc.fuelLabel})`;
+      }
+      injectorOutput.classList.add('pulse');
+      setTimeout(() => injectorOutput.classList.remove('pulse'), 600);
+      
+      // Ensure YMM form is created and visible
+      checkAndShowYMMForm();
+      
+      // Re-filter products when calculator output changes
+      const ymm = readGarage();
+      if (ymm && fitmentData.length > 0) {
+        searchFitment(ymm);
+      }
+    } else {
+      injectorOutput.textContent = '0.00 cc/min';
+      // Keep form visible even when calculator resets to 0
+      checkAndShowYMMForm();
+    }
+  }
+
+  powerInjectorForm.addEventListener('input', updateCalculator);
+
+  // Enforce max duty cycle of 95%
+  const dutyCycleInput = document.getElementById('dutyCycle');
+  if (dutyCycleInput) {
+    dutyCycleInput.addEventListener('input', function() {
+      const value = parseFloat(this.value);
+      if (!isNaN(value) && value > 95) {
+        this.value = 95;
+      }
+    });
+    dutyCycleInput.addEventListener('blur', function() {
+      const value = parseFloat(this.value);
+      if (!isNaN(value) && value > 95) {
+        this.value = 95;
+        updateCalculator();
+      }
+    });
+  }
+
+  fuelTypeSelect.addEventListener('change', function() {
+    ethanolBlendDiv.style.display = this.value === 'Ethanol' ? 'flex' : 'none';
+    updateCalculator();
+  });
+
+  // Hide warning when injector count changes (will be re-validated when products are displayed)
+  const injectorCountInput = document.getElementById('injectorCount');
+  if (injectorCountInput) {
+    injectorCountInput.addEventListener('input', function() {
+      // Validation will happen again when searchFitment runs after updateCalculator
+      // But hide warning immediately for better UX
+      const warningEl = document.getElementById('injector-warning');
+      if (warningEl) {
+        warningEl.classList.remove('show');
+      }
+    });
+  }
+
+  // ============================================================================
+  // INITIALIZATION
+  // ============================================================================
+  function updateMakeDropdown() {
+    const { yearInput, makeInput } = getYMMInputs();
+    if (!yearInput || !makeInput || makeInput.tagName !== 'SELECT') return;
+    
+    const selectedYear = yearInput.value;
+    makeInput.innerHTML = '<option value="">Select Make</option>';
+    
+    if (selectedYear) {
+      const makes = getUniqueMakes(selectedYear);
+      makes.forEach(make => {
+        const option = document.createElement('option');
+        option.value = make;
+        option.textContent = make;
+        makeInput.appendChild(option);
+      });
+      makeInput.disabled = false;
+    } else {
+      makeInput.disabled = true;
+    }
+    
+    // Clear model when make changes
+    const { modelInput } = getYMMInputs();
+    if (modelInput && modelInput.tagName === 'SELECT') {
+      modelInput.innerHTML = '<option value="">Select Model</option>';
+      modelInput.disabled = true;
+    }
+  }
+
+  function updateModelDropdown() {
+    const { yearInput, makeInput, modelInput } = getYMMInputs();
+    if (!yearInput || !makeInput || !modelInput || modelInput.tagName !== 'SELECT') return;
+    
+    const selectedYear = yearInput.value;
+    const selectedMake = makeInput.value;
+    modelInput.innerHTML = '<option value="">Select Model</option>';
+    
+    if (selectedYear && selectedMake) {
+      const models = getUniqueModels(selectedYear, selectedMake);
+      models.forEach(model => {
+        const option = document.createElement('option');
+        option.value = model;
+        option.textContent = model;
+        modelInput.appendChild(option);
+      });
+      modelInput.disabled = false;
+    } else {
+      modelInput.disabled = true;
+    }
+  }
+
+  function createYMMFormInputs() {
+    const form = document.getElementById('ymm-form');
+    if (!form) return;
+    
+    // Reset form setup flag when recreating form
+    formSetupDone = false;
+    
+    // Clear existing form content
+    form.innerHTML = '';
+    
+    // Generate unique timestamp for this form instance
+    const timestamp = Date.now() + Math.random();
+    
+    // Create Year dropdown
+    const yearGroup = document.createElement('div');
+    yearGroup.className = 'form-group';
+    yearGroup.innerHTML = '<label>Year</label>';
+    const yearSelect = document.createElement('select');
+    yearSelect.id = 'ymm-year-' + timestamp;
+    yearSelect.className = 'form-control';
+    yearSelect.autocomplete = 'off';
+    yearSelect.setAttribute('data-lpignore', 'true');
+    yearSelect.required = true;
+    yearSelect.innerHTML = '<option value="">Select Year</option>';
+    
+    // Populate years from CSV (will be called again after CSV loads)
+    populateYearDropdown();
+    
+    // Add change handler to update makes when year changes
+    yearSelect.addEventListener('change', function() {
+      updateMakeDropdown();
+      // Auto-search when all fields are filled (if year changed but make/model already selected)
+      const { makeInput, modelInput } = getYMMInputs();
+      if (this.value && makeInput && makeInput.value && modelInput && modelInput.value) {
+        const ymm = {
+          year: this.value,
+          make: makeInput.value,
+          model: modelInput.value
+        };
+        saveYMMToGarage(ymm.year, ymm.make, ymm.model);
+        const display = document.getElementById('dw-garage-display');
+        if (display) {
+          display.textContent = formatYMM(ymm);
+          display.classList.remove('dw-garage-empty');
+          display.style.display = 'block';
+        }
+        if (fitmentData.length > 0) {
+          searchFitment(ymm);
+        }
+      } else {
+        hideFitmentResults();
+      }
+    });
+    
+    yearGroup.appendChild(yearSelect);
+    form.appendChild(yearGroup);
+    
+    // Create Make dropdown
+    const makeGroup = document.createElement('div');
+    makeGroup.className = 'form-group';
+    makeGroup.innerHTML = '<label>Make</label>';
+    const makeSelect = document.createElement('select');
+    makeSelect.id = 'ymm-make-' + timestamp;
+    makeSelect.className = 'form-control';
+    makeSelect.autocomplete = 'off';
+    makeSelect.setAttribute('data-lpignore', 'true');
+    makeSelect.required = true;
+    makeSelect.innerHTML = '<option value="">Select Make</option>';
+    makeSelect.disabled = true; // Disabled until year is selected
+    
+    // Add change handler to update models when make changes
+    makeSelect.addEventListener('change', function() {
+      updateModelDropdown();
+      // Auto-search when all fields are filled (if make changed but model already selected)
+      const { yearInput, modelInput } = getYMMInputs();
+      if (yearInput && yearInput.value && this.value && modelInput && modelInput.value) {
+        const ymm = {
+          year: yearInput.value,
+          make: this.value,
+          model: modelInput.value
+        };
+        saveYMMToGarage(ymm.year, ymm.make, ymm.model);
+        const display = document.getElementById('dw-garage-display');
+        if (display) {
+          display.textContent = formatYMM(ymm);
+          display.classList.remove('dw-garage-empty');
+          display.style.display = 'block';
+        }
+        if (fitmentData.length > 0) {
+          searchFitment(ymm);
+        }
+      } else {
+        hideFitmentResults();
+      }
+    });
+    
+    makeGroup.appendChild(makeSelect);
+    form.appendChild(makeGroup);
+    
+    // Create Model dropdown
+    const modelGroup = document.createElement('div');
+    modelGroup.className = 'form-group';
+    modelGroup.innerHTML = '<label>Model</label>';
+    const modelSelect = document.createElement('select');
+    modelSelect.id = 'ymm-model-' + timestamp;
+    modelSelect.className = 'form-control';
+    modelSelect.autocomplete = 'off';
+    modelSelect.setAttribute('data-lpignore', 'true');
+    modelSelect.required = true;
+    modelSelect.innerHTML = '<option value="">Select Model</option>';
+    modelSelect.disabled = true; // Disabled until make is selected
+    
+    // Add change handler to auto-search when model is selected
+    modelSelect.addEventListener('change', function() {
+      if (!this.value) {
+        hideFitmentResults();
+        return;
+      }
+      
+      // Auto-search when all fields are filled
+      const { yearInput, makeInput } = getYMMInputs();
+      if (yearInput && yearInput.value && makeInput && makeInput.value && this.value) {
+        const ymm = {
+          year: yearInput.value,
+          make: makeInput.value,
+          model: this.value
+        };
+        // Save to garage (convermax format)
+        saveYMMToGarage(ymm.year, ymm.make, ymm.model);
+        showCollapsedVehicleBar(ymm);
+        // Search for products
+        if (fitmentData.length > 0) {
+          searchFitment(ymm);
+        }
+      } else {
+        hideFitmentResults();
+      }
+    });
+    
+    modelGroup.appendChild(modelSelect);
+    form.appendChild(modelGroup);
+    
+    // Create submit button
+    const submitBtn = document.createElement('button');
+    submitBtn.type = 'submit';
+    submitBtn.className = 'reset-button';
+    submitBtn.textContent = 'Search Injectors';
+    form.appendChild(submitBtn);
+    
+    // Store current IDs for reference
+    window.currentYMMIds = {
+      year: 'ymm-year-' + timestamp,
+      make: 'ymm-make-' + timestamp,
+      model: 'ymm-model-' + timestamp
+    };
+    
+    // Note: Change handlers are already attached above in updateMakeDropdown and updateModelDropdown
+    
+    // Re-attach form handler
+    setupYMMForm();
+  }
+
+  function init() {
+    // Create form inputs dynamically to break browser history
+    createYMMFormInputs();
+    
+    // Setup YMM form handler
+    setupYMMForm();
+    const changeBtn = document.getElementById('dw-ymm-change-btn');
+    if (changeBtn && !changeBtn.dataset.bound) {
+      changeBtn.dataset.bound = '1';
+      changeBtn.addEventListener('click', function() {
+        clearYMMForm();
+        expandVehicleSelector();
+      });
+    }
+    
+    // Load CSV data
+    fetch(CSV_URL)
+      .then(response => response.text())
+      .then(data => {
+        fitmentData = parseCSV(data);
+        console.log('Fitment data loaded:', fitmentData.length, 'entries');
+        // Populate dropdowns now that CSV data is loaded
+        populateYearDropdown();
+        // Update garage display (this will populate dropdowns and search if garage exists)
+        // Only clear form if no garage exists
+        const ymm = readGarage();
+        if (!ymm) {
+          setTimeout(clearYMMForm, 100);
+        }
+        // Wait a bit longer to ensure dropdowns are populated before trying to set values
+        setTimeout(() => {
+          updateGarageDisplay();
+        }, 150);
+        updateCalculator();
+      })
+      .catch(error => {
+        console.error('Error loading fitment data:', error);
+        // Only clear form if no garage exists
+        const ymm = readGarage();
+        if (!ymm) {
+          setTimeout(clearYMMForm, 100);
+        }
+        updateGarageDisplay();
+        updateCalculator();
+      });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+  window.addEventListener('storage', (e) => {
+    if (e.key === GARAGE_KEY) {
+      updateGarageDisplay();
+    }
+  });
+  
+  document.addEventListener('shopify:section:load', init);
+  document.addEventListener('page:load', init);
+
+  window.resetPowerInjector = function() {
+    // Reset calculator
+    powerInjectorForm.reset();
+    document.getElementById('dutyCycle').value = '85';
+    document.getElementById('basePressure').value = '43.5';
+    injectorOutput.textContent = '0.00 cc/min';
+    if (injectorMeta) injectorMeta.textContent = 'Calibrated to DeatschWerks tech team BSFC table • Rated @ 43.5 PSI';
+    ethanolBlendDiv.style.display = 'none';
+    
+    // Reset Year/Make/Model form
+    clearYMMForm();
+    
+    // Clear garage from localStorage
+    try {
+      localStorage.removeItem(GARAGE_KEY);
+    } catch (e) {
+      console.error('Error clearing garage:', e);
+    }
+    
+    // Clear and hide garage display
+    const display = document.getElementById('dw-garage-display');
+    if (display) {
+      display.innerHTML = '';
+      display.style.display = 'none';
+    }
+    
+    // Clear product results
+    const resultsEl = document.getElementById('fitment-results');
+    if (resultsEl) {
+      resultsEl.innerHTML = '';
+    }
+    const resultsWrapper = document.getElementById('fitment-results-wrapper');
+    if (resultsWrapper) {
+      resultsWrapper.style.display = 'none';
+    }
+    const shopUniversalActions = document.getElementById('shop-universal-actions');
+    if (shopUniversalActions) {
+      shopUniversalActions.style.display = 'none';
+    }
+    
+    // Update garage display to reflect cleared state
+    updateGarageDisplay();
+  };
+})();
+</script>
+

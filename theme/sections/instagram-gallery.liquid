@@ -1,0 +1,278 @@
+
+{{ 'instagram-slider.css' | asset_url | stylesheet_tag }}
+
+
+
+{% javascript %}
+(function(win) {
+    'use strict';
+
+    var listeners = [],
+    doc = win.document,
+    MutationObserver = win.MutationObserver || win.WebKitMutationObserver,
+    observer;
+
+    function ready(selector, fn) {
+        // Store the selector and callback to be monitored
+        listeners.push({
+            selector: selector,
+            fn: fn
+        });
+        if (!observer) {
+            // Watch for changes in the document
+            observer = new MutationObserver(check);
+            observer.observe(doc.documentElement, {
+                childList: true,
+                subtree: true
+            });
+        }
+        // Check if the element is currently in the DOM
+        check();
+    }
+
+    function check() {
+        // Check the DOM for elements matching a stored selector
+        for (var i = 0, len = listeners.length, listener, elements; i < len; i++) {
+            listener = listeners[i];
+            // Query for elements matching the specified selector
+            elements = doc.querySelectorAll(listener.selector);
+            for (var j = 0, jLen = elements.length, element; j < jLen; j++) {
+                element = elements[j];
+                // Make sure the callback isn't invoked with the
+                // same element more than once
+                if (!element.ready) {
+                    element.ready = true;
+                    // Invoke the callback with the element
+                    listener.fn.call(element, element);
+                }
+            }
+        }
+    }
+
+    // Expose `ready`
+    win.ready = ready;
+
+})(window);
+
+ready('.instgram-banner-slider',function(){
+
+  setTimeout(function(){
+    $(".instgram-banner-slider").slick({
+      slidesToShow: 4,
+      slidesToScroll: 1,
+      prevArrow: '.instgram-banner .swiper-button-prev',
+      nextArrow: '.instgram-banner .swiper-button-next',
+      dots: true,
+      appendDots: '.instgram-banner .cus-slider-pagination',
+      autoplay: true,
+      autoplaySpeed: 3700,
+      infinite: true,
+      lazyLoad: 'anticipated',
+      pauseOnFocus: true,
+      pauseOnHover: true,
+      centerMode: true,
+      centerPadding: 'calc(8.334% - 0.25rem)',
+      responsive: [
+        {
+          breakpoint: 1439,
+          settings: {
+            slidesToShow: 3
+          }
+        },
+        {
+          breakpoint: 1280,
+          settings: {
+            slidesToShow: 3
+          }
+        },
+        {
+          breakpoint: 1024,
+          settings: {
+            arrows: false,
+            slidesToShow: 2
+          }
+        },
+        {
+          breakpoint: 992,
+          settings: {
+            arrows: false,
+            slidesToShow: 2,
+            centerPadding: 'calc(13.334% - 0.25rem)'
+          }
+        },
+        {
+          breakpoint: 768,
+          settings: {
+            arrows: false,
+            slidesToShow: 2,
+            centerPadding: 'calc(15.579710% - 0.25rem)'
+          }
+        },
+        {
+          breakpoint: 667,
+          settings: {
+            arrows: false,
+            slidesToShow: 1,
+            centerPadding: 'calc(21.579710% - 0.25rem)'
+          }
+        }
+      ]
+    });
+  }, 200);
+});
+
+{% endjavascript %}
+
+{% style %}
+.collection-banner div:empty {
+ display:block;
+}
+.section-{{ section.id }}-padding {
+  padding-top: {{ section.settings.padding_top | times: 0.54 | round: 0 }}px;
+  padding-bottom: {{ section.settings.padding_bottom | times: 0.7 | round: 0 }}px;
+}
+
+@media screen and (min-width: 1024px) {
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+}
+{% endstyle %}
+
+{%  liquid  
+  assign loading = 'eager'
+  if section.index > 1
+    assign loading = 'lazy'
+  endif
+%}
+
+
+<section class="instgram-banner color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+    <div class="instgram-banner-inner swiper">
+        <h3 class="h2 center f-italic {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">{{ section.settings.title }}</h3>
+       <div class="instgram-banner-slider">
+            {%- for block in section.blocks -%}
+                <div class="item">
+                    <a href="{{ block.settings.url_text}}" class="instgram-banner" target="_blank">
+                        <div class="category-figure">
+                            <div class="category-img">
+                                <img src="{{ block.settings.instagram_img | img_url:"" }}" alt="instagram image" height="100%" width="100%" loading="{{ loading }}">
+                            </div>
+                        </div>
+                        <div class="count-text">{% render 'icon-wishlist' %} {{ block.settings.like_count }}</div>
+                        <div class="content">
+                        <div class="btn">
+                          {% render 'icon-btn-play' %}
+                          {{ block.settings.btn_name }}
+                        </div>
+                        <p class="text">
+                            {{ block.settings.text }}
+                        </p>
+                        </div>
+                    </a>
+                </div>
+            {%- endfor -%}
+      </div>
+      <div class="arrow-row">
+        <div class="swiper-button-prev">{% render 'icon-left-arrow' %}</div>
+        <div class="cus-slider-pagination"></div>
+        <div class="swiper-button-next">{% render 'icon-btn-arrow' %}</div>
+      </div>
+      </div>
+      </section>
+
+      {% schema %}
+    {
+      "name": "Instagram Slider",
+      "tag": "section",
+      "class": "section-collection-banner",
+      "settings": [
+        {
+            "type": "color_scheme",
+            "id": "color_scheme",
+            "label": "t:sections.all.colors.label",
+            "default": "scheme-1"
+        },
+        {
+            "type": "html",
+            "id": "title",
+            "label": "Title",
+            "default": "Trusted by 30k Enthusiasts ON INSTAGRAM"
+        },
+        {
+            "type": "range",
+            "id": "padding_top",
+            "min": 0,
+            "max": 100,
+            "step": 2,
+            "unit": "px",
+            "label": "t:sections.all.padding.padding_top",
+            "default": 0
+          },
+          {
+            "type": "range",
+            "id": "padding_bottom",
+            "min": 0,
+            "max": 100,
+            "step": 2,
+            "unit": "px",
+            "label": "t:sections.all.padding.padding_bottom",
+            "default": 50
+          }
+      ],
+      "blocks": [
+        {
+            "type": "column",
+            "name": "item",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "instagram_img",
+                    "label": "Image",
+                    "info" : "Recommend Size '594 x 840px' and Format 'PNG' "
+                },
+                {
+                    "type": "text",
+                    "id": "like_count",
+                    "label": "Count",
+                    "default": "Count"
+                },
+                {
+                  "type": "text",
+                  "id": "text",
+                  "label": "Text",
+                  "default": "Text"
+               },
+                {
+                    "type": "text",
+                    "id": "btn_name",
+                    "label": "Button Name",
+                    "default": "View Reel"
+                },
+                {
+                  "type": "url",
+                  "id": "url_text",
+                  "label": "banner Link"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+          "name": "Instagram Slider",
+          "blocks": [
+            {
+              "type": "column"
+            },
+            {
+              "type": "column"
+            },
+            {
+              "type": "column"
+            }
+          ]
+        }
+      ]
+    }
+{% endschema %}

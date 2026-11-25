@@ -1,0 +1,48 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-blog",
+      "blocks": {
+        "search_BQwkPc": {
+          "type": "search",
+          "settings": {
+            "enable_search": true
+          }
+        },
+        "recent_post_kMAdLX": {
+          "type": "recent_post",
+          "settings": {
+            "title": "Recent Posts",
+            "number": 9
+          }
+        }
+      },
+      "block_order": [
+        "search_BQwkPc",
+        "recent_post_kMAdLX"
+      ],
+      "settings": {
+        "display_sidebar": true,
+        "layout": "grid",
+        "show_image": true,
+        "image_height": "medium",
+        "show_date": true,
+        "show_author": false,
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

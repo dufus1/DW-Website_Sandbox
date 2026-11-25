@@ -1,0 +1,315 @@
+{{ 'dw-fuel-system-builder.css' | asset_url | stylesheet_tag }}
+
+<section
+  id="dw-fsb-root"
+  class="dw-fsb"
+  data-default-template="{{ section.settings.default_template | escape }}"
+  data-default-canvas-theme="{{ section.settings.canvas_theme | escape }}"
+  data-cta-label="{{ section.settings.cta_label | escape }}"
+  data-shop-origin="{{ shop.url }}"
+>
+  <!-- Full-Bleed Native DeatschWerks Page Banner -->
+  <div class="dw-fsb__hero">
+    <div class="dw-fsb__hero-inner">
+      <div class="dw-fsb__hero-copy">
+        {%- if section.settings.eyebrow != blank -%}
+          <div class="dw-fsb__eyebrow">{{ section.settings.eyebrow }}</div>
+        {%- endif -%}
+        <h1 class="dw-fsb__title">{{ section.settings.heading }}</h1>
+      </div>
+    </div>
+
+    <!-- Starter Layout Tabs + Garage / Year-Make-Model Bar -->
+    <div class="dw-fsb__templates-bar">
+      <div class="dw-fsb__templates-left">
+        <span class="dw-fsb__templates-label">Starter Layouts</span>
+        <div id="fsbTemplatePills" class="dw-fsb__template-pills" role="tablist" aria-label="Starter Fuel System Layouts"></div>
+      </div>
+
+      <div class="dw-fsb__vehicle-bar" id="fsbVehicleBar" aria-label="Vehicle Fitment Selection">
+        <span class="dw-fsb__templates-label">Vehicle</span>
+        <div class="dw-fsb__vehicle-collapsed" id="fsbVehicleCollapsed" hidden>
+          <span class="dw-fsb__vehicle-name" id="fsbVehicleName"></span>
+          <span class="dw-fsb__vehicle-status" id="fsbVehicleStatus"></span>
+          <button type="button" id="fsbVehicleChange" class="dw-fsb__vehicle-btn">Change</button>
+          <button type="button" id="fsbVehicleClear" class="dw-fsb__vehicle-btn dw-fsb__vehicle-btn--clear" title="Clear vehicle & use universal catalog">Clear</button>
+        </div>
+        <div class="dw-fsb__vehicle-picker" id="fsbVehiclePicker">
+          <select id="fsbYmmYear" class="dw-fsb__ymm-sel" aria-label="Vehicle Year"><option value="">Year</option></select>
+          <select id="fsbYmmMake" class="dw-fsb__ymm-sel" aria-label="Vehicle Make" disabled><option value="">Make</option></select>
+          <select id="fsbYmmModel" class="dw-fsb__ymm-sel" aria-label="Vehicle Model" disabled><option value="">Model</option></select>
+          <button type="button" id="fsbVehicleCancel" class="dw-fsb__vehicle-btn" hidden>Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 0: Clean Full-Width Engine Spec Bar -->
+  <div class="dw-fsb__spec-ribbon" aria-label="Engine & Fuel System Target Specifications">
+    <div class="dw-fsb__spec-fields">
+      <div class="dw-fsb__field">
+        <label for="fsbPower">Target</label>
+        <input id="fsbPower" type="number" min="100" max="3000" step="25" value="820" />
+        <select id="fsbPowerUnit" aria-label="Power Unit">
+          <option value="WHP">WHP</option>
+          <option value="Crank">Crank HP</option>
+        </select>
+      </div>
+
+      <div class="dw-fsb__field" id="fsbDriveWrap">
+        <label for="fsbDrive">Drive</label>
+        <select id="fsbDrive">
+          <option value="RWD">RWD</option>
+          <option value="FWD">FWD</option>
+          <option value="AWD">AWD</option>
+        </select>
+      </div>
+
+      <div class="dw-fsb__field">
+        <label for="fsbCyl">Cylinders</label>
+        <select id="fsbCyl">
+          <option value="4">4-Cyl</option>
+          <option value="6">6-Cyl</option>
+          <option value="8" selected>8-Cyl</option>
+        </select>
+      </div>
+
+      <div class="dw-fsb__field">
+        <label for="fsbInd">Induction</label>
+        <select id="fsbInd">
+          <option value="NA">NA</option>
+          <option value="Turbo" selected>Turbo</option>
+          <option value="Supercharged">Supercharged</option>
+        </select>
+      </div>
+
+      <div class="dw-fsb__field" id="fsbBoostWrap">
+        <label for="fsbBoost">Boost</label>
+        <input id="fsbBoost" type="number" min="0" max="60" step="1" value="18" style="width:54px" />
+        <span class="dw-fsb__unit">PSI</span>
+      </div>
+
+      <div class="dw-fsb__field">
+        <label for="fsbBasePsi">Base</label>
+        <input id="fsbBasePsi" type="number" min="30" max="80" step="0.5" value="43.5" style="width:58px" />
+        <span class="dw-fsb__unit">PSI</span>
+      </div>
+
+      <div class="dw-fsb__field">
+        <label for="fsbFuel">Fuel</label>
+        <select id="fsbFuel">
+          <option value="Gasoline">Gasoline</option>
+          <option value="E85" selected>E85</option>
+          <option value="E98">E98</option>
+          <option value="Methanol">Methanol</option>
+        </select>
+      </div>
+
+      <div class="dw-fsb__field">
+        <label for="fsbSysType">System</label>
+        <select id="fsbSysType">
+          <option value="Return" selected>Return (1:1)</option>
+          <option value="Returnless">Returnless</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Full-Width Edge-to-Edge 3-Pane Workspace -->
+  <div class="dw-fsb__workspace" id="fsbWorkspace">
+    <!-- Left Component Catalog Drawer -->
+    <aside class="dw-fsb__palette" id="fsbPalettePane" aria-label="DeatschWerks Components">
+      <div class="dw-fsb__pane-head">
+        <h2>DW Parts Catalog</h2>
+        <button type="button" id="fsbCollapseCatalog" class="dw-fsb__icon-btn" title="Hide parts catalog for wider canvas">Hide ◀</button>
+      </div>
+      <div class="dw-fsb__search">
+        <input id="fsbSearch" type="search" placeholder="Search part #, DW400, 1500cc, filter..." />
+      </div>
+      <div class="dw-fsb__chips" id="fsbChips">
+        <button type="button" id="fsbFitChip" class="dw-fsb__chip dw-fsb__chip--fit" data-cat="fit" hidden>Fits Vehicle</button>
+        <button type="button" class="dw-fsb__chip is-active" data-cat="all">All</button>
+        <button type="button" class="dw-fsb__chip" data-cat="pumps">Pumps</button>
+        <button type="button" class="dw-fsb__chip" data-cat="surge">Surge Tanks</button>
+        <button type="button" class="dw-fsb__chip" data-cat="injectors">Injectors</button>
+        <button type="button" class="dw-fsb__chip" data-cat="rails">Rails</button>
+        <button type="button" class="dw-fsb__chip" data-cat="filters">Filters</button>
+        <button type="button" class="dw-fsb__chip" data-cat="regulators">Reg / Gauge</button>
+        <button type="button" class="dw-fsb__chip" data-cat="wiring">Wiring</button>
+        <button type="button" class="dw-fsb__chip" data-cat="plumbing">Plumbing</button>
+      </div>
+      <div class="dw-fsb__palette-list" id="fsbPaletteList"></div>
+    </aside>
+
+    <!-- Center Interactive Canvas -->
+    <div class="dw-fsb__canvas-col">
+      <div class="dw-fsb__swapbar">
+        <div class="dw-fsb__swap-group">
+          <button type="button" id="fsbShowCatalog" class="dw-fsb__btn dw-fsb__btn--outline" style="display:none">+ Parts Catalog</button>
+          <button type="button" id="fsbAddLineBtn" class="dw-fsb__btn dw-fsb__btn--connect" title="Connect two components with fuel hose and fittings">+ Add Fuel Line</button>
+
+          <span class="dw-fsb__swap-lbl">Hose:</span>
+          <div class="dw-fsb__seg" id="fsbMatToggle">
+            <button type="button" class="dw-fsb__seg-btn" data-val="CPE">CPE</button>
+            <button type="button" class="dw-fsb__seg-btn is-active" data-val="PTFE">PTFE</button>
+          </div>
+
+          <span class="dw-fsb__swap-lbl">Braid:</span>
+          <div class="dw-fsb__seg" id="fsbBraidToggle">
+            <button type="button" class="dw-fsb__seg-btn is-active" data-val="SS">Stainless</button>
+            <button type="button" class="dw-fsb__seg-btn" data-val="Nylon">Black Nylon</button>
+          </div>
+        </div>
+        <div class="dw-fsb__hint">Drag canvas or hold Space + drag to pan · Click any line pill to change hose &amp; fitting angles</div>
+      </div>
+
+      <div class="dw-fsb__stage-wrap" id="fsbStageWrap" data-canvas-theme="light">
+        <div class="dw-fsb__stage" id="fsbStage">
+          <svg class="dw-fsb__svg" id="fsbSvg"></svg>
+          <div id="fsbPills"></div>
+          <div id="fsbNodes"></div>
+        </div>
+
+        <!-- Step-by-Step Connect Mode Banner -->
+        <div class="dw-fsb__connect-banner" id="fsbConnectBanner" hidden>
+          <span id="fsbConnectText">Click any glowing port dot to start a fuel line</span>
+          <button type="button" id="fsbCancelConnect" class="dw-fsb__connect-cancel">Cancel</button>
+        </div>
+
+        <!-- Floating Canvas Pan / Zoom / Auto-Align Controls -->
+        <div class="dw-fsb__zoom-bar" aria-label="Canvas View Controls">
+          <button type="button" id="fsbZoomOut" class="dw-fsb__zoom-btn" title="Zoom Out">−</button>
+          <span id="fsbZoomPct" class="dw-fsb__zoom-pct dw-fsb__num">100%</span>
+          <button type="button" id="fsbZoomIn" class="dw-fsb__zoom-btn" title="Zoom In">+</button>
+          <button type="button" id="fsbZoomFit" class="dw-fsb__zoom-btn dw-fsb__zoom-btn--fit" title="Fit entire fuel system to screen">Fit</button>
+          <button type="button" id="fsbAutoAlign" class="dw-fsb__zoom-btn dw-fsb__zoom-btn--fit" title="Neatly align and space all components">Auto-Align</button>
+        </div>
+
+        <!-- Compact Line Color Legend -->
+        <div class="dw-fsb__legend" aria-label="Diagram Line Legend">
+          <span class="dw-fsb__legend-item"><i class="dw-fsb__legend-line dw-fsb__legend-line--feed"></i>Feed</span>
+          <span class="dw-fsb__legend-item"><i class="dw-fsb__legend-line dw-fsb__legend-line--return"></i>Return</span>
+          <span class="dw-fsb__legend-item"><i class="dw-fsb__legend-line dw-fsb__legend-line--wiring"></i>12V Hardwire</span>
+          <span class="dw-fsb__legend-item"><i class="dw-fsb__legend-line dw-fsb__legend-line--direct"></i>Direct Mount</span>
+        </div>
+
+        <!-- Floating Contextual Inspector -->
+        <div class="dw-fsb__inspector" id="fsbInspector" hidden></div>
+      </div>
+
+      <!-- Engineering Summary Strip -->
+      <div class="dw-fsb__telemetry" id="fsbTelemetry"></div>
+    </div>
+
+    <!-- Mobile-Friendly Guided Fuel System View (Shown automatically on phones & narrow tablets) -->
+    <div class="dw-fsb__mobile-guide" id="fsbMobileGuide" aria-label="Guided Mobile Fuel System Builder">
+      <div class="dw-fsb__m-section">
+        <div class="dw-fsb__m-head">
+          <h2>System Components</h2>
+          <div class="dw-fsb__m-add-wrap">
+            <select id="fsbMobileAddSel" class="dw-fsb__m-add-sel" aria-label="Add Component">
+              <option value="">+ Add Part...</option>
+            </select>
+          </div>
+        </div>
+        <div id="fsbMobileNodes" class="dw-fsb__m-list"></div>
+      </div>
+
+      <div class="dw-fsb__m-section">
+        <div class="dw-fsb__m-head">
+          <h2>Fuel Lines &amp; Fittings</h2>
+          <span class="dw-fsb__m-sub">Matte Black Fittings</span>
+        </div>
+        <div id="fsbMobileLines" class="dw-fsb__m-list"></div>
+      </div>
+    </div>
+
+    <!-- Right Live Shoppable BOM Sidebar -->
+    <aside class="dw-fsb__bom" aria-label="Live Bill of Materials">
+      <div class="dw-fsb__pane-head">
+        <h2>Live Bill of Materials</h2>
+        <span id="fsbPieceCount" class="dw-fsb__num">0 pcs</span>
+      </div>
+
+      <div class="dw-fsb__alerts" id="fsbAlerts"></div>
+      <div class="dw-fsb__bom-list" id="fsbBomList"></div>
+
+      <div class="dw-fsb__bom-foot">
+        <div class="dw-fsb__total-row">
+          <span>Selected Build Subtotal</span>
+          <strong id="fsbSubtotal" class="dw-fsb__num">$0</strong>
+        </div>
+        <button type="button" id="fsbAddCart" class="dw-fsb__btn dw-fsb__btn--primary dw-fsb__btn--lg">
+          {{ section.settings.cta_label | default: 'Add Selected Build to Cart' }}
+        </button>
+        <div class="dw-fsb__share-grid">
+          <button type="button" id="fsbCopyBuild" class="dw-fsb__btn dw-fsb__btn--outline">Copy Build Link</button>
+          <button type="button" id="fsbCopyCartLink" class="dw-fsb__btn dw-fsb__btn--outline">Copy Quote Cart Link</button>
+        </div>
+        <button type="button" id="fsbPrint" class="dw-fsb__btn dw-fsb__btn--subtle">Print / Save PDF Schematic &amp; BOM</button>
+      </div>
+    </aside>
+  </div>
+
+  <div id="fsbToast" class="dw-fsb__toast" role="status" aria-live="polite"></div>
+
+  <!-- Branded DeatschWerks Print / PDF Spec Sheet (Print Only) -->
+  <div id="fsbPrintSheet" class="dw-fsb__print-sheet" aria-hidden="true"></div>
+</section>
+
+<script src="{{ 'dw-fuel-system-builder.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "DW Fuel System Builder",
+  "tag": "div",
+  "class": "dw-fsb-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow label",
+      "default": "DEATSCHWERKS ENGINEERING"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "FUEL SYSTEM DESIGNER & BOM BUILDER"
+    },
+    {
+      "type": "select",
+      "id": "default_template",
+      "label": "Default starter layout",
+      "default": "street",
+      "options": [
+        { "value": "street", "label": "Street" },
+        { "value": "high-hp", "label": "High-HP" },
+        { "value": "race", "label": "Race" },
+        { "value": "blank", "label": "Blank" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "canvas_theme",
+      "label": "Default canvas style",
+      "default": "light",
+      "options": [
+        { "value": "light", "label": "Clean Technical Light" },
+        { "value": "dark", "label": "Motorsport Blueprint Dark" }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Add to cart button label",
+      "default": "Add Selected Build to Cart"
+    }
+  ],
+  "presets": [
+    {
+      "name": "DW Fuel System Builder"
+    }
+  ]
+}
+{% endschema %}

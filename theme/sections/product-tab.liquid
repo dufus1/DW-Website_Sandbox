@@ -1,0 +1,551 @@
+{{ 'text-icon-link.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  @media screen and (min-width: 1024px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+  .product-gallery__image .grid__item.product__media-item--full {
+    width: 100%;
+    max-width: 100%;
+  }
+  .product-gallery__images.slider-forhhh video {
+    width: 100%;
+  }
+
+  .product-gallery-video .product__media-item..slider__slide {
+    box-sizing: border-box;
+  }
+
+  .product__media-item video {
+    width: 100%;
+  }
+
+  .product-gallery__nav .global-media-settings{
+    position: static;
+  }
+  .product-gallery__nav{
+    padding: 0;
+  }
+{%- endstyle -%}
+
+{% assign has_video = false %}
+{% for media in product.media %}
+  {% if media.media_type == 'video' %}
+    {% assign has_video = true %}
+    {% capture countvideo %}{% increment videocount %}{% endcapture %}
+  {% endif %}
+{% endfor %}
+
+
+{%- comment -%}
+{% assign assets_global_path = 'https://cdn.shopify.com/s/files/1/0414/1681/8852/files/' %}
+{%- assign tech_data_sheet = product.metafields.custom_fields.technical_data.value -%}
+{%- assign tech_data_sheet_1 = product.metafields.custom_fields.technical_data1.value -%}
+{%- assign installation_data = product.metafields.custom_fields.installation_data.value -%}
+{%- assign tuning_data = product.metafields.custom_fields.tuning_data.value -%}
+{%- assign tuning_data_2 = product.metafields.custom_fields.tuning_data2.value -%}
+{%- assign hazardous_materials = product.metafields.custom_fields.hazardous_materials.value -%}
+{%- assign plumbing_diagram = product.metafields.custom_fields.plumbing_diagram.value -%}
+{%- endcomment -%}
+{%- assign tuning_data_dropbox = product.metafields.custom_fields.tuning_data_dropbox.value -%}
+{%- assign plumbing_diagram_dropbox = product.metafields.custom_fields.plumbing_diagram_dropbox.value -%}
+{%- assign installation_data_dropbox = product.metafields.custom_fields.installation_data_dropbox.value -%}
+{%- assign tech_data_sheet_dropbox = product.metafields.custom_fields.tech_data_sheet_dropbox.value -%}
+
+<div class="product-tab-main color-{{ section.settings.color_scheme }} gradient  section-{{ section.id }}-padding">
+  <div class="page-width scroll-trigger animate--slide-in">
+    <div class="product-tab">
+      <ul id="tabs-nav" class="product-tab-nav">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when '@app' -%}
+              {% render block %}
+            {%- when 'details' -%}
+              {%- if product.description != blank -%}
+                <li><a href="#tabDetails" class="active">Details</a></li>
+              {%- endif -%}
+            {%- when 'specifications' -%}
+              {%- if product.metafields.custom_fields.specification_data.value != blank -%}
+                <li><a href="#tabSpec">Specifications</a></li>
+              {%- endif -%}
+            {%- when 'download' -%}
+              {%- comment -%}
+              {%- if tech_data_sheet
+                or tech_data_sheet_1
+                or installation_data
+                or tuning_data
+                or tuning_data_2
+                or hazardous_materials
+                or plumbing_diagram
+                or tuning_data_dropbox
+                or plumbing_diagram_dropbox
+                or installation_data_dropbox
+                or tech_data_sheet_dropbox
+              -%}
+              {%- endcomment -%}
+              {%- if tuning_data_dropbox != blank
+                or plumbing_diagram_dropbox != blank
+                or installation_data_dropbox != blank
+                or tech_data_sheet_dropbox != blank
+              -%}
+                <li><a href="#tabTechnicalResources">Technical Resources</a></li>
+              {%- endif -%}
+            {%- when 'warranty' -%}
+                <li><a href="#tabWarranty">Warranty</a></li>
+            {%- when 'videos' -%}
+              {% if has_video == true %}
+                <li>
+                  <a class="link-tab-video" href="#tabVideo"
+                    >Videos (<span class="video-count">{{ videocount }}</span>)</a
+                  >
+                </li>
+              {% endif %}
+            {%- when 'fitment' -%}
+              <li><a href="#tabFitment">Fitment</a></li>
+          {%- endcase -%}
+        {%- endfor -%}
+      </ul>
+      <!-- END tabs-nav -->
+      <div id="tabs-content" class="product-tab-content-main">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when '@app' -%}
+              {% render block %}
+            {%- when 'details' -%}
+              <div id="tabDetails" class="tab-content active" data-title="Details">
+                <span class="tab-content-link">Details</span>
+                <div class="tab-item-content">
+                  {{ product.description }}
+                </div>
+              </div>
+            {%- when 'specifications' -%}
+              {%- if product.metafields.custom_fields.specification_data.value != blank -%}
+                <div id="tabSpec" class="tab-content" data-title="Specifications">
+                  <span class="tab-content-link">Specifications</span>
+                  <div class="tab-item-content">
+                    <ul class="specification-list">
+                      {%- assign specification = product.metafields.custom_fields.specification_data.value
+                        | split: '|'
+                      -%}
+                      {%- comment -%}
+                        Two passes so any "Note" row renders last, whatever order it
+                        appears in the metafield. Notes are prose rather than a value,
+                        so they also get .spec-note, which custom.css spans across both
+                        columns instead of squeezing them into a half-width cell.
+                      {%- endcomment -%}
+                      {%- for specitem in specification -%}
+                        {%- assign specrule = specitem | split: ':' -%}
+                        {%- assign speclabel = specrule[0] | strip | downcase -%}
+                        {%- unless speclabel contains 'note' -%}
+                          <li>
+                            <div class="spec-item">
+                              <label>{{ specrule[0] }}:</label><span>{{ specrule[1] }}</span>
+                            </div>
+                          </li>
+                        {%- endunless -%}
+                      {%- endfor -%}
+                      {%- for specitem in specification -%}
+                        {%- assign specrule = specitem | split: ':' -%}
+                        {%- assign speclabel = specrule[0] | strip | downcase -%}
+                        {%- if speclabel contains 'note' -%}
+                          <li class="spec-note">
+                            <div class="spec-item">
+                              <label>{{ specrule[0] }}:</label><span>{{ specrule[1] }}</span>
+                            </div>
+                          </li>
+                        {%- endif -%}
+                      {%- endfor -%}
+                    </ul>
+                  </div>
+                </div>
+              {%- endif -%}
+            {%- when 'download' -%}
+              {%- comment -%}
+              {%- if tech_data_sheet
+                or tech_data_sheet_1
+                or installation_data
+                or tuning_data
+                or tuning_data_2
+                or hazardous_materials
+                or plumbing_diagram
+                or tuning_data_dropbox
+                or plumbing_diagram_dropbox
+                or installation_data_dropbox
+                or tech_data_sheet_dropbox
+              -%}
+              {%- endcomment -%}
+              {%- if tuning_data_dropbox != blank
+                or plumbing_diagram_dropbox != blank
+                or installation_data_dropbox != blank
+                or tech_data_sheet_dropbox != blank
+              -%}
+                <div id="tabTechnicalResources" class="tab-content" data-title="Technical Resources">
+                  <span class="tab-content-link">Technical Resources</span>
+                  <div class="tab-item-content">
+                    <ul class="download-list">
+                      {%- comment -%}
+                      {%- if tech_data_sheet != blank -%}
+                        <li>
+                          <a href="{{ assets_global_path }}{{ tech_data_sheet }}" target="_blank" class="download-item">
+                            <i class="download-icon">
+                              {%- render 'icon-download' -%}
+                            </i>
+                            <span>Tech Data Sheet</span>
+                          </a>
+                        </li>
+                      {%- endif -%}
+
+                      {%- if tech_data_sheet_1 != blank -%}
+                        <li>
+                          <a
+                            href="{{ assets_global_path }}{{ tech_data_sheet_1 }}"
+                            target="_blank"
+                            class="download-item"
+                          >
+                            <i class="download-icon">
+                              {%- render 'icon-download' -%}
+                            </i>
+                            <span>Tech Data Sheet</span>
+                          </a>
+                        </li>
+                      {%- endif -%}
+
+                      {%- if installation_data != blank -%}
+                        <li>
+                          <a
+                            href="{{ assets_global_path }}{{ installation_data }}"
+                            target="_blank"
+                            class="download-item"
+                          >
+                            <i class="download-icon">
+                              {%- render 'icon-download' -%}
+                            </i>
+                            <span>Installation Instructions</span>
+                          </a>
+                        </li>
+                      {%- endif -%}
+
+                      {%- if plumbing_diagram != blank -%}
+                        <li>
+                          <a
+                            href="{{ assets_global_path }}{{ plumbing_diagram }}"
+                            target="_blank"
+                            class="download-item"
+                          >
+                            <i class="download-icon">
+                              {%- render 'icon-download' -%}
+                            </i>
+                            <span>Installation Guide</span>
+                          </a>
+                        </li>
+                      {%- endif -%}
+
+                      {%- if tuning_data != blank -%}
+                        <li>
+                          <a href="{{ assets_global_path }}{{ tuning_data }}" target="_blank" class="download-item">
+                            <i class="download-icon">
+                              {%- render 'icon-download' -%}
+                            </i>
+                            <span>Tuning Data</span>
+                          </a>
+                        </li>
+                      {%- endif -%}
+
+                      {%- if tuning_data_2 != blank -%}
+                        <li>
+                          <a href="{{ assets_global_path }}{{ tuning_data_2 }}" target="_blank" class="download-item">
+                            <i class="download-icon">
+                              {%- render 'icon-download' -%}
+                            </i>
+                            <span>Tuning Data</span>
+                          </a>
+                        </li>
+                      {%- endif -%}
+
+                      {%- if hazardous_materials != blank -%}
+                        <li>
+                          <a
+                            href="{{ assets_global_path }}{{ hazardous_materials }}"
+                            target="_blank"
+                            class="download-item"
+                          >
+                            <i class="download-icon">
+                              {%- render 'icon-download' -%}
+                            </i>
+                            <span>MSDS</span>
+                          </a>
+                        </li>
+                      {%- endif -%}
+                      {%- endcomment -%}
+
+                      {%- if tuning_data_dropbox.size > 0 -%}
+                        {%- for url in tuning_data_dropbox -%}
+                          <li>
+                            <a href="{{ url }}" target="_blank" class="download-item">
+                              <i class="download-icon">{%- render 'icon-download' -%}</i>
+                              <span>Tuning Data</span>
+                            </a>
+                          </li>
+                        {%- endfor -%}
+                      {%- endif -%}
+
+                      {%- if plumbing_diagram_dropbox.size > 0 -%}
+                        {%- for url in plumbing_diagram_dropbox -%}
+                          {%- comment -%}
+                            Label each diagram with its application, read out of the
+                            Dropbox filename, so that a product carrying two or more
+                            diagrams does not show identical links. Drop the leading
+                            part number, then the words every sheet shares; what is
+                            left is what tells them apart. Dropbox URL-safes "+" to
+                            "-", so year ranges like 2020+ are put back. If a filename
+                            does not follow the convention the label comes out blank
+                            and the link reads plainly "Plumbing Diagram".
+                          {%- endcomment -%}
+                          {%- assign pd_file = url | split: '/' | last | split: '?' | first | remove: '.pdf' | replace: '_', ' ' -%}
+                          {%- assign pd_label = pd_file | split: ' ' | slice: 1, 40 | join: ' ' | remove: ' Plumbing Diagram' | remove: ' Fuel System Diagram' | remove: ' X2 Module' | remove: ' X3 Module' | remove: ' Fuel Rail' | remove: ' OE and 8ORB' | replace: '2020- ', '2020+ ' | replace: '2015- ', '2015+ ' -%}
+                          <li>
+                            <a href="{{ url }}" target="_blank" class="download-item">
+                              <i class="download-icon">{%- render 'icon-download' -%}</i>
+                              <span>Plumbing Diagram{% if pd_label != blank %} &ndash; {{ pd_label }}{% endif %}</span>
+                            </a>
+                          </li>
+                        {%- endfor -%}
+                      {%- endif -%}
+
+                      {%- if installation_data_dropbox.size > 0 -%}
+                        {%- for url in installation_data_dropbox -%}
+                          <li>
+                            <a href="{{ url }}" target="_blank" class="download-item">
+                              <i class="download-icon">{%- render 'icon-download' -%}</i>
+                              <span>Installation Instructions</span>
+                            </a>
+                          </li>
+                        {%- endfor -%}
+                      {%- endif -%}
+                      {%- if tech_data_sheet_dropbox.size > 0 -%}
+                        {%- for url in tech_data_sheet_dropbox -%}
+                          <li>
+                            <a href="{{ url }}" target="_blank" class="download-item">
+                              <i class="download-icon">{%- render 'icon-download' -%}</i>
+                              <span>Tech Data Sheet</span>
+                            </a>
+                          </li>
+                        {%- endfor -%}
+                      {%- endif -%}
+                    </ul>
+                  </div>
+                </div>
+              {%- endif -%}
+            {%- when 'warranty' -%}
+  <div id="tabWarranty" class="tab-content" data-title="Warranty">
+    <span class="tab-content-link">Warranty</span>
+
+    <div class="tab-item-content">
+      <p>
+        Every DeatschWerks product is backed by a Limited Lifetime Warranty because durability is engineered into every design from the start. Our products undergo extensive endurance testing under extreme operating conditions to validate long-term reliability, performance, and consistency before they ever reach your vehicle. For complete coverage details and limitations, please review our
+        <a href="https://cdn.shopify.com/s/files/1/0414/1681/8852/files/DEATSCHWERKS_LIMITED_WARRANTY___LIFETIME_UPDATE.pdf"
+          target="_blank"
+          rel="noopener">Warranty Policy</a>.
+      </p>
+    </div>
+  </div>
+            {%- when 'videos' -%}
+              {% if has_video == true %}
+                <div id="tabVideo" class="tab-content" data-title="Videos">
+                  <span class="tab-content-link"
+                    >Videos (<span class="video-count">{{ videocount }}</span>)</span
+                  >
+                  <div class="tab-item-content">
+                    {% render 'product-video-tab' %}
+                  </div>
+                </div>
+              {% endif %}
+            {%- when 'fitment' -%}
+              <div id="tabFitment" class="tab-content" data-title="Fitment">
+                <span class="tab-content-link">Fitment</span>
+                <div class="tab-item-content">
+                  <div id="cm-fitment-table"></div>
+                </div>
+              </div>
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+      <!-- END tabs-content -->
+    </div>
+    <!-- END tabs -->
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product Tabs",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 50
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "type": "details",
+      "name": "Details",
+      "limit": 1
+    },
+    {
+      "type": "specifications",
+      "name": "Specifications",
+      "limit": 1
+    },
+    {
+      "type": "download",
+      "name": "Download",
+      "limit": 1
+    },
+    {
+      "type": "warranty",
+      "name": "Warranty",
+      "limit": 1
+    },
+    {
+      "type": "videos",
+      "name": "Videos",
+      "limit": 1
+    },
+    {
+      "type": "fitment",
+      "name": "Fitment",
+      "limit": 1
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Tabs",
+      "category": "Text"
+    }
+  ]
+}
+{% endschema %}
+
+<script>
+  // Product tab video
+  document.addEventListener('DOMContentLoaded', function () {
+    setTimeout(function () {
+      window.onJQueryLoad(function ($) {
+        $('#tabVideo').on('click', function () {
+          if ($(window).width() <= 1023) {
+            $('.productCarousel').slick('setPosition');
+          }
+        });
+
+        $('.link-tab-video').on('click', function () {
+          if ($(window).width() >= 1024) {
+            $('.productCarousel').slick('setPosition');
+          }
+        });
+
+        $('.product-gallery__images').slick({
+          infinite: false,
+          draggable: false,
+          swipeToSlide: false,
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          asNavFor: '.slider-nav',
+          dots: false,
+          arrows: false,
+        });
+        $('.product-gallery__nav').slick({
+          infinite: false,
+          draggable: true,
+          swipeToSlide: true,
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          asNavFor: '.single-slider ',
+          dots: false,
+          arrows: false,
+          focusOnSelect: true,
+          vertical: false,
+        });
+      });
+    }, 200);
+  });
+
+  // Product tab video
+
+  window.onJQueryLoad(function ($) {
+    function tabControl() {
+      var tabs = $('.product-tab').find('.product-tab-nav');
+      if (tabs.is(':visible')) {
+        tabs.find('a').on('click', function (event) {
+          event.preventDefault();
+          var target = $(this).attr('href'),
+            tabs = $(this).parents('.product-tab-nav'),
+            buttons = tabs.find('a'),
+            item = tabs.parents('.product-tab').find('.tab-content');
+          buttons.removeClass('active');
+          item.removeClass('active');
+          $(this).addClass('active');
+          $(target).addClass('active');
+        });
+      } else {
+        $('.tab-content').on('click', function () {
+          var container = $(this).parents('.product-tab'),
+            currId = $(this).attr('id'),
+            items = container.find('.tab-content');
+          container.find('.product-tab-nav a').removeClass('active');
+
+          $('.tab-content').not(this).removeClass('active');
+          $(this).toggleClass('active');
+          container.find('.product-tab-nav a[href$="#' + currId + '"]').toggleClass('active');
+        });
+      }
+    }
+
+    tabControl();
+
+    var resizeTimer;
+    $(window).on('resize', function (e) {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function () {
+        tabControl();
+      }, 250);
+    });
+  });
+</script>

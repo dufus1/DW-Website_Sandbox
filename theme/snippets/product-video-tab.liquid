@@ -1,0 +1,123 @@
+{%- style -%}
+.product-gallery-video .product__media-item{
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.video-thumb{
+  /* max-width: 31.875%; */
+  margin: 0 auto;
+  max-width: 45.9%;
+}
+
+.video-thumb .slick-list{
+  margin: 0 -0.75rem;
+}
+
+.video-thumb .thumbnail {
+  border: 0;
+}
+
+.video-thumb .thumbnail img {
+  aspect-ratio: 143 / 79;
+}
+
+.product-gallery__nav-item{
+  padding: 0 .75rem;
+}
+
+@media screen and (max-width: 666px) {
+  .video-thumb {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .video-thumb .slick-list{
+    margin: 0 -0.6rem;
+  } 
+
+  .product-gallery__nav-item {
+    padding: 0 0.6rem;
+  }
+}
+
+
+{%- endstyle -%}
+
+
+
+
+
+<section class="product-gallery-video">
+    <div class=" product-gallery-main-video">
+             <div class="productCarousel product-gallery__images single-slider " >
+                {%- for media in product.media -%}
+                      {% if media.media_type != 'image' %}
+                  <div class="product-gallery__image  {% if media.id == product.selected_or_first_available_variant.featured_media.id or product.media.size == 1 %}product-gallery__image--active{% endif %} " 
+                    data-media-id="{{ media.id }}" >
+                          {%- unless media.id == product.selected_or_first_available_variant.featured_media.id -%}
+                            <div id="Slide-{{ section.id }}-{{ media.id }}" class="product__media-item grid__itemn slider__slide ssssssssssssssss">
+                            {%- liquid
+                                case media.media_type
+                                when 'external_video'
+                                  assign video_class = 'js-' | append: media.host
+                                  if media.host == 'youtube'
+                                    echo media | external_video_url: autoplay: true, loop: loop, playlist: media.external_id | external_video_tag: class: video_class, loading: "lazy"
+                                  else
+                                    echo media | external_video_url: autoplay: true, loop: loop | external_video_tag: class: video_class, loading: "lazy"
+                                  endif
+                                when 'video'
+                                  echo media | media_tag: image_size: "2048x", autoplay: true, loop: loop, controls: true, preload: "none"
+                                when 'model'
+                                  echo media | media_tag: image_size: "2048x", toggleable: true
+                                endcase
+                              -%}
+                              
+                            </div>
+                          {%- endunless -%}
+                  </div>
+                        {%- endif -%}
+                {%- endfor -%}
+             </div>
+    </div>
+    <div class="video-thumb">
+            {%- if product.media.size > 1 -%}
+              <ul class="productCarousel product-gallery__nav  slider-nav">
+                {%- for media in product.media -%}
+                  {% if media.media_type != 'image' %}
+                  {%- unless media.id == product.selected_or_first_available_variant.featured_media.id -%}
+                    <li id="Slide-{{ section.id }}-{{ media.id }}" class=" product-gallery__nav-item product__media-item grid__item slider__slide">
+                        {%- capture thumbnail_id -%}
+                          Thumbnail-{{ section.id }}-{{ forloop.index }}{{ id_append }}
+                        {%- endcapture -%}
+                        <button
+                          class="thumbnail global-media-settings global-media-settings--no-shadow"
+                                    {% if media == product.selected_or_first_available_variant.featured_media
+                                      or product.selected_or_first_available_variant.featured_media == null
+                                      and forloop.index == 1
+                                    %}
+                                      aria-current="true"
+                                    {% endif %}
+                                    aria-controls="GalleryViewer-{{ section.id }}{{ id_append }}"
+                                    aria-describedby="{{ thumbnail_id }}"
+                                  >
+                                    {{
+                                      media.preview_image
+                                      | image_url: width: 416
+                                      | image_tag:
+                                        loading: 'lazy',
+                                        sizes: sizes,
+                                        widths: '54, 74, 104, 162, 208, 324, 416',
+                                        id: thumbnail_id,
+                                        alt: media.alt
+                                      | escape
+                                    }}
+                        </button>
+                    </li>
+                  {%- endunless -%}
+                {%- endif -%}
+                {%- endfor -%}
+              </ul>
+             {%- endif -%}
+           </div>
+  </section>

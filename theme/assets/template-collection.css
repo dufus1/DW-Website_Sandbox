@@ -1,0 +1,216 @@
+@media screen and (max-width: 749px) {
+  .collection .grid__item:only-child {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+
+@media screen and (max-width: 989px) {
+  .collection .slider.slider--tablet {
+    margin-bottom: 1.5rem;
+  }
+}
+
+.collection .loading-overlay {
+  position: absolute;
+  z-index: 1;
+  width: 1.8rem;
+}
+
+@media screen and (max-width: 749px) {
+  .collection .loading-overlay {
+    top: 0;
+    right: 0;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .collection .loading-overlay {
+    left: 0;
+  }
+}
+
+.collection .loading-overlay {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: none;
+  width: 100%;
+  padding: 0 1.5rem;
+  opacity: 0.7;
+}
+
+@media screen and (min-width: 750px) {
+  .collection .loading-overlay {
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+}
+
+.collection.loading .loading-overlay {
+  display: block;
+}
+
+.collection--empty .title-wrapper {
+  margin-top: 10rem;
+  margin-bottom: 15rem;
+}
+
+@media screen and (max-width: 989px) {
+  .collection .slider--tablet.product-grid {
+    scroll-padding-left: 1.5rem;
+  }
+}
+
+.collection__description > * {
+  margin: 0;
+}
+
+.collection__title.title-wrapper {
+  margin-bottom: 2.5rem;
+}
+
+.collection__title .title:not(:only-child) {
+  margin-bottom: 1rem;
+}
+
+@media screen and (min-width: 990px) {
+  .collection__title--desktop-slider .title {
+    margin-bottom: 2.5rem;
+  }
+
+  .collection__title.title-wrapper--self-padded-tablet-down {
+    padding: 0 5rem;
+  }
+
+  .collection slider-component:not(.page-width-desktop) {
+    padding: 0;
+  }
+
+  .collection--full-width slider-component:not(.slider-component-desktop) {
+    padding: 0 1.5rem;
+    max-width: none;
+  }
+}
+
+.collection__view-all a:not(.link) {
+  margin-top: 1rem;
+}
+
+.seondary-description {
+  border-top: 0.1rem solid rgba(var(--color-shadow));
+  padding: 7.9rem 0;
+}
+
+.seondary-description ul {
+  padding-left: 2.8rem;
+}
+
+.seondary-description a {
+  color: rgba(var(--color-foreground),1);
+}
+
+.seondary-description a:hover {
+  color: rgba(var(--color-button));
+}
+
+.seondary-description h2 {
+  font-size: 2.2rem;
+  line-height: 100%;
+  font-weight: 500;
+  text-transform: none;
+}
+
+.seondary-description h3 {
+  font-size: 2rem;
+  line-height: 100%;
+  text-transform: none;
+  font-weight: 400;
+}
+
+.seondary-description img {
+  margin: 1rem;
+}
+
+.seondary-description-inner > *:first-child {
+  margin-top: 0;
+}
+
+.seondary-description-inner > *:last-child {
+  margin-bottom: 0;
+}
+
+
+.mobile-facet-filter {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  padding-bottom: 1.5rem;
+  gap: 1.4rem;
+}
+.mobile-facet-filter > div {
+  flex: 1;
+}
+
+.mobile-facet-filter > div .facet-filters .select {
+  width: 100%;
+  min-width: inherit;
+}
+.mobile-facet-filter .filter-by-column a {
+    position: relative;
+    border: .05rem solid rgb(var(--color-shadow));
+    border-radius: 1rem;
+    background: rgb(var(--color-background));
+    padding: .7rem 3.5rem .7rem 2rem;
+    font-weight: 400;
+    font-size: 1.2rem;
+    line-height: 1.9rem;
+    outline: none;
+    color: rgb(var(--color-foreground));
+    height: auto;
+    display: block;
+    min-height: 4.4rem;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+.mobile-facet-filter .filter-by-column a:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  right: 1.4rem;
+  height: 1.6rem;
+  width: 1.6rem;
+  display: flex;
+  align-items: center;
+  background: #EFEFEF url("data:image/svg+xml,%3Csvg width='8' height='4' viewBox='0 0 8 4' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M0.722656 1.41603L1.27736 0.583984L4.00001 2.39908L6.72266 0.583984L7.27736 1.41603L4.00001 3.60093L0.722656 1.41603Z' fill='%23041E42'/%3E%3C/svg%3E%0A") no-repeat center center;
+  border: none;
+  border-radius: 50%;
+  transition: ease-in-out 0.4s;
+}
+
+.mobile-facet-filter .filter-by-column a.active:after {
+  transform: rotate(-180deg);
+}
+.mobile-facet-filter .short-by-column .facet-filters {
+  padding-left: 0;
+}
+
+.mobile-facets__wrapper {
+  display: none;
+}
+@media screen and (min-width: 1024px) {
+.mobile-facet-filter {
+  display: none;
+}
+}
+
+
+@media screen and (max-width: 1023px) {
+  .seondary-description {
+    padding: 3.5rem 0;
+  }
+}

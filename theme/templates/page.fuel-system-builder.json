@@ -1,0 +1,17 @@
+{
+  "sections": {
+    "dw_fuel_system_builder": {
+      "type": "dw-fuel-system-builder",
+      "settings": {
+        "eyebrow": "DEATSCHWERKS ENGINEERING",
+        "heading": "FUEL SYSTEM DESIGNER & BOM BUILDER",
+        "default_template": "street",
+        "canvas_theme": "light",
+        "cta_label": "Add Selected Build to Cart"
+      }
+    }
+  },
+  "order": [
+    "dw_fuel_system_builder"
+  ]
+}

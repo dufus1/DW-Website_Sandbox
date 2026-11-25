@@ -1,0 +1,275 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "vendor": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "text": "{{ product.vendor }}",
+            "text_style": "uppercase"
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "sku_bVBpqR": {
+          "type": "sku",
+          "settings": {
+            "text_style": "body"
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
+        },
+        "convermax_year_make_model_verify_fitment_zzC7pn": {
+          "type": "shopify://apps/convermax-year-make-model/blocks/verify-fitment/874383ce-1b49-4436-9ea6-3697a3a5a3d5",
+          "settings": {
+            "wrapper_classes": "",
+            "min_height": 60,
+            "custom_css": ""
+          }
+        },
+        "sellpoint_mU66Wr": {
+          "type": "sellpoint",
+          "settings": {}
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatch_shape": "square"
+          }
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": false,
+            "show_gift_card_recipient": true
+          }
+        },
+        "static_message_ypLQKm": {
+          "type": "static_message",
+          "settings": {
+            "logo": "shopify://shop_images/dw-logo.png",
+            "text": "<em>Limited </em><em><strong>Lifetime</strong></em><em> Warranty</em>"
+          }
+        },
+        "frequently_bought_GdkiyH": {
+          "type": "frequently_bought",
+          "settings": {
+            "frequently_bought_title": "<p><em>Frequently </em><em><strong>Bought</strong></em><em> Together </em></p>",
+            "limit": 2
+          }
+        },
+        "custom_badges_group_jbtRc7": {
+          "type": "custom_badges_group",
+          "settings": {
+            "title_1": "<p>Free U.S. Shipping On Orders $100+</p>",
+            "image_icon_1": "shopify://shop_images/Group_306.svg",
+            "title_2": "<p>Limited Lifetime Warranty</p>",
+            "image_icon_2": "shopify://shop_images/Group_305.svg",
+            "title_3": "<p>Ethanol Compatible</p>",
+            "image_icon_3": "shopify://shop_images/Group_44947.svg"
+          }
+        },
+        "share": {
+          "type": "share",
+          "disabled": true,
+          "settings": {
+            "share_label": "Share"
+          }
+        }
+      },
+      "block_order": [
+        "vendor",
+        "title",
+        "price",
+        "sku_bVBpqR",
+        "description",
+        "convermax_year_make_model_verify_fitment_zzC7pn",
+        "sellpoint_mU66Wr",
+        "variant_picker",
+        "quantity_selector",
+        "buy_buttons",
+        "static_message_ypLQKm",
+        "frequently_bought_GdkiyH",
+        "custom_badges_group_jbtRc7",
+        "share"
+      ],
+      "settings": {
+        "enable_sticky_info": true,
+        "color_scheme": "scheme-62ff07bf-9fa9-41b8-b3ff-01c2885e6d39",
+        "media_size": "large",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "gallery_layout": "thumbnail_slider",
+        "media_position": "left",
+        "image_zoom": "hover",
+        "mobile_thumbnails": "show",
+        "hide_variants": true,
+        "enable_video_looping": false,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "text_with_icon_7eybhf": {
+      "type": "text-with-icon",
+      "blocks": {
+        "text_XDryAp": {
+          "type": "text",
+          "settings": {
+            "text": "340lph",
+            "url_text": ""
+          }
+        },
+        "text_haAhMx": {
+          "type": "text",
+          "settings": {
+            "text": "1235%",
+            "url_text": ""
+          }
+        },
+        "text_CkMMU7": {
+          "type": "text",
+          "settings": {
+            "text": "340lph",
+            "url_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "text_XDryAp",
+        "text_haAhMx",
+        "text_CkMMU7"
+      ],
+      "disabled": true,
+      "name": "Guarantees",
+      "settings": {
+        "color_scheme": "scheme-4",
+        "padding_top": 16,
+        "padding_bottom": 16
+      }
+    },
+    "sell_point_MnynGM": {
+      "type": "sell-point",
+      "blocks": {
+        "sellpoint_d7DtEe": {
+          "type": "sellpoint",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "sellpoint_d7DtEe"
+      ],
+      "settings": {
+        "color_scheme": "scheme-4",
+        "padding_top": 16,
+        "padding_bottom": 16
+      }
+    },
+    "product_tab_wYcp8j": {
+      "type": "product-tab",
+      "blocks": {
+        "specifications_krV8LD": {
+          "type": "specifications",
+          "settings": {}
+        },
+        "details_wFKpJA": {
+          "type": "details",
+          "disabled": true,
+          "settings": {}
+        },
+        "download_MUVwWW": {
+          "type": "download",
+          "settings": {}
+        },
+        "videos_jkQUtW": {
+          "type": "videos",
+          "settings": {}
+        },
+        "warranty_raFtUM": {
+          "type": "warranty",
+          "settings": {}
+        },
+        "fitment_FXx8rb": {
+          "type": "fitment",
+          "disabled": true,
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "specifications_krV8LD",
+        "details_wFKpJA",
+        "download_MUVwWW",
+        "videos_jkQUtW",
+        "warranty_raFtUM",
+        "fitment_FXx8rb"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "padding_top": 0,
+        "padding_bottom": 60
+      }
+    },
+    "17290090283b9ae5cf": {
+      "type": "apps",
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "recommended_accessories_JQr4LL": {
+      "type": "recommended-accessories",
+      "settings": {
+        "color_scheme": "",
+        "title": "<strong>Recommended</strong> Items",
+        "padding_top": 56,
+        "padding_bottom": 50
+      }
+    },
+    "related-products": {
+      "type": "related-products",
+      "settings": {
+        "heading": "RECENTLY <strong>VIEWED</strong><br> PRODUCTS",
+        "products_to_show": 9,
+        "color_scheme": "scheme-1",
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "padding_top": 56,
+        "padding_bottom": 50
+      }
+    }
+  },
+  "order": [
+    "main",
+    "text_with_icon_7eybhf",
+    "sell_point_MnynGM",
+    "product_tab_wYcp8j",
+    "17290090283b9ae5cf",
+    "recommended_accessories_JQr4LL",
+    "related-products"
+  ]
+}

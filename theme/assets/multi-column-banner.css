@@ -1,0 +1,196 @@
+.multi-column-banner {
+  background-image: url(../assets/banner-bg-img.png);
+  background-repeat: repeat-x;
+  background-position: left center;
+  position: relative;
+}
+.multi-column-banner .h2 {
+  font-weight: 500;
+  margin-top: 0;
+}
+
+.multi-column-banner .h2 br {
+  display: none;
+}
+
+.multi-column-banner .h2 strong {
+  font-weight: 900;
+  color: var(--color-button-ada);
+}
+.multi-column-banner::before {
+  content: "";
+  position: absolute;
+  top:0;
+  left: 0;
+  background: rgb(var(--color-button));
+  height: .4rem;
+  width: 0;
+}
+
+.multi-column-banner.in-view::before {
+  animation: line-expand 1s forwards;
+  animation-delay: 0.4s;
+}
+
+.multi-column-banner .col-banner-row {
+  display: flex;
+  flex-wrap: wrap;
+
+}
+
+.multi-column-banner .col-banner-row .item a {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+.multi-column-banner .col-banner-row .item a  .banner-figure, .multi-column-banner .col-banner-row .item a  .banner-figure .banner-img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio:95/63;
+  
+}
+
+.multi-column-banner .col-banner-row .item a:after {
+  content:"";
+  background: linear-gradient(180deg,rgba(0, 0, 0, 0.8) 0%,transparent 100%);
+  position: absolute;
+  top:0;
+  left: 0;
+  right: 0;
+  height: 12rem;
+  width: 100%;
+}
+.multi-column-banner .col-banner-row .item a img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  border-radius: 1rem;
+  transition: ease-in-out .4s;
+}
+.multi-column-banner .col-banner-row .item a:hover img {
+  transform: scale(1.1);
+}
+.multi-column-banner .col-banner-row .item a .content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  padding: 2rem 3rem;
+  height: 100%;
+  z-index: 1;
+}
+.multi-column-banner .col-banner-row .item a .content .btn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transition: ease-in-out 0.4s;
+  width: 13.2rem;
+  height: 5rem;
+  background: var(--color-button-ada);
+  border-radius: 1rem 0 1rem 0;
+  color: rgb(var(--color-button-text));
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.2rem;
+  font-style: italic;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 1rem 2.5rem;
+}
+.multi-column-banner .col-banner-row .item a:hover .content .btn {
+  background: rgb(var(--color-foreground));
+  width: 100%;
+  border-radius: 0 0 1rem 1rem;
+}
+.multi-column-banner .col-banner-row .item a .content h4 {
+  font-size: 3rem;
+  font-weight: 700;
+  font-style: italic;
+  margin: 0;
+  color: rgb(var(--color-button-text));
+  text-transform: uppercase;
+
+}
+.multi-column-banner .col-banner-row .item a .content .btn svg {
+  margin-left: 1rem;
+  width: 1.1rem;
+  height: 1.2rem;
+}
+
+.multi-column-banner .col-banner-row .item a .content .btn .cat-arrow {
+  line-height: 100%;
+}
+
+@keyframes fadeLeft {
+  0% {
+    opacity: 0;
+    width: 0;
+  }
+  100% {
+    opacity: 1;
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .multi-column-banner .col-banner-row .swiper-wrapper {
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3rem 0;
+    margin: 0 -1.5rem;
+    width: calc(100% + 3rem);
+  }
+
+  .multi-column-banner .col-banner-row .item {
+    flex: 1 1 33.333333%;
+    max-width: 33.333333%;
+    padding: 0 1.5rem;
+    height: auto;
+  }
+
+  .col-banner-row.swiper .arrow-row {
+    display: none;
+  }
+
+  .video-slider-inner  .h2 br {
+    display: none;
+  }
+
+}
+
+
+@media screen and (max-width: 1023px) {
+  .multi-column-banner .col-banner-row .item {
+    padding: 0;
+  }
+
+  .multi-column-banner .page-width {
+    padding: 0;
+  }
+
+  .multi-column-banner {
+    background-image: none;
+  }
+
+  .multi-column-banner .h2 br {
+    display: block;
+  }
+
+  .multi-column-banner .col-banner-row .item a .content h4 {
+    font-size: 1.8rem;
+  }
+
+  .multi-column-banner .col-banner-row .item a .content {
+    box-sizing: border-box;
+    padding: 2rem 2.5rem;
+  }
+
+}

@@ -1,0 +1,455 @@
+.cm_search.overflow-hidden{
+  overflow: auto;
+}
+
+.header__icon--garage {
+  padding-left: 0;
+  padding-right: 0;
+  
+  @media (min-width: 420px) {
+    width: auto;
+    text-decoration: none;
+  }
+}
+
+@media (max-width: 420px) {
+  .header__heading-link {
+    margin-right: 1rem;
+  }
+}
+
+@media (max-width: 350px) {
+  .header__heading-link {
+    margin-right: 0;
+  }
+}
+.header__search .search-modal {
+  right: calc(21.8rem * 1.18);
+
+  @media screen and (min-width: 1441px) and (max-width: 2880px) {
+    right: calc(clamp(21.8rem, 15.139vw, 29.1rem) * 1.18);
+  }
+}
+
+/* CLS fixes */
+#cm-ymm-home:empty {
+  display: block;
+  height: 63px;
+
+  @media (max-width: 591px) {
+    height: 200px;
+  }
+}
+
+#cm-garage:empty {
+  width: 87px;
+
+  @media (max-width: 420px) {
+    width: 34px;
+  }
+}
+
+/* CLS reservation for the Convermax fitment widget. Measured 2026-08-06 across
+   both widget states: the fitment dropdown renders 81px on desktop and 95px on
+   mobile, the "Universal Fit" panel 93px at every width. 100px covers both with
+   a little headroom.
+
+   The previous 61px / 224px pair was sized for the taller pre-redesign control
+   and was never re-measured after the widget was compacted (see the
+   cm_vehicle-widget_header rule further down). 224px held open a 143px hole
+   whenever the app was slow or blocked — and that extra height was enough to
+   push the buy column past the photo column, which flips which way the tab
+   section gets pulled. The four width bands existed because the old control
+   wrapped at those sizes; the compacted one does not, so one value serves.
+
+   Re-measure if the widget or that header padding changes. */
+#cm-verify-fitment:empty {
+  display: block;
+  height: 100px;
+}
+
+#cm_results:empty,
+#cm-collection-page:empty,
+#cm-collection-list:empty,
+#cm-brand-list:empty {
+  display: block;
+  height: 100vh;
+}
+/* CLS fixes */
+
+
+.cm_vehicle-widget_button-container .cm_vehicle-widget_button__go,.cm_vehicle-widget_button-container  .cm_vehicle-widget_button__clear:hover{
+  background: var(--color-button-ada) ;
+}
+
+.cm_load-more>div{
+  background: var(--color-button-ada) ;
+}
+
+.cm_vehicle-widget_button__clear{
+  border-color: var(--color-button-ada);
+  color: var(--color-button-ada);
+}
+
+.product-card-wrapper .card .price__container{
+  color: var(--color-button-ada);
+}
+
+.quick-add__submit {
+  background: var(--color-button-ada) !important;
+}
+
+.media .qview-button-wrapper .qview-button:hover{
+  background: var(--color-button-ada) !important;
+}
+
+/* ==========================================================================
+   PDP 10% REDUCTION
+
+   Scoped to the product row and the tab section only — header, footer,
+   collections, cart and the recommended/recently-viewed carousels are all
+   untouched. zoom is the mechanism because rem cannot be scoped: rem resolves
+   against <html>, so a root font-size change would shrink every template.
+
+   NOTE: every px value in the PDP blocks below renders at 0.9x because of this.
+   20px on screen is 18px. Values set from dh-scripts.js go on .shopify-section,
+   which is outside the zoom, so those are true screen pixels.
+
+   Set to 1 (or delete) to undo.
+   ========================================================================== */
+@media screen and (min-width: 1024px) {
+  .product-main-top,
+  .product-tab-main {
+    zoom: 0.9;
+  }
+}
+
+/* ==========================================================================
+   PDP layout
+
+   One set of variables drives the photo, the badge row and the product tabs, so
+   they share a left edge and a width at every size.
+
+   THE ROW IS CAPPED AT 146.4rem AND CENTRED. That number is not a preference:
+   it is 76.5 (media column) + 7.5 (gutter) + 62.4 (buy tile), every piece at its
+   ceiling, which is the width the row reaches when the photo hits its 64rem cap
+   at roughly a 1778px viewport. Above that point nothing in the row depends on
+   the viewport, so the PDP renders identically at 1920 and at 4K. Before the cap
+   the media column was the grid's 1fr and swallowed every extra pixel: the
+   photo-to-tile gap measured 160px at 1920 and 1434px at 3840. It is now a flat
+   68px at both.
+
+   Below the cap the row stays fluid exactly as it was — a fixed row that low
+   would mean a horizontal scrollbar at 1024.
+
+   The variables are anchored to .product-main-top and .product-tab, which are
+   provably the same box (both 238->1667 at a 1920 viewport). They used to sit on
+   .page-width, but the two sections' .page-width wrappers are NOT the same box —
+   238.1px of padding in the product section against 264.556px inside the tab
+   section's 0.9 zoom — and they only coincide once the zoom is applied. Anything
+   that broke that ancestor chain dropped the panel caps and ran the spec table
+   straight under the badge card.
+
+   SPECIFICITY, NOT STRUCTURE: .shopify-section appears in these selectors
+   because custom.css loads in <head> while section-main-product.css and
+   component-slider.css load in the <body> and therefore win every tie. The row
+   cap has to outrank .product-main-top.product.grid { max-width: inherit }, and
+   the rail override has to outrank .product-gallery .thumbnail-slider. Do not
+   "simplify" these selectors — the rules silently stop applying.
+   ========================================================================== */
+@media screen and (min-width: 1024px) {
+  .shopify-section .product-main-top.product.grid,
+  .shopify-section .product-tab-main .product-tab {
+    /* The thumbnail rail. component-slider.css sizes it 4.896vw above 1680px;
+       that is overridden to a constant below, because a viewport-driven rail
+       inside a capped row eats the photo and pulls the tab panels out of line. */
+    --dw-rail: 8rem;
+
+    /* The fixed gutter between the media column and the buy tile. Was 5.113%. */
+    --dw-colgap: 7.5rem;
+
+    /* Every stop is the original x1.2. At or above the cap the 45.12% is past the
+       62.4rem ceiling, so the tile is a constant 62.4rem on every such screen. */
+    --dw-tile: clamp(48rem, 45.12%, 62.4rem);
+    --dw-media-col: calc(100% - var(--dw-tile) - var(--dw-colgap));
+
+    /* Where the photo starts: past the rail and the gallery's own column-gap
+       (5.89102% of the media column). */
+    --dw-media-left: calc(var(--dw-rail) + var(--dw-media-col) * 0.0589102);
+
+    /* Shared width ceiling for the photo and the tab bar. 64rem keeps the photo
+       inside its source resolution so it never upscales on a 2x display. */
+    --dw-media-cap: clamp(40rem, 36vw, 64rem);
+
+    /* The whole right-hand column, reserved as a margin on the tab content so it
+       can never reach the tile or the badges. See the guard below. */
+    --dw-right-col: calc(var(--dw-tile) + var(--dw-colgap));
+
+    max-width: 146.4rem;
+    margin-inline: auto;
+  }
+
+  /* Overrides component-slider.css's 4.896vw rail above 1680px. 8rem is the value
+     it already uses from 1280-1680, so nothing changes below the cap. */
+  .product-main-top .product-gallery .thumbnail-slider {
+    width: 8rem;
+  }
+
+  /* The product row is a two-column grid, not a flex row, so the right column can
+     stack the buy tile and the trust badges. Grid is required because the badges
+     are a SIBLING of the tile (they were moved there in main-product.liquid), not
+     a child of it — flex could only put them on their own full-width line below
+     both columns. The media column spans both rows.
+
+     The theme's own .product--large:not(.product--no-media) selectors are matched
+     below, otherwise they outrank these and the tile collapses to the minimum of
+     --dw-tile while the badges fill the full track. */
+  .product-main-top {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) var(--dw-tile);
+    grid-template-rows: auto auto;
+    column-gap: var(--dw-colgap);
+    align-items: start;
+  }
+
+  .product-main-top.product--large:not(.product--no-media) .product__media-wrapper,
+  .product-main-top .product__media-wrapper {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    width: 100%;
+    max-width: none;
+  }
+
+  .product-main-top.product--large:not(.product--no-media) .product__info-wrapper.grid__item,
+  .product-main-top .product__info-wrapper.grid__item {
+    grid-column: 2;
+    grid-row: 1;
+    width: 100%;
+    max-width: none;
+  }
+
+  /* 20px renders as 18px inside the 0.9 zoom. No bottom margin: the space below the
+     badges is owned by dh-scripts.js, which places the next section's divider a
+     fixed distance under whichever column ends lower. */
+  .product-main-top .custom-badges-wrapper.desktop-only {
+    grid-column: 2;
+    grid-row: 2;
+    width: 100%;
+    max-width: none;
+    margin: 20px 0 0;
+  }
+
+  /* component-slider.css frames the gallery at aspect-ratio 559/520 — wider than
+     the square product photos, and the resulting letterbox gutter left the sliding
+     warranty badge hanging off the photo's edge. A square frame matches the photos.
+     margin-inline is 0 auto, NOT auto: centring the frame in a media column wider
+     than the cap makes the photo (and the badge riding on it) drift right. */
+  .product-gallery .product-gallery-view.slider-mobile-gutter {
+    aspect-ratio: 1 / 1;
+    max-width: var(--dw-media-cap);
+    max-height: var(--dw-media-cap);
+    margin-inline: 0 auto;
+  }
+
+  /* Badge geometry, scaled to the row's width. min-height on the label reserves two
+     lines for every badge: without it a one-line label like "Ethanol Compatible"
+     makes its cell's centred stack sit 7px lower than its two-line neighbours, so
+     the orange circles do not line up. 2.5em is exactly two lines at line-height
+     1.25, and it follows the font size if that ever changes. */
+  .custom-badges-wrapper .badges-flex-container .badge-item {
+    padding: 20px 8px;
+  }
+
+  .custom-badges-wrapper .badge-circle {
+    width: 36px;
+    height: 36px;
+    margin-bottom: 10px;
+  }
+
+  .custom-badges-wrapper .badge-circle img,
+  .custom-badges-wrapper .badge-circle svg {
+    width: 36px;
+    height: 36px;
+  }
+
+  .custom-badges-wrapper .badge-text {
+    font-size: 12px;
+    line-height: 1.25;
+    min-height: 2.5em;
+  }
+
+  /* Convermax verify-fitment: the control was 62px tall for one 20px line, and the
+     title's asymmetric margin (18px top / 4px bottom) sat the text 14px below
+     centre. Zero the margin and let the header padding do the spacing — 48px tall,
+     text centred, still a comfortable click target. NOTE: this styles the app's
+     own markup, so a Convermax class-name change would stop it applying. Changing
+     these values changes the widget's height — re-measure the #cm-verify-fitment
+     CLS reservation at the top of this file if you touch them. */
+  .product__info-wrapper .cm_vehicle-widget__verify-fitment .cm_vehicle-widget_title {
+    margin: 0;
+  }
+
+  .product__info-wrapper .cm_vehicle-widget__verify-fitment .cm_vehicle-widget_header {
+    padding: 14px 0;
+  }
+
+  /* Transparent so the tab section does not paint over the badge row once
+     dh-scripts.js pulls it up flush under the photo. */
+  .product-tab-main {
+    background: transparent;
+  }
+
+  /* .product-tab ships with a width and horizontal margins of its own; both have to
+     go, or percentages inside it resolve against the wrong box and the bar lands
+     ~100px right of the photo. The cap and the centring come from the shared rule
+     at the top of this block. */
+  .shopify-section .product-tab-main .product-tab {
+    width: 100%;
+  }
+
+  /* THE CROSSOVER GUARD. margin-right reserves the entire tile+badge column, so
+     tab content cannot enter it even if every variable here were wrong or missing
+     — which is exactly what used to happen: with the old .page-width-scoped rules,
+     a broken ancestor chain put the spec table 641px under the badge card. Both
+     the cap and the reserve are independent; either alone prevents the overlap,
+     and the literal fallbacks mean an undefined variable degrades instead of
+     failing open. Verified by deleting the chain AND the variables: still clear.
+
+     The panels are capped to the photo's width rather than merely aligned to its
+     left edge because once dh-scripts.js pulls the section up, anything wider
+     would sit alongside the badge row. */
+  .shopify-section .product-tab-main .product-tab > :not(.product-tab-nav) {
+    margin-left: var(--dw-media-left, 0px);
+    margin-right: var(--dw-right-col, 45.12%);
+    max-width: var(--dw-media-cap, 64rem);
+  }
+
+  /* flex-wrap is a safety net: the bar is only as wide as the photo, and without
+     it the last label overhangs the background and the orange underline. */
+  .shopify-section .product-tab-main .product-tab .product-tab-nav {
+    margin-left: var(--dw-media-left, 0px);
+    margin-right: var(--dw-right-col, 45.12%);
+    width: auto;
+    max-width: var(--dw-media-cap, 64rem);
+    flex-wrap: wrap;
+  }
+
+  /* Was 40px, which read as detached from the bar above it. */
+  .shopify-section .product-tab-main .product-tab .product-tab-content-main {
+    padding-top: 8px;
+  }
+
+  /* Labels were 1.8rem bold — larger than every other UI element on the page and
+     second only to the product title. 1.4rem matches the header nav. */
+  .shopify-section .product-tab-main .product-tab .product-tab-nav li a {
+    font-size: 1.4rem;
+    padding: 0.8rem 1.2rem;
+    line-height: 1.3;
+  }
+
+  /* Panel data was 1.6rem — the theme's prose size, and larger than the tab labels
+     above it. 1.4rem is conventional for tabular data and matches the bar. */
+  .product-tab .tab-content .tab-item-content,
+  .product-tab .tab-content .tab-item-content .spec-item,
+  .product-tab .tab-content .tab-item-content label,
+  .product-tab .tab-content .tab-item-content span,
+  .product-tab .tab-content .tab-item-content p,
+  .product-tab .tab-content .tab-item-content a,
+  .product-tab .tab-content .tab-item-content li {
+    font-size: 1.4rem;
+    line-height: 1.5;
+  }
+
+  /* Specification table. Grid replaces the theme's column-count because only grid
+     lets a row span both columns. Side effect worth knowing: multi-column flowed
+     down-then-across, grid flows across-then-down, so specs read left-to-right. */
+  .product-tab .specification-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 10px;
+    column-count: auto;
+  }
+
+  .product-tab .specification-list li {
+    display: block;
+    width: auto;
+  }
+
+  /* product-tab.liquid renders Note rows last and tags them .spec-note. Notes are
+     prose, not a value, so they get the full width instead of a half-width cell. */
+  .product-tab .specification-list li.spec-note {
+    grid-column: 1 / -1;
+  }
+
+  /* Fixed label column, NOT a percentage. The theme had label and value both at
+     flex: 1 1 0, so the split landed at 50% of each row's own width — which put the
+     full-width Note row's divider twice as far across as every other row. */
+  .product-tab .specification-list li .spec-item label {
+    flex: 0 0 11rem;
+  }
+
+  .product-tab .specification-list li .spec-item span {
+    flex: 1 1 auto;
+  }
+
+  /* Technical Resources gets the same two-column structure. The theme's flex wrap
+     sized each link to its own text, so columns never lined up. */
+  .product-tab .download-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .product-tab .download-list li {
+    width: 100%;
+    max-width: none;
+  }
+
+  .product-tab .download-list li .download-item {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+/* Frequently Bought Together: with a single recommendation the "Total price" just
+   repeats that item's price. Hide it only in the one-item case — the block allows
+   up to 2, and the total is worth showing once there is something to add up.
+   Browsers without :has() simply keep showing the total. */
+.frequently-bought-products:has(> .fbt-product:only-child) + .fbt-total-section {
+  display: none;
+}
+
+/* Open the FIRST tab by default. The theme's script adds .active on click and
+   nothing is active on load, so every panel started collapsed.
+
+   Target the first rendered panel, NOT #tabSpec: product-tab.liquid skips panels
+   with no data, so on a product without specification_data (e.g. /products/fphwk)
+   the first tab is Technical Resources. Hardcoding #tabSpec left that product with
+   a highlighted tab and an empty body.
+
+   Scoped to "while nothing is active" so the moment a customer clicks any tab the
+   script takes over and these stop matching — no fighting the JS. */
+.product-tab-content-main:not(:has(.tab-content.active)) .tab-content:first-child .tab-item-content {
+  opacity: 1;
+  visibility: visible;
+  height: auto;
+}
+
+.product-tab-nav:not(:has(a.active)) li:first-child a {
+  background: var(--color-button-ada);
+  color: rgba(var(--color-button-text), 1);
+}
+
+/* Below 1280 the theme narrows the rail to 6.4rem; match it, for both the real
+   rail and the mirror the tab alignment is computed from. There is no longer a
+   1680px stop — --dw-rail is constant above 1280 now that the row is capped. */
+@media screen and (min-width: 1024px) and (max-width: 1279px) {
+  .shopify-section .product-main-top.product.grid,
+  .shopify-section .product-tab-main .product-tab {
+    --dw-rail: 6.4rem;
+  }
+
+  .product-main-top .product-gallery .thumbnail-slider {
+    width: 6.4rem;
+  }
+}

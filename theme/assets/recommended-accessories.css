@@ -1,0 +1,51 @@
+.recommended-accessories-main {
+  border-top: 0.1rem solid rgba(var(--color-shadow));
+}
+
+.recommended-accessories-inner .h2 {
+  font-weight: 500;
+}
+.recommended-accessories-inner .h2 strong {
+  font-weight: 900;
+}
+.recommended-accessories-inner .h2 strong:first-child {
+  color: rgb(var(--color-button));
+}
+
+.recommended-accessories-inner .swiper-button-prev:after, .recommended-accessories-inner .swiper-button-next:after {
+  display: none;
+}
+
+.recommended-accessories-main .arrow-row {
+  margin-top: 2rem;
+} 
+
+
+.recommended-accessories-slider .slick-track {
+  margin: 0;
+}
+
+.recommended-accessories-slider {
+  display: none;
+}
+
+.recommended-accessories-slider.slick-initialized {
+  display: block;
+}
+
+.recommended-accessories-slider .slick-slide {
+  padding: 0 0.75rem;
+}
+
+
+@media screen and (max-width: 1023px) {
+  .recommended-accessories-main {
+    border-top: none;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .recommended-accessories-inner .h2 strong {
+    display: block;
+  }
+}

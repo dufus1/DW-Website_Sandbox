@@ -1,0 +1,539 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "image_banner": {
+      "type": "image-banner",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "<em>Precision Engineered </em><strong>High-Performance </strong><em>Fuel Systems for Every Racer</em>",
+            "heading_size": "h0"
+          }
+        },
+        "button": {
+          "type": "buttons",
+          "disabled": true,
+          "settings": {
+            "button_label_1": "Shop all",
+            "button_link_1": "shopify://collections/all",
+            "button_style_secondary_1": true,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "button"
+      ],
+      "custom_css": [
+        ".banner .banner__content {animation-delay: 0.5s !important;}"
+      ],
+      "settings": {
+        "image": "shopify://shop_images/h-main-banner.webp",
+        "image_overlay_opacity": 100,
+        "image_height": "large",
+        "desktop_content_position": "bottom-left",
+        "show_text_box": false,
+        "show_search": true,
+        "desktop_content_alignment": "left",
+        "color_scheme": "scheme-3",
+        "image_behavior": "zoom-in",
+        "mobile_content_alignment": "center",
+        "stack_images_on_mobile": false,
+        "show_text_below": false
+      }
+    },
+    "text_with_icon_cft4JR": {
+      "type": "text-with-icon",
+      "blocks": {
+        "text_g9bi7b": {
+          "type": "text",
+          "settings": {
+            "text": "Limited Lifetime Warranty",
+            "url_text": "shopify://blogs/news/now-backed-by-limited-lifetime-warranty",
+            "icon_image": "shopify://shop_images/shield-white.png"
+          }
+        },
+        "text_CeTAAq": {
+          "type": "text",
+          "settings": {
+            "text": "Free Shipping on U.S. Orders $100+",
+            "url_text": "https://deatschwerks.com#",
+            "icon_image": "shopify://shop_images/shipping-white_01870aa0-67bd-4536-b6e5-693250711fbb.png"
+          }
+        },
+        "text_gwrqVG": {
+          "type": "text",
+          "settings": {
+            "text": "Engineered for E85",
+            "url_text": "https://deatschwerks.com#",
+            "icon_image": "shopify://shop_images/shipping-white_34d33aaf-07a5-4a4d-8a21-32c805a06eaf.png"
+          }
+        },
+        "text_cGXRNU": {
+          "type": "text",
+          "settings": {
+            "text": "Data Supported - 16 Copy/Paste ECU Formats",
+            "url_text": "https://deatschwerks.com/pages/search-characterization-summaries",
+            "icon_image": "shopify://shop_images/benefits-3.svg"
+          }
+        }
+      },
+      "block_order": [
+        "text_g9bi7b",
+        "text_CeTAAq",
+        "text_gwrqVG",
+        "text_cGXRNU"
+      ],
+      "settings": {
+        "color_scheme": "scheme-4",
+        "padding_top": 30,
+        "padding_bottom": 30
+      }
+    },
+    "collection_grid_slider_HBUq8h": {
+      "type": "collection-grid-slider",
+      "blocks": {
+        "column_XNayHn": {
+          "type": "column",
+          "settings": {
+            "categoryImage": "shopify://shop_images/h-coll-img3.png",
+            "text": "Injectors",
+            "categoryLink": "https://deatschwerks.com/pages/injectors"
+          }
+        },
+        "column_iNXckb": {
+          "type": "column",
+          "settings": {
+            "categoryImage": "shopify://shop_images/h-coll-img4.png",
+            "text": "Lines & Fittings",
+            "categoryLink": "https://deatschwerks.com/pages/lines-and-fittings-builder"
+          }
+        },
+        "column_6yxerE": {
+          "type": "column",
+          "settings": {
+            "categoryImage": "shopify://shop_images/collection-img5.png",
+            "text": "Fuel Rails",
+            "categoryLink": "https://deatschwerks.com/pages/fuel-rails"
+          }
+        },
+        "column_GnQwAd": {
+          "type": "column",
+          "settings": {
+            "categoryImage": "shopify://shop_images/Regulators_49a1ee22-1677-43a7-ab94-6e5e0b84f59a.jpg",
+            "text": "Regulators & Gauges",
+            "categoryLink": "https://deatschwerks.com/collections/fuel-pressure-regulators"
+          }
+        },
+        "column_LbpRaV": {
+          "type": "column",
+          "settings": {
+            "categoryImage": "shopify://shop_images/filter-web-home.png",
+            "text": "Filters",
+            "categoryLink": "https://deatschwerks.com/pages/filtration"
+          }
+        },
+        "column_fAMhmr": {
+          "type": "column",
+          "settings": {
+            "categoryImage": "shopify://shop_images/Surge_Tanks_6c5cc5c4-d692-472c-99f5-1aa3ea9fb046.jpg",
+            "text": "Surge Tanks",
+            "categoryLink": "https://deatschwerks.com/collections/surge-tanks"
+          }
+        },
+        "column_yqEr9V": {
+          "type": "column",
+          "settings": {
+            "categoryImage": "shopify://shop_images/4-00-VB40aX2_e41f358a-4240-4519-a998-b40dce62a9bd.jpg",
+            "text": "Electronics",
+            "categoryLink": "https://deatschwerks.com/collections/electronics"
+          }
+        },
+        "column_YKENan": {
+          "type": "column",
+          "settings": {
+            "categoryImage": "shopify://shop_images/Fuel_Additives_14668c51-ec60-4b43-aa47-32ec9741852d.jpg",
+            "text": "Fuel Additives",
+            "categoryLink": "https://deatschwerks.com/collections/fuel-additives"
+          }
+        },
+        "column_V76Fif": {
+          "type": "column",
+          "settings": {
+            "categoryImage": "shopify://shop_images/Merch_ca2ff2c5-6455-4f6b-9f0a-2783729e292f.jpg",
+            "text": "Merch",
+            "categoryLink": "https://deatschwerks.com/collections/merch"
+          }
+        },
+        "column_DUhFFV": {
+          "type": "column",
+          "settings": {
+            "categoryImage": "shopify://shop_images/DWPumps.png",
+            "text": "Pumps",
+            "categoryLink": "https://deatschwerks.com/pages/pumps"
+          }
+        },
+        "column_bVzEyj": {
+          "type": "column",
+          "settings": {
+            "categoryImage": "shopify://shop_images/h-coll-img2.png",
+            "text": "Modules",
+            "categoryLink": "https://deatschwerks.com/collections/fuel-pump-modules"
+          }
+        }
+      },
+      "block_order": [
+        "column_XNayHn",
+        "column_iNXckb",
+        "column_6yxerE",
+        "column_GnQwAd",
+        "column_LbpRaV",
+        "column_fAMhmr",
+        "column_yqEr9V",
+        "column_YKENan",
+        "column_V76Fif",
+        "column_DUhFFV",
+        "column_bVzEyj"
+      ],
+      "settings": {
+        "color_scheme": "scheme-2",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "instagram_gallery_hJL93e": {
+      "type": "instagram-gallery",
+      "blocks": {
+        "column_ENrRaq": {
+          "type": "column",
+          "settings": {
+            "instagram_img": "shopify://shop_images/snaplytics.io_deatschwerks_3.webp",
+            "like_count": "674",
+            "text": "Always make sure you have enough fuel, and a way to control it! @adam_lz upgrades the injectors on his Datsun after switching to a standalone.",
+            "btn_name": "View Reel",
+            "url_text": "https://www.instagram.com/reel/CxGkvpUq49g/"
+          }
+        },
+        "column_CYFabP": {
+          "type": "column",
+          "settings": {
+            "instagram_img": "shopify://shop_images/submagic_thumbnail_2.webp",
+            "like_count": "172",
+            "text": "KEEP YOUR FUEL SYSTEMS CLEAN! 🧼 When was the last time you cleaned/replaced your fuel filter?",
+            "btn_name": "View Reel",
+            "url_text": "https://www.instagram.com/p/C4whwD0MnJh/"
+          }
+        },
+        "column_mw6Bby": {
+          "type": "column",
+          "settings": {
+            "instagram_img": "shopify://shop_images/snaplytics.io_deatschwerks_4.webp",
+            "like_count": "212",
+            "text": "Morning coffee anyone?",
+            "btn_name": "View Reel",
+            "url_text": "https://www.instagram.com/p/C_s7z9Ix-nV/"
+          }
+        },
+        "column_qAKEdb": {
+          "type": "column",
+          "settings": {
+            "instagram_img": "shopify://shop_images/snaplytics.io_sdsgarage_optimized.webp",
+            "like_count": "6,335",
+            "text": "New Turbo set up works and sounds so damn good 🥹 Despite the insane heat, a crispier than normal drain line and de-hooding the mustang to stay cool 😎",
+            "btn_name": "View Reel",
+            "url_text": "https://www.instagram.com/reel/C9cx3J-RFWj/"
+          }
+        },
+        "column_QcxK4d": {
+          "type": "column",
+          "settings": {
+            "instagram_img": "shopify://shop_images/submagic_thumbnail.webp",
+            "like_count": "709",
+            "text": "We NEVER get tired of these launches! @4drrckt is rocking it at @rockymountainraceweek. Good luck to all the racers!",
+            "btn_name": "View Reel",
+            "url_text": "https://www.instagram.com/p/DAJnKb9Prei/"
+          }
+        },
+        "column_XBT4Vn": {
+          "type": "column",
+          "settings": {
+            "instagram_img": "shopify://shop_images/snaplytics.io_scott_allinder.webp",
+            "like_count": "78",
+            "text": "Have you seen these fuel pump hanger assemblies from @deatschwerks 👀 Turns out they’re a one stop shop to convert to E85! 🌽",
+            "btn_name": "View Reel",
+            "url_text": "https://www.instagram.com/p/C_QzemoPyxU/"
+          }
+        },
+        "column_fB3Mpe": {
+          "type": "column",
+          "settings": {
+            "instagram_img": "shopify://shop_images/snaplytics.io_deatschwerks_optimized.webp",
+            "like_count": "409",
+            "text": "The DW420 flows 420 LPH at 40 PSI and is a popular choice for ethanol applications or any situation where the highest flowing standard-fitment in-tank",
+            "btn_name": "View Reel",
+            "url_text": "https://www.instagram.com/p/C_3VBBms1zM/"
+          }
+        },
+        "column_7zYBJk": {
+          "type": "column",
+          "settings": {
+            "instagram_img": "shopify://shop_images/submagic_thumbnail_3.webp",
+            "like_count": "622",
+            "text": "Huge props to @_Cole_Reynolds for showcasing our innovative Dry Break Fitting and Quad Bulkhead!🛠️💧",
+            "btn_name": "View Reel",
+            "url_text": "https://www.instagram.com/p/C4vTe34uPRY/"
+          }
+        }
+      },
+      "block_order": [
+        "column_ENrRaq",
+        "column_CYFabP",
+        "column_mw6Bby",
+        "column_qAKEdb",
+        "column_QcxK4d",
+        "column_XBT4Vn",
+        "column_fB3Mpe",
+        "column_7zYBJk"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "title": "Trusted by <strong>30k</strong><br>    <strong>Enthusiasts</strong> ON INSTAGRAM",
+        "padding_top": 66,
+        "padding_bottom": 50
+      }
+    },
+    "image_column_banner_pUPNaJ": {
+      "type": "image-column-banner",
+      "blocks": {
+        "column_k8jfXB": {
+          "type": "column",
+          "settings": {
+            "banner_img": "shopify://shop_images/RMRW_NWM_Day_2_racin-13.webp",
+            "text": "Mustang",
+            "btn_name": "Shop Now",
+            "url_text": "shopify://pages/mustang-generations"
+          }
+        },
+        "column_d6UV4r": {
+          "type": "column",
+          "settings": {
+            "banner_img": "shopify://shop_images/KOTR_NWM_FR-35.webp",
+            "text": "GM/LS",
+            "btn_name": "Shop Now",
+            "url_text": "shopify://pages/choose-your-ls"
+          }
+        },
+        "column_JGrJQD": {
+          "type": "column",
+          "settings": {
+            "banner_img": "shopify://shop_images/Honda_ea78964a-99cf-4b2a-9055-f8675a0b2eed_optimized_1.webp",
+            "text": "Honda",
+            "btn_name": "Shop Now",
+            "url_text": "shopify://pages/choose-your-honda"
+          }
+        },
+        "column_9LaCmG": {
+          "type": "column",
+          "settings": {
+            "banner_img": "shopify://shop_images/Subaru_Impreza_WRX_STI_2007.webp",
+            "text": "Subaru",
+            "btn_name": "Shop Now",
+            "url_text": "shopify://collections/subaru-products"
+          }
+        },
+        "column_UThxyh": {
+          "type": "column",
+          "settings": {
+            "banner_img": "shopify://shop_images/KOTR_NWM_FR-279.webp",
+            "text": "Dodge",
+            "btn_name": "Shop Now",
+            "url_text": "shopify://collections/dodge-fuel-systems"
+          }
+        },
+        "column_eytdiT": {
+          "type": "column",
+          "settings": {
+            "banner_img": "shopify://shop_images/brz-itd.webp",
+            "text": "FRS/BRZ",
+            "btn_name": "Shop Now",
+            "url_text": "shopify://collections/brz-frs-fuel-systems"
+          }
+        },
+        "column_bN3eXy": {
+          "type": "column",
+          "settings": {
+            "banner_img": "shopify://shop_images/supra.png",
+            "text": "Toyota",
+            "btn_name": "Shop Now",
+            "url_text": "shopify://collections/toyota-products"
+          }
+        },
+        "column_eH7DUF": {
+          "type": "column",
+          "settings": {
+            "banner_img": "shopify://shop_images/bmw.png",
+            "text": "BMW",
+            "btn_name": "Shop Now",
+            "url_text": "shopify://collections/bmw-products"
+          }
+        },
+        "column_9X4k6w": {
+          "type": "column",
+          "settings": {
+            "banner_img": "shopify://shop_images/gm.png",
+            "text": "GM TRUCKS",
+            "btn_name": "Shop Now",
+            "url_text": "shopify://collections/gm-truck-products"
+          }
+        }
+      },
+      "block_order": [
+        "column_k8jfXB",
+        "column_d6UV4r",
+        "column_JGrJQD",
+        "column_9LaCmG",
+        "column_UThxyh",
+        "column_eytdiT",
+        "column_bN3eXy",
+        "column_eH7DUF",
+        "column_9X4k6w"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "title": "Shop by <br><strong>Trending</strong> Vehicle",
+        "padding_top": 66,
+        "padding_bottom": 56
+      }
+    },
+    "video_slider_hXU6Je": {
+      "type": "video-slider",
+      "blocks": {
+        "column_jGUBqV": {
+          "type": "column",
+          "settings": {
+            "video_img": "shopify://shop_images/maxresdefault_optimized_1.webp",
+            "text": "My REAR WHEEL Drive Honda Civic NEEDED this..",
+            "videoLink": "https://youtu.be/4fFWVip1dJ4?si=sTTRDy1yZKzip897"
+          }
+        },
+        "column_mmwBeP": {
+          "type": "column",
+          "settings": {
+            "video_img": "shopify://shop_images/maxresdefault_2_optimized_1.webp",
+            "text": "Building the ULTIMATE 2018 Subaru WRX STI - Part 3 (Deatschwerks Fuel Pump + DYNO PREP)",
+            "videoLink": "https://www.youtube.com/watch?v=OQ3dAbcq3eo"
+          }
+        },
+        "column_Nm794Y": {
+          "type": "column",
+          "settings": {
+            "video_img": "shopify://shop_images/maxresdefault_3_optimized_1.webp",
+            "text": "R34 Skyline gets a FULL fuel system!",
+            "videoLink": "https://youtu.be/25oPB5uWuRY?si=SJTC2TAYeH-qIJ3S"
+          }
+        },
+        "column_gjBrBX": {
+          "type": "column",
+          "settings": {
+            "video_img": "shopify://shop_images/maxresdefault_4_optimized_1.webp",
+            "text": "SR20 Gets Complete Deatschwerks Fuel Overhaul! THEY ALSO SENT THIS NEW..!",
+            "videoLink": "https://youtu.be/cbjNWhSGkLA?si=8UBQK1jQmrxxUK0s"
+          }
+        }
+      },
+      "block_order": [
+        "column_jGUBqV",
+        "column_mmwBeP",
+        "column_Nm794Y",
+        "column_gjBrBX"
+      ],
+      "settings": {
+        "color_scheme": "scheme-4",
+        "title": "Watch Our <br><strong>Latest</strong> Videos",
+        "btn_name": "More Videos",
+        "btn_url": "https://www.youtube.com/user/deatschwerks",
+        "padding_top": 70,
+        "padding_bottom": 70
+      }
+    },
+    "testimonials_slider_PJgVrq": {
+      "type": "testimonials-slider",
+      "blocks": {
+        "column_yU9m4q": {
+          "type": "column",
+          "settings": {
+            "testimonial_image": "shopify://shop_images/testimonial_img.png",
+            "text": "“If you’re wanting to make big horsepower, Deatschwerks is a pump to consider”",
+            "authour_name": "LSX Magazine"
+          }
+        },
+        "column_3NbPWk": {
+          "type": "column",
+          "settings": {
+            "testimonial_image": "shopify://shop_images/testimonial_img.png",
+            "text": "“If you’re wanting to make big horsepower, Deatschwerks is a pump to consider”",
+            "authour_name": "LSX Magazine"
+          }
+        },
+        "column_7RQy7y": {
+          "type": "column",
+          "settings": {
+            "testimonial_image": "shopify://shop_images/testimonial_img.png",
+            "text": "“If you’re wanting to make big horsepower, Deatschwerks is a pump to consider”",
+            "authour_name": "LSX Magazine"
+          }
+        },
+        "column_z8LLVL": {
+          "type": "column",
+          "settings": {
+            "testimonial_image": "shopify://shop_images/testimonial_img.png",
+            "text": "“If you’re wanting to make big horsepower, Deatschwerks is a pump to consider”",
+            "authour_name": "ABC"
+          }
+        },
+        "column_gGrTdM": {
+          "type": "column",
+          "settings": {
+            "testimonial_image": "shopify://shop_images/testimonial_img.png",
+            "text": "“If you’re wanting to make big horsepower, Deatschwerks is a pump to consider”",
+            "authour_name": "CDA"
+          }
+        }
+      },
+      "block_order": [
+        "column_yU9m4q",
+        "column_3NbPWk",
+        "column_7RQy7y",
+        "column_z8LLVL",
+        "column_gGrTdM"
+      ],
+      "disabled": true,
+      "settings": {
+        "color_scheme": "",
+        "padding_top": 70,
+        "padding_bottom": 70
+      }
+    }
+  },
+  "order": [
+    "image_banner",
+    "text_with_icon_cft4JR",
+    "collection_grid_slider_HBUq8h",
+    "instagram_gallery_hJL93e",
+    "image_column_banner_pUPNaJ",
+    "video_slider_hXU6Je",
+    "testimonials_slider_PJgVrq"
+  ]
+}

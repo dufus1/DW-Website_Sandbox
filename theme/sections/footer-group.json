@@ -1,0 +1,77 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "t:sections.footer.name",
+  "type": "footer",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "link_list_CDKdJD": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Product",
+            "menu": "products"
+          }
+        },
+        "link_list_UpTFJy": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Tech-Data",
+            "menu": "tech-data"
+          }
+        },
+        "link_list_Pf9GzN": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Support",
+            "menu": "support"
+          }
+        },
+        "link_list_8dNQrN": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Company",
+            "menu": "company"
+          }
+        }
+      },
+      "block_order": [
+        "link_list_CDKdJD",
+        "link_list_UpTFJy",
+        "link_list_Pf9GzN",
+        "link_list_8dNQrN"
+      ],
+      "settings": {
+        "color_scheme": "scheme-3",
+        "footer_logo": "shopify://shop_images/dw-logo.png",
+        "url_phone": "tel:405-217-0701",
+        "phone_number": "405-217-0701",
+        "url_email": "shopify://pages/contact-us",
+        "email": "Email Us",
+        "address_text": "<strong>By Appointment Only</strong><br>\n415 E Hill Street <br>Oklahoma City, OK 73105 <br>United States of America",
+        "newsletter_enable": true,
+        "newsletter_heading": "<strong>Subscribe</strong> to our newsletter",
+        "enable_follow_on_shop": false,
+        "show_social": true,
+        "enable_country_selector": false,
+        "enable_language_selector": false,
+        "payment_enable": false,
+        "show_policy": false,
+        "margin_top": 0,
+        "padding_top": 0,
+        "padding_bottom": 20
+      }
+    }
+  },
+  "order": [
+    "footer"
+  ]
+}

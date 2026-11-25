@@ -1,0 +1,60 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "form": {
+      "type": "contact-form",
+      "blocks": {
+        "contact_infomation_YzDKfU": {
+          "type": "contact_infomation",
+          "settings": {
+            "title": "Get In Touch",
+            "description": "<p><em>Email Customer Service: customerservice@deatschwerks.com</em></p><p><em>By Appointment Only</em></p><p><em>415 E Hill Street<br/>Oklahoma City, OK 73105<br/>United States of America</em></p><p><em>Phone: +1.405.217.0701</em></p><p><em>Toll-Free: +1.800.419.6023</em></p>"
+          }
+        }
+      },
+      "block_order": [
+        "contact_infomation_YzDKfU"
+      ],
+      "settings": {
+        "display_google_map": true,
+        "google_map_code": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3248.0260138870653!2d-97.50727358474607!3d35.50363498023612!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x87b2175e44b59b6f%3A0x74228c6c32dcb554!2sDeatschWerks!5e0!3m2!1sen!2sus!4v1599074259286!5m2!1sen!2sus\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\" width=\"100%\" height=\"350\"></iframe>",
+        "heading": "",
+        "form": "<div style=\"margin:0 auto;\" class=\"pxFormGenerator\" id=\"WG9hlOtMrXuz6LEUkCKSPg\"></div>",
+        "heading_size": "h1",
+        "color_scheme": "scheme-1",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "custom_liquid_6WQT4Q": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "<script>\n\twindow.fwSettings={\n\t'widget_id':43000003704\n\t};\n\t!function(){if(\"function\"!=typeof window.FreshworksWidget){var n=function(){n.q.push(arguments)};n.q=[],window.FreshworksWidget=n}}() \n</script>\n<script type='text/javascript' src='https://widget.freshworks.com/widgets/43000003704.js' async defer></script>",
+        "color_scheme": "",
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    }
+  },
+  "order": [
+    "main",
+    "form",
+    "custom_liquid_6WQT4Q"
+  ]
+}

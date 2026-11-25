@@ -1,0 +1,84 @@
+{%- comment -%}
+  Compact easy click-to-add card rendered inside the slide-out cart drawer
+  for Frequently Bought Together and Recommended items.
+
+  Accepts:
+  - addon_product: {Object} Product Liquid object
+  - addon_badge: {String} Optional short label (e.g. "Frequently Bought" or "Recommended")
+{%- endcomment -%}
+
+{%- assign addon_variant = addon_product.selected_or_first_available_variant -%}
+{%- if addon_product != blank and addon_variant != blank and addon_variant.available -%}
+  <div class="dw-drawer-addon" data-addon-product-id="{{ addon_product.id }}">
+    <a
+      href="{{ addon_product.url }}"
+      class="dw-drawer-addon__media"
+      tabindex="-1"
+      aria-label="{{ addon_product.title | escape }}"
+    >
+      {%- if addon_product.featured_image != blank -%}
+        <img
+          src="{{ addon_product.featured_image | image_url: width: 160 }}"
+          alt="{{ addon_product.featured_image.alt | default: addon_product.title | escape }}"
+          loading="lazy"
+          width="64"
+          height="64"
+          class="dw-drawer-addon__img"
+        >
+      {%- else -%}
+        <span class="dw-drawer-addon__placeholder" aria-hidden="true">DW</span>
+      {%- endif -%}
+    </a>
+
+    <div class="dw-drawer-addon__info">
+      {%- if addon_badge != blank -%}
+        <span class="dw-drawer-addon__badge{% if addon_badge == 'Frequently Bought' %} dw-drawer-addon__badge--fbt{% endif %}">
+          {{- addon_badge -}}
+        </span>
+      {%- endif -%}
+
+      <a href="{{ addon_product.url }}" class="dw-drawer-addon__title">
+        {{- addon_product.title | escape -}}
+      </a>
+
+      <div class="dw-drawer-addon__meta">
+        <span class="dw-drawer-addon__price" data-addon-price>
+          {{- addon_variant.price | money -}}
+        </span>
+
+        {%- if addon_product.has_only_default_variant == false and addon_product.variants.size > 1 -%}
+          <select
+            class="dw-drawer-addon__variant"
+            aria-label="Select option for {{ addon_product.title | escape }}"
+          >
+            {%- for v in addon_product.variants -%}
+              {%- if v.available -%}
+                <option
+                  value="{{ v.id }}"
+                  data-price="{{ v.price | money | escape }}"
+                  {% if v.id == addon_variant.id %}
+                    selected
+                  {% endif %}
+                >
+                  {{- v.title | escape -}}
+                </option>
+              {%- endif -%}
+            {%- endfor -%}
+          </select>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="dw-drawer-addon__action">
+      <button
+        type="button"
+        class="dw-drawer-addon__btn"
+        data-addon-add
+        data-variant-id="{{ addon_variant.id }}"
+        aria-label="Add {{ addon_product.title | escape }} to cart"
+      >
+        <span class="dw-drawer-addon__btn-label">+ Add</span>
+      </button>
+    </div>
+  </div>
+{%- endif -%}

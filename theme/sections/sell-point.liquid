@@ -1,0 +1,212 @@
+{{'text-icon-link.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 1024px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+.selling-point-row .page-width {
+  position: relative;
+
+}
+.selling-point-row .page-width ul:before, .selling-point-row .page-width ul:after {
+  content:"";
+  background-size: 1.1rem 6.7rem;
+  position: absolute;
+  top:0;
+  width: 1.1rem;
+  height: 6.7rem;
+  background-repeat: no-repeat;
+}
+.selling-point-row .page-width ul:before {
+  background-image: url("data:image/svg+xml,%3Csvg width='11' height='67' viewBox='0 0 11 67' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg filter='url(%23filter0_b_2001_139)'%3E%3Cpath d='M1.75 7C1.75 4.10051 4.10051 1.75 7 1.75H11V0.25H7C3.27208 0.25 0.25 3.27208 0.25 7V11H1.75V7Z' fill='white'/%3E%3Cpath d='M1.75 60C1.75 62.8995 4.10051 65.25 7 65.25H11V66.75H7C3.27208 66.75 0.25 63.7279 0.25 60V56H1.75V60Z' fill='white'/%3E%3C/g%3E%3Cdefs%3E%3Cfilter id='filter0_b_2001_139' x='-19.75' y='-19.75' width='50.75' height='106.5' filterUnits='userSpaceOnUse' color-interpolation-filters='sRGB'%3E%3CfeFlood flood-opacity='0' result='BackgroundImageFix'/%3E%3CfeGaussianBlur in='BackgroundImageFix' stdDeviation='10'/%3E%3CfeComposite in2='SourceAlpha' operator='in' result='effect1_backgroundBlur_2001_139'/%3E%3CfeBlend mode='normal' in='SourceGraphic' in2='effect1_backgroundBlur_2001_139' result='shape'/%3E%3C/filter%3E%3C/defs%3E%3C/svg%3E%0A");
+  background-position: left center;
+  left: 0;
+}
+.selling-point-row .page-width ul:after {
+  background-image: url("data:image/svg+xml,%3Csvg width='11' height='67' viewBox='0 0 11 67' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg filter='url(%23filter0_b_2001_144)'%3E%3Cpath d='M9.25 7C9.25 4.10051 6.89949 1.75 4 1.75H0V0.25H4C7.72792 0.25 10.75 3.27208 10.75 7V11H9.25V7Z' fill='white'/%3E%3Cpath d='M9.25 60C9.25 62.8995 6.89949 65.25 4 65.25H0V66.75H4C7.72792 66.75 10.75 63.7279 10.75 60V56H9.25V60Z' fill='white'/%3E%3C/g%3E%3Cdefs%3E%3Cfilter id='filter0_b_2001_144' x='-20' y='-19.75' width='50.75' height='106.5' filterUnits='userSpaceOnUse' color-interpolation-filters='sRGB'%3E%3CfeFlood flood-opacity='0' result='BackgroundImageFix'/%3E%3CfeGaussianBlur in='BackgroundImageFix' stdDeviation='10'/%3E%3CfeComposite in2='SourceAlpha' operator='in' result='effect1_backgroundBlur_2001_144'/%3E%3CfeBlend mode='normal' in='SourceGraphic' in2='effect1_backgroundBlur_2001_144' result='shape'/%3E%3C/filter%3E%3C/defs%3E%3C/svg%3E%0A");
+  background-position: right center;
+  right: 0;
+}
+.selling-point-row .page-width ul {
+  position: relative;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 0;
+  padding: 0 6.9rem;
+  min-height: 6.7rem;
+}
+
+.selling-point-row .selling-points li {
+  position: relative;
+  font-family: var(--font-family);
+  font-size: 1.6rem;
+  line-height: 2.24rem;
+  font-weight: 400;
+  color: rgb(var(--color-foreground));
+  text-align: center;
+  padding: 0 8rem;
+}
+
+.selling-point-row .selling-points li::before { 
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 0.1rem;
+  height: 100%;
+  background: rgba(var(--color-foreground), 0.2);
+}
+
+.selling-point-row .selling-points li:nth-child(2) {
+  padding: 0 8.7rem;
+}
+
+.selling-point-row .selling-points li:last-child::before {
+  display: none;
+}
+
+.selling-point-row .selling-points li span {
+  display: block;
+  font-size: 3.2rem;
+  line-height: 100%;
+  font-weight: 500;
+  font-style: italic;
+  text-transform: uppercase;
+}
+
+@media screen and (max-width: 1023px) {
+  .selling-point-row .selling-points li span {
+    font-size: 2.2rem;
+  }
+
+  .selling-point-row .selling-points li {
+    white-space: nowrap;
+  }
+  
+}
+
+@media screen and (max-width: 767px) {
+  .selling-point-row .page-width ul:before,
+  .selling-point-row .page-width ul:after {
+    display: none;
+  }
+
+  .selling-point-row .selling-points li span {
+    font-size: 2rem;
+    margin-bottom: 0.3rem;
+  } 
+
+  .selling-point-row .selling-points li {
+    font-size: 1.2rem;
+    line-height: 1.68rem;
+    padding: 0 3.5rem;
+  }
+
+  .selling-point-row .page-width ul {
+    padding: 0;
+    min-height : 5.6rem;
+  }
+
+  .selling-point-row .selling-points li:nth-child(2) {
+    padding : 0 3.5rem;
+  }
+
+}
+
+@media screen and (max-width: 375px) {
+  .selling-point-row .selling-points li {
+    padding: 0 2.5rem;
+  }
+
+  .selling-point-row .selling-points li:nth-child(2) {
+    padding: 0 2.5rem;
+  }
+}
+
+
+{%- endstyle -%}
+
+{%- for block in section.blocks -%}
+  {%- case block.type -%}
+    {%- when '@app' -%}
+      {% render block %}
+    {%- when 'sellpoint' -%}
+      {%- if product.metafields.custom.selling_point.value != blank -%}
+        <div class="selling-point-row color-{{ section.settings.color_scheme }} gradient  section-{{ section.id }}-padding">
+          <div class="page-width {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+            <ul class="selling-points">
+              {% for sellingpoint in product.metafields.custom.selling_point.value %}
+              <li>{{sellingpoint }} </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      {%- endif -%}
+  {%- endcase -%}
+{%- endfor -%}
+
+
+{% schema %}
+       {
+          "name": "Selling Point",
+          "max_blocks": 1,
+          "settings": [{
+            "type": "color_scheme",
+            "id": "color_scheme",
+            "label": "t:sections.all.colors.label",
+            "default": "scheme-1"
+             },
+              {
+            "type": "header",
+            "content": "t:sections.all.padding.section_padding_heading"
+          },
+          {
+            "type": "range",
+            "id": "padding_top",
+            "min": 0,
+            "max": 100,
+            "step": 2,
+            "unit": "px",
+            "label": "t:sections.all.padding.padding_top",
+            "default": 0
+          },
+          {
+            "type": "range",
+            "id": "padding_bottom",
+            "min": 0,
+            "max": 100,
+            "step": 2,
+            "unit": "px",
+            "label": "t:sections.all.padding.padding_bottom",
+            "default": 50
+          }
+          ],
+          "blocks": [
+            {
+              "type": "@app"
+            },
+            {
+              "type": "sellpoint",
+              "name": "Sell point",
+              "limit": 1
+            }
+          ],
+          "presets": [{
+              "name": "Sell Point",
+              "category": "Text"
+          }]
+      }
+    {% endschema %}

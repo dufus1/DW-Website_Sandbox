@@ -1,0 +1,242 @@
+{{ 'multi-column-banner.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+.collection-banner div:empty {
+ display:block;
+}
+.section-{{ section.id }}-padding {
+  padding-top: {{ section.settings.padding_top | times: 0.54 | round: 0 }}px;
+  padding-bottom: {{ section.settings.padding_bottom | times: 0.7 | round: 0 }}px;
+}
+
+@media screen and (min-width: 1024px) {
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+}
+{% endstyle %}
+
+
+{% javascript %}
+
+
+
+(function(win) {
+    'use strict';
+
+    var listeners = [],
+    doc = win.document,
+    MutationObserver = win.MutationObserver || win.WebKitMutationObserver,
+    observer;
+
+    function ready(selector, fn) {
+        // Store the selector and callback to be monitored
+        listeners.push({
+            selector: selector,
+            fn: fn
+        });
+        if (!observer) {
+            // Watch for changes in the document
+            observer = new MutationObserver(check);
+            observer.observe(doc.documentElement, {
+                childList: true,
+                subtree: true
+            });
+        }
+        // Check if the element is currently in the DOM
+        check();
+    }
+
+    function check() {
+        // Check the DOM for elements matching a stored selector
+        for (var i = 0, len = listeners.length, listener, elements; i < len; i++) {
+            listener = listeners[i];
+            // Query for elements matching the specified selector
+            elements = doc.querySelectorAll(listener.selector);
+            for (var j = 0, jLen = elements.length, element; j < jLen; j++) {
+                element = elements[j];
+                // Make sure the callback isn't invoked with the
+                // same element more than once
+                if (!element.ready) {
+                    element.ready = true;
+                    // Invoke the callback with the element
+                    listener.fn.call(element, element);
+                }
+            }
+        }
+    }
+
+    // Expose `ready`
+    win.ready = ready;
+
+})(window);
+
+ready('.multi-column-banner .col-banner-row',function(){
+
+var init = false;
+var swiper;
+function trendingVehicleSlider() {
+
+  if (window.innerWidth <= 1023) {
+    if (!init) {
+      init = true;
+      swiper = new Swiper(".multi-column-banner .col-banner-row", {
+        slidesPerView: 1.36,
+        spaceBetween: 20,
+        centeredSlides: false,
+        loop: false,
+        grabCursor: true,
+        freeMode: true,
+        navigation: false,
+        slidesOffsetBefore: 15,
+        slidesOffsetAfter: 15,
+        scrollbar: {
+          el: '.swiper-scrollbar',
+          draggable: true,
+        }
+      });
+    }
+  } else if (init) {
+    swiper.destroy();
+    init = false;
+  }
+
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  trendingVehicleSlider();
+});
+
+window.addEventListener("resize", trendingVehicleSlider);
+
+});
+
+
+{% endjavascript %}
+
+
+<section class="multi-column-banner color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %} animation-element" >
+    <div class="page-width">
+        <h3 class="h2 center f-italic {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">{{ section.settings.title }}</h3>
+     
+
+        <div class="col-banner-row swiper swipernew">
+          <div class="swiper-wrapper">
+        {%- for block in section.blocks -%}
+            <div class="item swiper-slide">
+                <a href="{{ block.settings.url_text}}" class="column-banner">
+                    <div class="banner-figure">
+                        <div class="banner-img">
+                            <img src="{{ block.settings.banner_img | img_url:"" }}" alt="image of {{ block.settings.text }}" height="" width="">
+                        </div>
+                    </div>
+                    <div class="content">
+                    <h4>{{ block.settings.text }}</h4>
+                    <div class="btn">
+                      {{ block.settings.btn_name }}
+                      {% render 'icon-btn-arrow' %}
+                    </div>
+                    </div>
+                </a>
+            </div>
+        {%- endfor -%}
+        </div>
+
+        <div class="arrow-row">
+          <div class="swiper-scrollbar"></div>
+        </div>
+
+      </div>
+
+      </div>
+      </section>
+
+      {% schema %}
+    {
+      "name": "Multiple Column Banner",
+      "tag": "section",
+      "class": "section-column-banner",
+      "settings": [
+        {
+            "type": "color_scheme",
+            "id": "color_scheme",
+            "label": "t:sections.all.colors.label",
+            "default": "scheme-1"
+        },
+        {
+            "type": "html",
+            "id": "title",
+            "label": "Title",
+            "default": "Shop by Trending Vehicle"
+        },
+        {
+            "type": "range",
+            "id": "padding_top",
+            "min": 0,
+            "max": 100,
+            "step": 2,
+            "unit": "px",
+            "label": "t:sections.all.padding.padding_top",
+            "default": 0
+          },
+          {
+            "type": "range",
+            "id": "padding_bottom",
+            "min": 0,
+            "max": 100,
+            "step": 2,
+            "unit": "px",
+            "label": "t:sections.all.padding.padding_bottom",
+            "default": 50
+          }
+      ],
+      "blocks": [
+        {
+            "type": "column",
+            "name": "banner",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "banner_img",
+                    "label": "Image",
+                    "info" : "Recommend Size '594 x 840px' and Format 'PNG' "
+                },
+                {
+                  "type": "text",
+                  "id": "text",
+                  "label": "banner Name",
+                  "default": "Trending Vehicle"
+                },
+                {
+                    "type": "text",
+                    "id": "btn_name",
+                    "label": "Button Name",
+                    "default": "Shop Now"
+                },
+                {
+                  "type": "url",
+                  "id": "url_text",
+                  "label": "banner Link"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+          "name": "Multiple Column Banner",
+          "blocks": [
+            {
+              "type": "column"
+            },
+            {
+              "type": "column"
+            },
+            {
+              "type": "column"
+            }
+          ]
+        }
+      ]
+    }
+{% endschema %}
